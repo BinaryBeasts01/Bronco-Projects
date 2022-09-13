@@ -50,7 +50,7 @@ jobs:
           application_name: Bronco Projects
           environment_name: Broncoprojects-env
           version_label: ${{github.SHA}}
-          deployment-package: bronco-projects-backend-*.jar
+          deployment_package: bronco-projects-backend-*.jar
     
     
     
