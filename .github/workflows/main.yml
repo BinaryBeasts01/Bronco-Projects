@@ -40,7 +40,7 @@ jobs:
         uses: actions/download-artifact@v3.0.0
         with:
          name: artifact
-        
+       
       - name: Deploy to AWS Beanstalk
         uses: einaregilsson/beanstalk-deploy@v20
         with:
@@ -50,7 +50,7 @@ jobs:
           application_name: Bronco Projects
           environment_name: Broncoprojects-env
           version_label: ${{github.SHA}}
-          deployment_package: bronco-projects-backend-*.jar
+          deployment_package: bronco-projects-backend-0.0.1-SNAPSHOT.jar
     
     
     
