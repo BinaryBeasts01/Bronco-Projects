@@ -12,6 +12,7 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <h1>Bronco Projects</h1>
         <h2>By Binary Beasts</h2>
+        <p>Austin Lee</p>
       </header>
     </div>
   );
