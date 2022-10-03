@@ -8,7 +8,7 @@
 4) Optionally, run java -jar bronco-projects-backend/target/bronco-projects-backend.jar to start server
 5) Go to localhost:8080 to view
 
-## ** To Run Frontend for Development**:
+## **To Run Frontend for Development**:
 1) cd into frontend folder
 2) npm start
 3) Should start frontend on localhost:3000
