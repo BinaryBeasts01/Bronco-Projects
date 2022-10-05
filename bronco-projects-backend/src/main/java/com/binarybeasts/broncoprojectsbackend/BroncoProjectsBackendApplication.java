@@ -11,7 +11,7 @@ import org.jsoup.select.Elements;
 
 @SpringBootApplication
 public class BroncoProjectsBackendApplication {
-    public static void main(String[] args) {
+    public static void main(String[] args)  throws IOException {
         Preconditions.checkNotNull("A", "String must not be null!");
         SpringApplication.run(BroncoProjectsBackendApplication.class, args);
         
