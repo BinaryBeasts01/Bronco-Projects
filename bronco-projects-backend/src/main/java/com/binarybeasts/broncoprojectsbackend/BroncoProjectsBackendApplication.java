@@ -22,4 +22,6 @@ public class BroncoProjectsBackendApplication {
         for (Element headline : newsHeadlines) {
             System.out.println("%s\n\t%s", headline.attr("title"), headline.absUrl("href"));
         }
+    
+    }
 }
