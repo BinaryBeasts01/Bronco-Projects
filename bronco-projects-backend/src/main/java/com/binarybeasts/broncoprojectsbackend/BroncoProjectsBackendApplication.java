@@ -20,7 +20,7 @@ public class BroncoProjectsBackendApplication {
         System.out.println(doc.title());
         Elements newsHeadlines = doc.select("#mp-itn b a");
         for (Element headline : newsHeadlines) {
-            System.out.println("%s\n\t%s", headline.attr("title"), headline.absUrl("href"));
+            System.out.println(headline.attr("title") + ", " + headline.absUrl("href"));
         }
     
     }
