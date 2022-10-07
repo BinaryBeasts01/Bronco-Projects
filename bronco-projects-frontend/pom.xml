@@ -11,6 +11,17 @@
     <name>Bronco Projects Frontend</name>
 
     <build>
+         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>31.1-jre</version>
+        </dependency>
         <resources>
             <resource>
                 <directory>./build</directory>
