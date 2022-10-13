@@ -11,11 +11,13 @@ function App() {
       // Need to specify Browser Routes
       // Refer to: https://stackoverflow.com/questions/57058879/how-to-create-dynamic-routes-with-react-router-dom
       // Ex:
-      // For Root
+      // For Root(/)
       // bronco-projects.com/ => Home Screen
 
       // For project screen
       // bronco-projects.com/projects/{id} => Project Screen
+
+
   );
 }
 

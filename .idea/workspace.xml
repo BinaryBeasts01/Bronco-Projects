@@ -4,15 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f1a2f09-de46-409a-9e02-f3f9376d8e03" name="Changes" comment="Specifying port in application properties.">
-      <change afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/components/LoginForm.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/components/NavBar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/screens/Home.js" afterDir="false" />
+    <list default="true" id="8f1a2f09-de46-409a-9e02-f3f9376d8e03" name="Changes" comment="Some comments.">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/controllers/AuthController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/entities/VerificationCode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/repositories/VerificationCodeRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/services/EmailService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-backend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/BroncoProjectsBackendApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/BroncoProjectsBackendApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/controllers/Hello.java" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/controllers/Home.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-backend/src/main/resources/application-prod.properties" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/resources/application-prod.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +30,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -57,7 +65,7 @@
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;15&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;b85305032048ba78775976b774e9ee40&quot;
@@ -65,11 +73,13 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\manam\Desktop\Repo\Bronco Projects\bronco-projects-backend\src\main\resources\certs" />
       <recent name="C:\Users\manam\Desktop\Repo\Bronco Projects\bronco-projects-frontend\src\screens" />
     </key>
   </component>
   <component name="RunManager">
     <configuration name="BroncoProjectsBackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <option name="ACTIVE_PROFILES" value="prod" />
       <module name="bronco-projects-backend" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.binarybeasts.broncoprojectsbackend.BroncoProjectsBackendApplication" />
       <method v="2">
@@ -78,6 +88,9 @@
     </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpringBeansView">
+    <option name="beanDetailsProportion" value="0.3" />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="8f1a2f09-de46-409a-9e02-f3f9376d8e03" name="Changes" comment="" />
@@ -89,7 +102,16 @@
       <workItem from="1663121491624" duration="664000" />
       <workItem from="1664576909511" duration="4766000" />
       <workItem from="1664609212276" duration="3092000" />
-      <workItem from="1664768193659" duration="6571000" />
+      <workItem from="1664768193659" duration="7072000" />
+      <workItem from="1665071688442" duration="3326000" />
+      <workItem from="1665211458562" duration="2911000" />
+      <workItem from="1665256112896" duration="3601000" />
+      <workItem from="1665286364370" duration="543000" />
+      <workItem from="1665356774207" duration="609000" />
+      <workItem from="1665431270024" duration="672000" />
+      <workItem from="1665514859153" duration="9308000" />
+      <workItem from="1665607746264" duration="7012000" />
+      <workItem from="1665690956155" duration="1625000" />
     </task>
     <task id="LOCAL-00001" summary="Setup.">
       <created>1663097972659</created>
@@ -105,7 +127,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663121730729</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Some comments.">
+      <created>1664783364825</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1664783364825</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -125,6 +154,22 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Setup." />
     <MESSAGE value="Specifying port in application properties." />
-    <option name="LAST_COMMIT_MESSAGE" value="Specifying port in application properties." />
+    <MESSAGE value="Started frontend work for login." />
+    <MESSAGE value="Some comments." />
+    <option name="LAST_COMMIT_MESSAGE" value="Some comments." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="com.mongodb.MongoClientException" package="com.mongodb" />
+          <option name="timeStamp" value="2" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.security.KeyManagementException" package="java.security" />
+          <option name="timeStamp" value="3" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
