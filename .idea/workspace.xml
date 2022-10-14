@@ -4,18 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f1a2f09-de46-409a-9e02-f3f9376d8e03" name="Changes" comment="Some comments.">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/controllers/AuthController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/entities/VerificationCode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/repositories/VerificationCodeRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/services/EmailService.java" afterDir="false" />
+    <list default="true" id="8f1a2f09-de46-409a-9e02-f3f9376d8e03" name="Changes" comment="Started sign up backend process.">
+      <change afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/configurations/JwtAuthenticationEntryPoint.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/configurations/JwtRequestFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/configurations/JwtTokenUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/configurations/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/dtos/LoginRequestDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/dtos/PDFFileDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/dtos/UserCreateDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/services/JwtUserDetailsService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/services/PdfFileService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bronco-projects-backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-backend/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/BroncoProjectsBackendApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/BroncoProjectsBackendApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/controllers/Hello.java" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/controllers/Home.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/controllers/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/controllers/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/repositories/VerificationCodeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/repositories/VerificationCodeRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bronco-projects-backend/src/main/resources/application-prod.properties" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/resources/application-prod.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/App.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,6 +75,9 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.binarybeasts.broncoprojectsbackend.services" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\manam\Desktop\Repo\Bronco Projects\bronco-projects-backend\src\main\resources\certs" />
       <recent name="C:\Users\manam\Desktop\Repo\Bronco Projects\bronco-projects-frontend\src\screens" />
@@ -111,7 +117,7 @@
       <workItem from="1665431270024" duration="672000" />
       <workItem from="1665514859153" duration="9308000" />
       <workItem from="1665607746264" duration="7012000" />
-      <workItem from="1665690956155" duration="1625000" />
+      <workItem from="1665690956155" duration="13071000" />
     </task>
     <task id="LOCAL-00001" summary="Setup.">
       <created>1663097972659</created>
@@ -134,7 +140,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664783364825</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Started sign up backend process.">
+      <created>1665697189213</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1665697189213</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -156,7 +169,8 @@
     <MESSAGE value="Specifying port in application properties." />
     <MESSAGE value="Started frontend work for login." />
     <MESSAGE value="Some comments." />
-    <option name="LAST_COMMIT_MESSAGE" value="Some comments." />
+    <MESSAGE value="Started sign up backend process." />
+    <option name="LAST_COMMIT_MESSAGE" value="Started sign up backend process." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

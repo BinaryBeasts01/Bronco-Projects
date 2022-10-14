@@ -1,22 +1,35 @@
 package com.binarybeasts.broncoprojectsbackend.controllers;
 
+import com.binarybeasts.broncoprojectsbackend.configurations.JwtTokenUtil;
+import com.binarybeasts.broncoprojectsbackend.dtos.LoginRequestDTO;
+import com.binarybeasts.broncoprojectsbackend.dtos.UserCreateDTO;
 import com.binarybeasts.broncoprojectsbackend.dtos.VerificationCodeDTO;
+import com.binarybeasts.broncoprojectsbackend.entities.User;
 import com.binarybeasts.broncoprojectsbackend.entities.VerificationCode;
+import com.binarybeasts.broncoprojectsbackend.repositories.UserRepository;
 import com.binarybeasts.broncoprojectsbackend.repositories.VerificationCodeRepository;
 import com.binarybeasts.broncoprojectsbackend.services.EmailService;
+import com.binarybeasts.broncoprojectsbackend.services.JwtUserDetailsService;
+import com.binarybeasts.broncoprojectsbackend.services.PdfFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.net.http.HttpResponse;
 import java.util.Optional;
 import java.util.Random;
 
 @RestController
+@RequestMapping("/auth")
 public class AuthController {
 
     @Autowired
@@ -24,6 +37,24 @@ public class AuthController {
 
     @Autowired
     private VerificationCodeRepository verificationCodeRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
+    @Autowired
+    private JwtUserDetailsService userDetailsService;
+
+    @Autowired
+    private PdfFileService pdfFileService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/verification")
     public void sendVerificationCode(@RequestBody String email) {
@@ -37,12 +68,59 @@ public class AuthController {
 
     @PostMapping("/verification")
     public ResponseEntity verifyVerificationCode(@RequestBody VerificationCodeDTO code) {
-       Optional<VerificationCode> optCode = verificationCodeRepository.findByEmail(code.getEmail());
+       Optional<VerificationCode> optCode = verificationCodeRepository.findById(code.getEmail());
        if(optCode.isPresent() && optCode.get().getCode() == code.getCode())
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
 
        else
            return ResponseEntity.badRequest().body("Invalid Verification Code");
 
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<Boolean> verifyUserExists(@RequestBody String email) {
+        Optional<User> user = userRepository.findById(email);
+        return new ResponseEntity<Boolean>(user.isPresent(), HttpStatus.OK);
+    }
+
+    @PostMapping("/user")
+    public ResponseEntity createNewUser(@RequestBody UserCreateDTO user)  {
+        if(userRepository.findById(user.getEmail()).isPresent())
+            return ResponseEntity.badRequest().body("User exists");
+
+        MultipartFile resume = user.getResume();
+        MultipartFile transcript = user.getTranscript();
+        try {
+            String resumeId = pdfFileService.addPdf(resume.getName(), resume);
+            String transcriptId = pdfFileService.addPdf(transcript.getName(), transcript);
+
+            User u = new User();
+            u.setUserId(user.getEmail());
+            u.setPassword(passwordEncoder.encode(user.getPassword()));
+            u.setResumeFileId(resumeId);
+            u.setTranscriptFileId(transcriptId);
+
+            userRepository.insert(u);
+            return ResponseEntity.ok().body("Added user");
+        }
+        catch(IOException e) {
+            return ResponseEntity.badRequest().body("Could not add pdf");
+        }
+    }
+
+    @GetMapping("/login")
+    public ResponseEntity loginUser(@RequestBody LoginRequestDTO loginRequest) {
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+            UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.getUsername());
+            String token = jwtTokenUtil.generateToken(userDetails);
+            return ResponseEntity.ok(token);
+        }
+        catch (DisabledException e) {
+            return ResponseEntity.badRequest().body("USER DISABLED");
+        }
+        catch (BadCredentialsException e) {
+            return ResponseEntity.badRequest().body("INVALID CREDENTIALS");
+        }
     }
 }
