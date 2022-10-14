@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f1a2f09-de46-409a-9e02-f3f9376d8e03" name="Changes" comment="Sign up and login backend process.">
+    <list default="true" id="8f1a2f09-de46-409a-9e02-f3f9376d8e03" name="Changes" comment="Build fix for github actions.">
       <change beforePath="$PROJECT_DIR$/bronco-projects-backend/src/main/resources/application-prod.properties" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/resources/application-prod.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -104,7 +104,7 @@
       <workItem from="1665431270024" duration="672000" />
       <workItem from="1665514859153" duration="9308000" />
       <workItem from="1665607746264" duration="7012000" />
-      <workItem from="1665690956155" duration="13373000" />
+      <workItem from="1665690956155" duration="13680000" />
     </task>
     <task id="LOCAL-00001" summary="Setup.">
       <created>1663097972659</created>
@@ -141,7 +141,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665715698946</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Build fix for github actions.">
+      <created>1665716005201</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1665716005201</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -165,7 +172,8 @@
     <MESSAGE value="Some comments." />
     <MESSAGE value="Started sign up backend process." />
     <MESSAGE value="Sign up and login backend process." />
-    <option name="LAST_COMMIT_MESSAGE" value="Sign up and login backend process." />
+    <MESSAGE value="Build fix for github actions." />
+    <option name="LAST_COMMIT_MESSAGE" value="Build fix for github actions." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
