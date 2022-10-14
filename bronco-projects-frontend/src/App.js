@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import {useEffect} from "react";
 import Home from "./screens/Home"
 

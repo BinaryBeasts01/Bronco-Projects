@@ -4,20 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f1a2f09-de46-409a-9e02-f3f9376d8e03" name="Changes" comment="Started sign up backend process.">
-      <change afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/configurations/JwtAuthenticationEntryPoint.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/configurations/JwtRequestFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/configurations/JwtTokenUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/configurations/SecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/dtos/LoginRequestDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/dtos/PDFFileDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/dtos/UserCreateDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/services/JwtUserDetailsService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/services/PdfFileService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bronco-projects-backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-backend/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/controllers/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/controllers/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/repositories/VerificationCodeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/repositories/VerificationCodeRepository.java" afterDir="false" />
+    <list default="true" id="8f1a2f09-de46-409a-9e02-f3f9376d8e03" name="Changes" comment="Sign up and login backend process.">
       <change beforePath="$PROJECT_DIR$/bronco-projects-backend/src/main/resources/application-prod.properties" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/resources/application-prod.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -117,7 +104,7 @@
       <workItem from="1665431270024" duration="672000" />
       <workItem from="1665514859153" duration="9308000" />
       <workItem from="1665607746264" duration="7012000" />
-      <workItem from="1665690956155" duration="13071000" />
+      <workItem from="1665690956155" duration="13373000" />
     </task>
     <task id="LOCAL-00001" summary="Setup.">
       <created>1663097972659</created>
@@ -147,7 +134,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665697189213</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Sign up and login backend process.">
+      <created>1665715698946</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1665715698946</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -170,7 +164,8 @@
     <MESSAGE value="Started frontend work for login." />
     <MESSAGE value="Some comments." />
     <MESSAGE value="Started sign up backend process." />
-    <option name="LAST_COMMIT_MESSAGE" value="Started sign up backend process." />
+    <MESSAGE value="Sign up and login backend process." />
+    <option name="LAST_COMMIT_MESSAGE" value="Sign up and login backend process." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
