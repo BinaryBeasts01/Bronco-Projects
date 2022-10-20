@@ -4,8 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f1a2f09-de46-409a-9e02-f3f9376d8e03" name="Changes" comment="Build fix for github actions.">
+    <list default="true" id="8f1a2f09-de46-409a-9e02-f3f9376d8e03" name="Changes" comment="Fix app props.">
+      <change afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/dtos/JwtResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/components/AuthForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/components/SignUpForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/components/VerificationForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/services/AuthService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/configurations/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/configurations/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/controllers/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/controllers/AuthController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bronco-projects-backend/src/main/resources/application-prod.properties" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/resources/application-prod.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/src/components/LoginForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/components/LoginForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/src/screens/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/screens/Home.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +117,10 @@
       <workItem from="1665431270024" duration="672000" />
       <workItem from="1665514859153" duration="9308000" />
       <workItem from="1665607746264" duration="7012000" />
-      <workItem from="1665690956155" duration="13680000" />
+      <workItem from="1665690956155" duration="14415000" />
+      <workItem from="1666057328086" duration="4200000" />
+      <workItem from="1666211879848" duration="437000" />
+      <workItem from="1666219407134" duration="13183000" />
     </task>
     <task id="LOCAL-00001" summary="Setup.">
       <created>1663097972659</created>
@@ -148,7 +164,21 @@
       <option name="project" value="LOCAL" />
       <updated>1665716005201</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Added unversioned files.">
+      <created>1665716235058</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1665716235058</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Fix app props.">
+      <created>1665716431928</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1665716431928</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -173,7 +203,9 @@
     <MESSAGE value="Started sign up backend process." />
     <MESSAGE value="Sign up and login backend process." />
     <MESSAGE value="Build fix for github actions." />
-    <option name="LAST_COMMIT_MESSAGE" value="Build fix for github actions." />
+    <MESSAGE value="Added unversioned files." />
+    <MESSAGE value="Fix app props." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix app props." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

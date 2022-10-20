@@ -1,6 +1,7 @@
 package com.binarybeasts.broncoprojectsbackend.controllers;
 
 import com.binarybeasts.broncoprojectsbackend.configurations.JwtTokenUtil;
+import com.binarybeasts.broncoprojectsbackend.dtos.JwtResponseDTO;
 import com.binarybeasts.broncoprojectsbackend.dtos.LoginRequestDTO;
 import com.binarybeasts.broncoprojectsbackend.dtos.UserCreateDTO;
 import com.binarybeasts.broncoprojectsbackend.dtos.VerificationCodeDTO;
@@ -114,7 +115,7 @@ public class AuthController {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
             UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.getUsername());
             String token = jwtTokenUtil.generateToken(userDetails);
-            return ResponseEntity.ok(token);
+            return ResponseEntity.ok(new JwtResponseDTO(token));
         }
         catch (DisabledException e) {
             return ResponseEntity.badRequest().body("USER DISABLED");
