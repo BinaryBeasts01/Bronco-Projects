@@ -7,6 +7,7 @@ function App() {
     document.title = "Bronco Projects"
   })
   return (
+
       <Router>
         <Routes>
           <Route exact path='/' element={<Home />}/>

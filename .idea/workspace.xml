@@ -4,6 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+
     <list default="true" id="8f1a2f09-de46-409a-9e02-f3f9376d8e03" name="Changes" comment="Sign up working.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bronco-projects-backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-backend/pom.xml" afterDir="false" />
@@ -14,6 +15,7 @@
       <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/src/components/NavBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/components/NavBar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/src/screens/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/screens/Home.js" afterDir="false" />
     </list>
+
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,7 +31,9 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
+
         <entry key="$PROJECT_DIR$" value="master" />
+
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -50,6 +54,7 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
@@ -66,6 +71,7 @@
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;b85305032048ba78775976b774e9ee40&quot;
+
   }
 }</component>
   <component name="RecentsManager">
@@ -125,6 +131,7 @@
       <option name="project" value="LOCAL" />
       <updated>1663097972659</updated>
     </task>
+
     <task id="LOCAL-00002" summary="Specifying port in application properties.">
       <created>1663121730729</created>
       <option name="number" value="00002" />
@@ -203,6 +210,7 @@
       <updated>1666411442796</updated>
     </task>
     <option name="localTasksCounter" value="13" />
+
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -221,6 +229,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Setup." />
+
     <MESSAGE value="Specifying port in application properties." />
     <MESSAGE value="Started frontend work for login." />
     <MESSAGE value="Some comments." />
@@ -253,5 +262,6 @@
         <watch expression="email" />
       </configuration>
     </watches-manager>
+
   </component>
 </project>
