@@ -15,7 +15,7 @@ const SignUpForm = ({email, showSignUpModal, closeSignUpModal}) => {
         e.preventDefault();
 
         let authService = new AuthService();
-        let result = authService.signUp(email, password, resume, transcript);
+        let result = await authService.signUp(email, password, resume, transcript);
         if(result) {
             await authService.login(email, password);
             //navigate("/");

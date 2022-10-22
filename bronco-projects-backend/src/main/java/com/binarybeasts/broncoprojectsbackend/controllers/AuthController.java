@@ -86,8 +86,8 @@ public class AuthController {
         return new ResponseEntity<Boolean>(user.isPresent(), HttpStatus.OK);
     }
 
-    @PostMapping("/user")
-    public ResponseEntity createNewUser(@RequestBody UserCreateDTO user)  {
+    @PostMapping(value="/user", consumes={"multipart/form-data"})
+    public ResponseEntity createNewUser(@ModelAttribute UserCreateDTO user)  {
         if(userRepository.findById(user.getEmail()).isPresent())
             return ResponseEntity.badRequest().body("User exists");
 

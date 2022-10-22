@@ -1,6 +1,7 @@
 import jwt_decode from "jwt-decode";
 
 import axios, * as others from 'axios';
+
 const API_URL = "http://localhost:8080/api/auth/";
 const HttpStatusCodes = require("http-status-codes");
 
@@ -46,6 +47,7 @@ class AuthService {
     }
 
     verifyCode(email, code) {
+        console.log("INSIDE VERIFY")
         let url = API_URL + "verification";
         let config = {
             method: 'post',
@@ -55,6 +57,7 @@ class AuthService {
             },
             data : {"email": email, "code": code}
         };
+        console.log(`CONFIG: ${config}`)
         return axios(config)
             .then((response) => {
                 if (response.status === HttpStatusCodes.ACCEPTED) {
@@ -67,18 +70,26 @@ class AuthService {
     }
 
     signUp(email, password, resumeFile, transcriptFile) {
+        const FormData = require('form-data');
         let url = API_URL + "user";
+
+        let data = new FormData();
+        data.append("email", email);
+        data.append("password", password);
+        data.append("resume", resumeFile);
+        data.append("transcript", transcriptFile);
+        console.log(data)
         let config = {
             method: 'post',
             url: url,
             headers: {
-                'Content-Type': 'text/plain'
+                'Content-Type': 'multipart/form-data'
             },
-            data : {"email": email, "password": password, "resume": resumeFile, "transcript": transcriptFile}
+            data : data
         };
         return axios(config)
             .then((response) => {
-                if (response.status == HttpStatusCodes.OK) {
+                if (response.status === HttpStatusCodes.OK) {
                     return true;
                 }
                 else {

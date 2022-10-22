@@ -4,11 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f1a2f09-de46-409a-9e02-f3f9376d8e03" name="Changes" comment="Working verification flow.">
+    <list default="true" id="8f1a2f09-de46-409a-9e02-f3f9376d8e03" name="Changes" comment="Fixes.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/controllers/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/controllers/AuthController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bronco-projects-backend/src/main/resources/application-prod.properties" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/resources/application-prod.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/${project.build.directory}/classes/static/asset-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/${project.build.directory}/classes/static/asset-manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/${project.build.directory}/classes/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/${project.build.directory}/classes/static/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/src/components/SignUpForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/components/SignUpForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/src/services/AuthService.js" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/services/AuthService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -113,7 +117,7 @@
       <workItem from="1666211879848" duration="437000" />
       <workItem from="1666219407134" duration="14168000" />
       <workItem from="1666296472452" duration="25092000" />
-      <workItem from="1666394327456" duration="6873000" />
+      <workItem from="1666394327456" duration="13452000" />
     </task>
     <task id="LOCAL-00001" summary="Setup.">
       <created>1663097972659</created>
@@ -185,7 +189,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666398898849</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Fixes.">
+      <created>1666403433852</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1666403433852</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -214,7 +225,8 @@
     <MESSAGE value="Fix app props." />
     <MESSAGE value="Frontend login &amp; signup." />
     <MESSAGE value="Working verification flow." />
-    <option name="LAST_COMMIT_MESSAGE" value="Working verification flow." />
+    <MESSAGE value="Fixes." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixes." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -227,11 +239,6 @@
           <properties class="java.security.KeyManagementException" package="java.security" />
           <option name="timeStamp" value="3" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/controllers/AuthController.java</url>
-          <line>61</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
