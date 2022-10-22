@@ -21,7 +21,7 @@ jobs:
           architecture: x64
           
       - name: Maven Build
-        run: mvn --batch-mode --update-snapshots package
+        run: mvn -DskipTests=true --batch-mode --update-snapshots package
       
       - name: Upload Built Artifact
         uses: actions/upload-artifact@v3.1.0
