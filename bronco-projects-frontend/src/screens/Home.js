@@ -1,7 +1,5 @@
 import React, {useState} from "react";
 import NavBar from "../components/NavBar";
-import AuthForm from "../components/AuthForm";
-import AuthService from "../services/AuthService";
 
 const Home = () => {
     const [email, setEmail] = useState(null)
