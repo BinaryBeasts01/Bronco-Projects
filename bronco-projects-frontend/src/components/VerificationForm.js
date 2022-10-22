@@ -34,11 +34,13 @@ const VerificationForm = ({setEmail, shouldShowVerificationForm, closeVerificati
             console.log("NOT CPP EMAIL")
             // show error
         }
-        let authService = new AuthService();
-        await authService.sendCode(formEmail);
+        else {
+            let authService = new AuthService();
+            await authService.sendCode(formEmail);
 
-        setEmailSubmitted(true)
-        setEmail(formEmail)
+            setEmailSubmitted(true);
+            setEmail(formEmail);
+        }
     }
 
     let form = null
