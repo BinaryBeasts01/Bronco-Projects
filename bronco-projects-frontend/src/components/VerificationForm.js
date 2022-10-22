@@ -30,6 +30,10 @@ const VerificationForm = ({setEmail, shouldShowVerificationForm, closeVerificati
         // check if email contains cpp.edu
         // send code
         console.log(`FORM EMAIL ${formEmail}`);
+        if(!formEmail.split('@')[1].includes('cpp.edu')) {
+            console.log("NOT CPP EMAIL")
+            // show error
+        }
         let authService = new AuthService();
         await authService.sendCode(formEmail);
 
