@@ -1,6 +1,6 @@
 import jwt_decode from "jwt-decode";
 
-import axios, * as others from 'axios';
+import axios from 'axios';
 
 const API_URL = "http://localhost:8080/api/auth/";
 const HttpStatusCodes = require("http-status-codes");
