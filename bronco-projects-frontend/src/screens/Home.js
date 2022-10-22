@@ -4,6 +4,7 @@ import AuthForm from "../components/AuthForm";
 import AuthService from "../services/AuthService";
 
 const Home = () => {
+    console.log("HERE");
     const [loginFormVisible, setShowLoginForm] = useState(false);
     const [email, setEmail] = useState(null)
 

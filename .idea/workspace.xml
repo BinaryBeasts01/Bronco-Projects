@@ -4,21 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f1a2f09-de46-409a-9e02-f3f9376d8e03" name="Changes" comment="Fix app props.">
-      <change afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/dtos/JwtResponseDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/components/AuthForm.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/components/SignUpForm.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/components/VerificationForm.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/services/AuthService.js" afterDir="false" />
+    <list default="true" id="8f1a2f09-de46-409a-9e02-f3f9376d8e03" name="Changes" comment="Frontend login &amp; signup.">
+      <change afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/configurations/MvcConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/configurations/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/configurations/SecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/controllers/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/controllers/AuthController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bronco-projects-backend/src/main/resources/application-prod.properties" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/resources/application-prod.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-backend/src/test/java/com/binarybeasts/broncoprojectsbackend/services/EmailServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/${project.build.directory}/classes/static/asset-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/${project.build.directory}/classes/static/asset-manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/${project.build.directory}/classes/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/${project.build.directory}/classes/static/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/${project.build.directory}/classes/static/static/js/main.e368e0d5.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/${project.build.directory}/classes/static/static/js/main.e368e0d5.js.LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/${project.build.directory}/classes/static/static/js/main.e368e0d5.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/${project.build.directory}/classes/static/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/src/components/LoginForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/components/LoginForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/src/components/SignUpForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/components/SignUpForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/src/components/VerificationForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/components/VerificationForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/src/screens/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/screens/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/src/services/AuthService.js" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/services/AuthService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +125,9 @@
       <workItem from="1665690956155" duration="14415000" />
       <workItem from="1666057328086" duration="4200000" />
       <workItem from="1666211879848" duration="437000" />
-      <workItem from="1666219407134" duration="13183000" />
+      <workItem from="1666219407134" duration="14168000" />
+      <workItem from="1666296472452" duration="25092000" />
+      <workItem from="1666394327456" duration="3065000" />
     </task>
     <task id="LOCAL-00001" summary="Setup.">
       <created>1663097972659</created>
@@ -178,7 +185,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665716431928</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Frontend login &amp; signup.">
+      <created>1666255894363</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1666255894363</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -205,7 +219,8 @@
     <MESSAGE value="Build fix for github actions." />
     <MESSAGE value="Added unversioned files." />
     <MESSAGE value="Fix app props." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix app props." />
+    <MESSAGE value="Frontend login &amp; signup." />
+    <option name="LAST_COMMIT_MESSAGE" value="Frontend login &amp; signup." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -218,7 +233,17 @@
           <properties class="java.security.KeyManagementException" package="java.security" />
           <option name="timeStamp" value="3" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/controllers/AuthController.java</url>
+          <line>61</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="SpringBootApplicationConfigurationType">
+        <watch expression="email" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

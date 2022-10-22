@@ -30,7 +30,7 @@ import java.util.Optional;
 import java.util.Random;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
 
     @Autowired
@@ -57,8 +57,10 @@ public class AuthController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @GetMapping("/verification")
+    @PostMapping("/verificationcode")
     public void sendVerificationCode(@RequestBody String email) {
+        if(verificationCodeRepository.findById(email).isPresent()) // THIS IS HERE JUST FOR TESTING PURPOSES
+            verificationCodeRepository.deleteById(email);
         Random rnd = new Random();
         int code = rnd.nextInt(999999);
 
@@ -79,7 +81,7 @@ public class AuthController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<Boolean> verifyUserExists(@RequestBody String email) {
+    public ResponseEntity<Boolean> verifyUserExists(@RequestParam String email) {
         Optional<User> user = userRepository.findById(email);
         return new ResponseEntity<Boolean>(user.isPresent(), HttpStatus.OK);
     }
@@ -109,7 +111,7 @@ public class AuthController {
         }
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity loginUser(@RequestBody LoginRequestDTO loginRequest) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));

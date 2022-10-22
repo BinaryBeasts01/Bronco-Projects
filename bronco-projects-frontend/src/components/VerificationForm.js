@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import AuthService from "../services/AuthService";
 
 const VerificationForm = ({setEmail, shouldShowVerificationForm, closeVerificationForm, showNextModal}) => {
     const [formEmail, setFormEmail] = useState(null)
@@ -9,21 +10,31 @@ const VerificationForm = ({setEmail, shouldShowVerificationForm, closeVerificati
 
     const [emailSubmitted, setEmailSubmitted] = useState(false)
 
-    const handleVerificationCode = (e) => {
+    const handleVerificationCode = async (e) => {
         e.preventDefault()
         // verify code
-        console.log(verificationCode)
-        // if code is correct
-        closeVerificationForm()
-        showNextModal()
+        let authService = new AuthService();
+        let correctCode = await authService.verifyCode(formEmail, verificationCode);
+        if(correctCode) {
+            closeVerificationForm()
+            showNextModal()
+        }
+        else {
+            // display error message
+            // add buttons to resend when clicked sets emailSubmitted to false
+        }
     }
 
-    const handleEmailSubmit = (e) => {
+    const handleEmailSubmit = async (e) => {
         e.preventDefault()
+        // check if email contains cpp.edu
+        // send code
+        console.log(`FORM EMAIL ${formEmail}`);
+        let authService = new AuthService();
+        await authService.sendCode(formEmail);
+
         setEmailSubmitted(true)
         setEmail(formEmail)
-        console.log(formEmail)
-        // send code
     }
 
     let form = null
