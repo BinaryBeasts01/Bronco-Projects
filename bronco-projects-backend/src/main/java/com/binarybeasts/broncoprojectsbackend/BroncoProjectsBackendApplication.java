@@ -2,27 +2,15 @@ package com.binarybeasts.broncoprojectsbackend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import com.google.common.base.Preconditions;
 
-import java.io.IOException;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
+import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
+
+
 
 @SpringBootApplication
 public class BroncoProjectsBackendApplication {
-    public static void main(String[] args)  throws IOException {
-        Preconditions.checkNotNull("A", "String must not be null!");
+    public static void main(String[] args) {
         SpringApplication.run(BroncoProjectsBackendApplication.class, args);
-        
-        //Jsoup demo
-        Document doc = Jsoup.connect("https://en.wikipedia.org/").get();
-        System.out.println(doc.title());
-        Elements newsHeadlines = doc.select("#mp-itn b a");
-        for (Element headline : newsHeadlines) {
-            System.out.println(headline.attr("title") + ", " + headline.absUrl("href"));
-        }
-    
     }
 }

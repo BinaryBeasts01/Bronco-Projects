@@ -1,0 +1,60 @@
+import React, {useState} from 'react';
+import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import AuthService from "../services/AuthService";
+//import {useNavigate} from "react-router-dom";
+
+const SignUpForm = ({email, showSignUpModal, closeSignUpModal}) => {
+    //const navigate = useNavigate();
+    const [password, setPassword] = useState(null);
+    const [resume, setResumeFile] = useState(null);
+    const [transcript, setTranscriptFile] = useState(null);
+
+    const handleSubmitForm = async (e) => {
+        e.preventDefault();
+
+        let authService = new AuthService();
+        let result = await authService.signUp(email, password, resume, transcript);
+        if(result) {
+            await authService.login(email, password);
+            //navigate("/");
+        }
+        else {
+            // display error message.
+            // maybe authService should return error message instead of false
+            // so that user can know specific error.
+        }
+    }
+
+    return (
+        <Modal
+            show={showSignUpModal}
+            onHide={closeSignUpModal}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+        >
+            <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-vcenter">
+                    Sign Up
+                </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <Form onSubmit={handleSubmitForm}>
+                    <Form.Control type="password" placeholder="Enter Password" onChange={(e) => setPassword(e.target.value)}/>
+                    <br/>
+                    <Form.Label>Provide Your Resume</Form.Label>
+                    <Form.Control type="file" onChange={(e) => setResumeFile(e.target.files[0])}/>
+                    <br/>
+                    <Form.Label>Provide Your Transcript</Form.Label>
+                    <Form.Control type="file" placeholder="Transcript" onChange={(e) => setTranscriptFile(e.target.files[0])}/>
+                    <br/>
+                    <Button type="submit" >Sign Up</Button>
+                </Form>
+            </Modal.Body>
+        </Modal>
+    );
+}
+
+export default SignUpForm

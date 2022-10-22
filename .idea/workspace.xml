@@ -4,7 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f1a2f09-de46-409a-9e02-f3f9376d8e03" name="Changes" comment="updated app.js with name" />
+
+    <list default="true" id="8f1a2f09-de46-409a-9e02-f3f9376d8e03" name="Changes" comment="Sign up working.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-backend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-backend/src/main/resources/application-prod.properties" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/resources/application-prod.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/${project.build.directory}/classes/static/asset-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/${project.build.directory}/classes/static/asset-manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/${project.build.directory}/classes/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/${project.build.directory}/classes/static/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/src/components/LoginForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/components/LoginForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/src/components/NavBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/components/NavBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/src/screens/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/screens/Home.js" afterDir="false" />
+    </list>
+
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,7 +31,9 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Login_Signup" />
+
+        <entry key="$PROJECT_DIR$" value="master" />
+
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -41,27 +54,38 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "jdk.selected.JAVA_MODULE": "15",
-    "last_opened_file_path": "C:/Users/austi/Downloads/guava-31.1-jre.jar",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "SDKs",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "spring.configuration.checksum": "b85305032048ba78775976b774e9ee40"
+
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;15&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;b85305032048ba78775976b774e9ee40&quot;
+
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.binarybeasts.broncoprojectsbackend.services" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\manam\Desktop\Repo\Bronco Projects\bronco-projects-backend\src\main\resources\certs" />
+      <recent name="C:\Users\manam\Desktop\Repo\Bronco Projects\bronco-projects-frontend\src\screens" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="BroncoProjectsBackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <option name="ACTIVE_PROFILES" value="prod" />
       <module name="bronco-projects-backend" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.binarybeasts.broncoprojectsbackend.BroncoProjectsBackendApplication" />
       <method v="2">
@@ -70,6 +94,9 @@
     </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpringBeansView">
+    <option name="beanDetailsProportion" value="0.3" />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="8f1a2f09-de46-409a-9e02-f3f9376d8e03" name="Changes" comment="" />
@@ -78,6 +105,24 @@
       <option name="presentableId" value="Default" />
       <updated>1663090673846</updated>
       <workItem from="1663090686987" duration="9316000" />
+      <workItem from="1663121491624" duration="664000" />
+      <workItem from="1664576909511" duration="4766000" />
+      <workItem from="1664609212276" duration="3092000" />
+      <workItem from="1664768193659" duration="7072000" />
+      <workItem from="1665071688442" duration="3326000" />
+      <workItem from="1665211458562" duration="2911000" />
+      <workItem from="1665256112896" duration="3601000" />
+      <workItem from="1665286364370" duration="543000" />
+      <workItem from="1665356774207" duration="609000" />
+      <workItem from="1665431270024" duration="672000" />
+      <workItem from="1665514859153" duration="9308000" />
+      <workItem from="1665607746264" duration="7012000" />
+      <workItem from="1665690956155" duration="14415000" />
+      <workItem from="1666057328086" duration="4200000" />
+      <workItem from="1666211879848" duration="437000" />
+      <workItem from="1666219407134" duration="14168000" />
+      <workItem from="1666296472452" duration="25092000" />
+      <workItem from="1666394327456" duration="16717000" />
     </task>
     <task id="LOCAL-00001" summary="Setup.">
       <created>1663097972659</created>
@@ -86,14 +131,86 @@
       <option name="project" value="LOCAL" />
       <updated>1663097972659</updated>
     </task>
-    <task id="LOCAL-00002" summary="updated app.js with name">
-      <created>1664831031245</created>
+
+    <task id="LOCAL-00002" summary="Specifying port in application properties.">
+      <created>1663121730729</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1664831031245</updated>
+      <updated>1663121730729</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Some comments.">
+      <created>1664783364825</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1664783364825</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Started sign up backend process.">
+      <created>1665697189213</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1665697189213</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Sign up and login backend process.">
+      <created>1665715698946</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1665715698946</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Build fix for github actions.">
+      <created>1665716005201</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1665716005201</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Added unversioned files.">
+      <created>1665716235058</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1665716235058</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Fix app props.">
+      <created>1665716431928</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1665716431928</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Frontend login &amp; signup.">
+      <created>1666255894363</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1666255894363</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Working verification flow.">
+      <created>1666398898849</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1666398898849</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Fixes.">
+      <created>1666403433852</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1666403433852</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Sign up working.">
+      <created>1666411442796</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1666411442796</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
+
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -112,7 +229,39 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Setup." />
-    <MESSAGE value="updated app.js with name" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated app.js with name" />
+
+    <MESSAGE value="Specifying port in application properties." />
+    <MESSAGE value="Started frontend work for login." />
+    <MESSAGE value="Some comments." />
+    <MESSAGE value="Started sign up backend process." />
+    <MESSAGE value="Sign up and login backend process." />
+    <MESSAGE value="Build fix for github actions." />
+    <MESSAGE value="Added unversioned files." />
+    <MESSAGE value="Fix app props." />
+    <MESSAGE value="Frontend login &amp; signup." />
+    <MESSAGE value="Working verification flow." />
+    <MESSAGE value="Fixes." />
+    <MESSAGE value="Sign up working." />
+    <option name="LAST_COMMIT_MESSAGE" value="Sign up working." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="com.mongodb.MongoClientException" package="com.mongodb" />
+          <option name="timeStamp" value="2" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.security.KeyManagementException" package="java.security" />
+          <option name="timeStamp" value="3" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="SpringBootApplicationConfigurationType">
+        <watch expression="email" />
+      </configuration>
+    </watches-manager>
+
   </component>
 </project>
