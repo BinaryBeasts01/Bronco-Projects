@@ -3,10 +3,12 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import AuthService from "../services/AuthService";
+import {useNavigate} from "react-router-dom";
 
 const LoginForm = ({shouldShowLoginForm, closeLoginForm, showSignUpVerificationForm, setEmail}) => {
     const [emailForm, setEmailForm] = useState(null);
     const [password, setPassword] = useState(null);
+    const navigator = useNavigate();
 
     const handleLoginEvent = async (e) => {
         e.preventDefault()
@@ -23,7 +25,14 @@ const LoginForm = ({shouldShowLoginForm, closeLoginForm, showSignUpVerificationF
             let service = new AuthService();
             setEmail(emailForm);
             let response = await service.login(emailForm, password);
-            console.log(response);
+            console.log(response)
+            if(response) {
+                console.log("INSIDE NAVIGATOR")
+                closeLoginForm()
+            }
+            else {
+                // show error message
+            }
         }
     }
 

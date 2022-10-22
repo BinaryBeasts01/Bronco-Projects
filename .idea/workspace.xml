@@ -4,16 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f1a2f09-de46-409a-9e02-f3f9376d8e03" name="Changes" comment="Fixes.">
+    <list default="true" id="8f1a2f09-de46-409a-9e02-f3f9376d8e03" name="Changes" comment="Sign up working.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/controllers/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/java/com/binarybeasts/broncoprojectsbackend/controllers/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-backend/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bronco-projects-backend/src/main/resources/application-prod.properties" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/resources/application-prod.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/${project.build.directory}/classes/static/asset-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/${project.build.directory}/classes/static/asset-manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/${project.build.directory}/classes/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/${project.build.directory}/classes/static/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/src/components/SignUpForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/components/SignUpForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/src/services/AuthService.js" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/services/AuthService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/src/components/LoginForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/components/LoginForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/src/components/NavBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/components/NavBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/src/screens/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/screens/Home.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +116,7 @@
       <workItem from="1666211879848" duration="437000" />
       <workItem from="1666219407134" duration="14168000" />
       <workItem from="1666296472452" duration="25092000" />
-      <workItem from="1666394327456" duration="13452000" />
+      <workItem from="1666394327456" duration="16717000" />
     </task>
     <task id="LOCAL-00001" summary="Setup.">
       <created>1663097972659</created>
@@ -196,7 +195,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666403433852</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Sign up working.">
+      <created>1666411442796</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1666411442796</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -226,7 +232,8 @@
     <MESSAGE value="Frontend login &amp; signup." />
     <MESSAGE value="Working verification flow." />
     <MESSAGE value="Fixes." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixes." />
+    <MESSAGE value="Sign up working." />
+    <option name="LAST_COMMIT_MESSAGE" value="Sign up working." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
