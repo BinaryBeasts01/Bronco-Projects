@@ -51,7 +51,7 @@ class AuthService {
             method: 'post',
             url: url,
             headers: {
-                'Content-Type': 'text/plain'
+                'Content-Type': 'application/json'
             },
             data : {"email": email, "code": code}
         };
