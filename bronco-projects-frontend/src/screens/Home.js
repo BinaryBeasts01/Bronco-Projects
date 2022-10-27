@@ -10,13 +10,28 @@ const Home = () => {
     return (
         <div style={styles.home}>
             <NavBar email={email} setEmail={setEmail}/>
+            <div style={styles["test"]}>
+                <h2 color={"white"}>PROJECTS</h2>
+            </div>
         </div>
     );
 }
 
 const styles = {
     home: {
-    "font-family": "sans-serif"
+        "fontFamily": "sans-serif",
+        "backgroundColor": "black",
+        "width": "100%",
+        "height": "100%"
+    },
+    test: {
+        "display": "flex",
+        "flexDirection": "column",
+        "height": "90%",
+        "backgroundColor": "green"
+    },
+    text: {
+        "backgroundColor": "white"
     }
 }
 

@@ -3,6 +3,7 @@ import Navbar from "react-bootstrap/Navbar";
 import {Button, Container} from "react-bootstrap";
 import AuthService from "../services/AuthService";
 import AuthForm from "./AuthForm";
+import SearchBar from "./SearchBar"
 
 function NavBar({email, setEmail}) {
     const [loginFormVisible, setShowLoginForm] = useState(false);
@@ -23,13 +24,42 @@ function NavBar({email, setEmail}) {
     }
 
     return (
-        <Navbar fixed='top'>
-            <Container className='justify-content-end'>
+        <Navbar style={styles["navbar"]}>
+            <Container style={styles["logo"]}>
+                <Button>LOGO</Button>
+            </Container>
+            <Container style={styles["searchBar"]}>
+                <SearchBar />
+            </Container>
+            <Container style={styles["profile"]}>
                 {profile}
             </Container>
             {form}
         </Navbar>
     );
+}
+
+const styles = {
+    navbar: {
+        "backgroundColor": "black",
+        "height": "10%",
+        "position": "sticky"
+    },
+    logo: {
+        "display": "flex",
+        "justifyContent": "begin",
+        "width": "5%",
+    },
+    searchBar: {
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "center",
+    },
+    profile: {
+        "display": "flex",
+        "justifyContent": "end",
+        "width": "5%",
+    }
 }
 
 
