@@ -1,5 +1,6 @@
 import React, {useState, useRef, createRef} from "react";
 import {SearchFilterList, SearchFilterListMap} from "../constants/SearchFilterList";
+import {useDetectClickOutside} from "react-detect-click-outside";
 
 const SearchBar = () => {
     const [searchInput, setSearchInput] = useState("");
@@ -8,6 +9,10 @@ const SearchBar = () => {
     const [currentFilterIndices, setCurrentFilterIndices] = useState([]);
 
     const inputRef = useRef('');
+    const divRef = useDetectClickOutside({ onTriggered: () => {
+            setFilterResults([]);
+            setCurrentFilterIndices([]);
+        }});
 
     const filterItemsRef = useRef(SearchFilterList.map(() => createRef()));
     const searchInputRef = useRef();
@@ -134,7 +139,7 @@ const SearchBar = () => {
     // };
 
     return (
-        <div style={styles["search-container"]}>
+        <div ref={divRef} style={styles["search-container"]}>
             <div style={styles["search-inner"]}>
                 <input ref={inputRef} style={styles["search-text"]} type="text" value={searchInput} onClick={initItems} onChange={handleSearchInputChange}/>
                 <button style={styles["search-button"]} tabIndex={-1}> Search </button>
