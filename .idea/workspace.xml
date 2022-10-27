@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f1a2f09-de46-409a-9e02-f3f9376d8e03" name="Changes" comment="Small fix">
+    <list default="true" id="8f1a2f09-de46-409a-9e02-f3f9376d8e03" name="Changes" comment="Working search bar.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bronco-projects-backend/src/main/resources/application-prod.properties" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-backend/src/main/resources/application-prod.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/src/components/NavBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/components/NavBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/src/screens/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/screens/Home.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -28,7 +23,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="Login_Signup" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -116,7 +111,7 @@
       <workItem from="1666219407134" duration="14168000" />
       <workItem from="1666296472452" duration="25092000" />
       <workItem from="1666394327456" duration="17093000" />
-      <workItem from="1666815330902" duration="33748000" />
+      <workItem from="1666815330902" duration="34699000" />
     </task>
     <task id="LOCAL-00001" summary="Setup.">
       <created>1663097972659</created>
@@ -223,7 +218,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666421437664</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Working search bar.">
+      <created>1666870399745</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1666870399745</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -256,7 +258,8 @@
     <MESSAGE value="Sign up working." />
     <MESSAGE value="Login signup flow done." />
     <MESSAGE value="Small fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="Small fix" />
+    <MESSAGE value="Working search bar." />
+    <option name="LAST_COMMIT_MESSAGE" value="Working search bar." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

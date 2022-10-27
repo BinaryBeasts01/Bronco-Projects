@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import NavBar from "../components/NavBar";
 import AuthForm from "../components/AuthForm";
 import AuthService from "../services/AuthService";
+import {Button, Card} from "react-bootstrap";
 
 const Home = () => {
     const [email, setEmail] = useState(null)
@@ -11,7 +12,8 @@ const Home = () => {
         <div style={styles.home}>
             <NavBar email={email} setEmail={setEmail}/>
             <div style={styles["test"]}>
-                <h2 color={"white"}>PROJECTS</h2>
+                <h2><span style={styles["text"]}>PROJECTS</span></h2>
+
             </div>
         </div>
     );
@@ -32,6 +34,15 @@ const styles = {
     },
     text: {
         "backgroundColor": "white"
+    },
+    card: {
+        "width": "30%",
+        "height": "30%",
+        "zIndex": 1
+    },
+    img: {
+        "width": "40%",
+        "height": "40%"
     }
 }
 
