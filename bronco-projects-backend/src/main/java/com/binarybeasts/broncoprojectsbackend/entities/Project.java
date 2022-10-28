@@ -13,7 +13,7 @@ public class Project {
     private String description;
     private String createdBy;
     private String department;
-
+ 
     private List<String> subscribedStudents;
     private List<String> tags;
 
