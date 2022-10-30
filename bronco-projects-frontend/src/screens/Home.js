@@ -3,6 +3,7 @@ import NavBar from "../components/NavBar";
 import AuthForm from "../components/AuthForm";
 import AuthService from "../services/AuthService";
 import {Button, Card} from "react-bootstrap";
+import Projects from "../components/Projects";
 
 const Home = () => {
     const [email, setEmail] = useState(null)
@@ -11,10 +12,7 @@ const Home = () => {
     return (
         <div style={styles.home}>
             <NavBar email={email} setEmail={setEmail}/>
-            <div style={styles["test"]}>
-                <h2><span style={styles["text"]}>PROJECTS</span></h2>
-
-            </div>
+            <Projects />
         </div>
     );
 }
@@ -26,24 +24,6 @@ const styles = {
         "width": "100%",
         "height": "100%"
     },
-    test: {
-        "display": "flex",
-        "flexDirection": "column",
-        "height": "90%",
-        "backgroundColor": "green"
-    },
-    text: {
-        "backgroundColor": "white"
-    },
-    card: {
-        "width": "30%",
-        "height": "30%",
-        "zIndex": 1
-    },
-    img: {
-        "width": "40%",
-        "height": "40%"
-    }
 }
 
 export default Home

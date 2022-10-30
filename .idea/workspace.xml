@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f1a2f09-de46-409a-9e02-f3f9376d8e03" name="Changes" comment="Working search bar.">
+    <list default="true" id="8f1a2f09-de46-409a-9e02-f3f9376d8e03" name="Changes" comment="Projects component in progress">
+      <change afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/components/Projects.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/src/components/SearchBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/components/SearchBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/src/screens/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/screens/Home.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +43,9 @@
     </option>
   </component>
   <component name="ProjectId" id="2EiuKts9lI5ccYENrwqIT6xjpsF" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -112,7 +117,9 @@
       <workItem from="1666219407134" duration="14168000" />
       <workItem from="1666296472452" duration="25092000" />
       <workItem from="1666394327456" duration="17093000" />
-      <workItem from="1666815330902" duration="35059000" />
+      <workItem from="1666815330902" duration="37018000" />
+      <workItem from="1667021924848" duration="13079000" />
+      <workItem from="1667092805042" duration="288000" />
     </task>
     <task id="LOCAL-00001" summary="Setup.">
       <created>1663097972659</created>
@@ -233,7 +240,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666871361775</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Fix.">
+      <created>1666871680841</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1666871680841</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -267,7 +281,9 @@
     <MESSAGE value="Login signup flow done." />
     <MESSAGE value="Small fix" />
     <MESSAGE value="Working search bar." />
-    <option name="LAST_COMMIT_MESSAGE" value="Working search bar." />
+    <MESSAGE value="Fix." />
+    <MESSAGE value="Projects component in progress" />
+    <option name="LAST_COMMIT_MESSAGE" value="Projects component in progress" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

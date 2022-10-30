@@ -6,40 +6,40 @@ const SearchBar = () => {
     const [searchInput, setSearchInput] = useState("");
     const [searchFilterItems, setSearchFilterItems] = useState([]);
     const [filterResults, setFilterResults] = useState(null);
-    const [currentFilterIndices, setCurrentFilterIndices] = useState([]);
+    //const [currentFilterIndices, setCurrentFilterIndices] = useState([]); // this is just in case if we want to use up/down arrows to cycle
 
     const inputRef = useRef('');
     const divRef = useDetectClickOutside({ onTriggered: () => {
             setFilterResults([]);
-            setCurrentFilterIndices([]);
+            //setCurrentFilterIndices([]);
         }});
 
-    const filterItemsRef = useRef(SearchFilterList.map(() => createRef()));
+    //const filterItemsRef = useRef(SearchFilterList.map(() => createRef())); // this is just in case if we want to use up/down arrows to cycle
     const searchInputRef = useRef();
 
     searchInputRef.current = searchInput;
 
     const createFilterItem = (item, index, isEnd) => {
+        // set  ref={filterItemsRef.current[index]} on span to filter
         return (
         <div
             onClick={() => onSearchItemClick(item)}
             style={isEnd ? styles["dropdown-row-last"] : styles["dropdown-row"]}
             key={item}
         >
-            <span tabIndex={0} ref={filterItemsRef.current[index]}  onKeyPress={(e) => handleSpanKeyEvent(e, item)} style={styles["filter-text"]}>{item}{SearchFilterListMap[item]}</span>
+            <span tabIndex={0}  onKeyPress={(e) => handleSpanKeyEvent(e, item)} style={styles["filter-text"]}>{item}{SearchFilterListMap[item]}</span>
         </div>
         );
     }
 
     const handleSpanKeyEvent = (e, item) => {
         if(e.key === 'Enter') {
-            console.log('here');
             onSearchItemClick(item);
             inputRef.current.focus();
         }
     }
 
-    const onSearchItemClick = (item) => {
+    const onSearchItemClick = (item) => { // assmuing user types # and then clicks on item. Ex. user types #create and then clicks on #created-by. So replacing #create with #created-by
         let input = searchInputRef.current;
         let lastPos = input.lastIndexOf("#");
         if(lastPos === -1) {
@@ -67,7 +67,7 @@ const SearchBar = () => {
             }
         }
         setFilterResults(newFilterResults);
-        setCurrentFilterIndices(indices);
+        //setCurrentFilterIndices(indices);
     }
 
     const filterSearchItems = (input) => {
@@ -85,7 +85,7 @@ const SearchBar = () => {
             let indices = [];
             for(let elem of SearchFilterList)
                 indices.push(SearchFilterList.indexOf(elem));
-            setCurrentFilterIndices(indices);
+            //setCurrentFilterIndices(indices);
             setSearchFilterItems([...SearchFilterList]);
         }
     }
@@ -102,7 +102,6 @@ const SearchBar = () => {
                 if(pos === -1) return true;
 
                 let substr = searchTerm.slice(pos, searchTerm.length);
-                console.log(`${pos} ${substr}`)
                 for(let item in SearchFilterList) {
                     if(substr.indexOf(item) !== -1 && searchFilterItems.indexOf(item) === -1)
                         return false;
