@@ -16,7 +16,8 @@
 ## Project Structure
 
 ## Backend:
-bronco-projects-backend contains the spring boot server
+bronco-projects-backend contains the spring boot server.
+
 Use spring "prod" profile to run.
 
 ## Frontend:
