@@ -4,97 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f1a2f09-de46-409a-9e02-f3f9376d8e03" name="Changes" comment="Projects component in basically done.">
-      <change afterPath="$PROJECT_DIR$/bronco-projects-frontend/${project.build.directory}/classes/static/static/js/main.4e4a9671.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bronco-projects-frontend/${project.build.directory}/classes/static/static/js/main.4e4a9671.js.LICENSE.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bronco-projects-frontend/${project.build.directory}/classes/static/static/js/main.4e4a9671.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bronco-projects-frontend/${project.build.directory}/classes/static/static/js/main.6e692d92.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bronco-projects-frontend/${project.build.directory}/classes/static/static/js/main.6e692d92.js.LICENSE.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bronco-projects-frontend/${project.build.directory}/classes/static/static/js/main.6e692d92.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bronco-projects-frontend/${project.build.directory}/classes/static/static/js/main.b9d2f4c6.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bronco-projects-frontend/${project.build.directory}/classes/static/static/js/main.b9d2f4c6.js.LICENSE.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bronco-projects-frontend/${project.build.directory}/classes/static/static/js/main.b9d2f4c6.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bronco-projects-frontend/${project.build.directory}/classes/static/static/js/main.bf23d693.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bronco-projects-frontend/${project.build.directory}/classes/static/static/js/main.bf23d693.js.LICENSE.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bronco-projects-frontend/${project.build.directory}/classes/static/static/js/main.bf23d693.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/constants/SampleProjects.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/.bin/loose-envify" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/.bin/loose-envify.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/.bin/loose-envify.ps1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/js-tokens/CHANGELOG.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/js-tokens/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/js-tokens/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/js-tokens/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/js-tokens/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/loose-envify/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/loose-envify/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/loose-envify/cli.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/loose-envify/custom.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/loose-envify/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/loose-envify/loose-envify.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/loose-envify/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/loose-envify/replace.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/object-assign/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/object-assign/license" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/object-assign/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/object-assign/readme.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/prop-types/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/prop-types/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/prop-types/checkPropTypes.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/prop-types/factory.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/prop-types/factoryWithThrowingShims.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/prop-types/factoryWithTypeCheckers.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/prop-types/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/prop-types/lib/ReactPropTypesSecret.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/prop-types/lib/has.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/prop-types/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/prop-types/prop-types.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/prop-types/prop-types.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-infinite-scroll-up-n-down/.babelrc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-infinite-scroll-up-n-down/.editorconfig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-infinite-scroll-up-n-down/.eslintrc.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-infinite-scroll-up-n-down/.github/ISSUE_TEMPLATE/Bug_report.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-infinite-scroll-up-n-down/.github/ISSUE_TEMPLATE/Feature_request.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-infinite-scroll-up-n-down/.prettierrc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-infinite-scroll-up-n-down/.travis.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-infinite-scroll-up-n-down/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-infinite-scroll-up-n-down/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-infinite-scroll-up-n-down/dist/InfiniteScroll.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-infinite-scroll-up-n-down/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-infinite-scroll-up-n-down/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-is/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-is/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-is/build-info.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-is/cjs/react-is.development.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-is/cjs/react-is.production.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-is/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-is/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-is/umd/react-is.development.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react-is/umd/react-is.production.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react/build-info.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react/cjs/react-jsx-dev-runtime.development.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react/cjs/react-jsx-dev-runtime.production.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react/cjs/react-jsx-dev-runtime.profiling.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react/cjs/react-jsx-runtime.development.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react/cjs/react-jsx-runtime.production.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react/cjs/react-jsx-runtime.profiling.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react/cjs/react.development.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react/cjs/react.production.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react/jsx-dev-runtime.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react/jsx-runtime.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react/umd/react.development.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react/umd/react.production.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node_modules/react/umd/react.profiling.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+    <list default="true" id="8f1a2f09-de46-409a-9e02-f3f9376d8e03" name="Changes" comment="Some fixes.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bronco-projects-frontend/src/components/Projects.js" beforeDir="false" afterPath="$PROJECT_DIR$/bronco-projects-frontend/src/components/Projects.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -207,7 +118,7 @@
       <workItem from="1667092805042" duration="426000" />
       <workItem from="1667348731245" duration="1994000" />
       <workItem from="1667530929368" duration="8648000" />
-      <workItem from="1667550637246" duration="5122000" />
+      <workItem from="1667550637246" duration="5512000" />
     </task>
     <task id="LOCAL-00001" summary="Setup.">
       <created>1663097972659</created>
@@ -342,7 +253,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667093194540</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Some fixes.">
+      <created>1667556063239</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1667556063239</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -379,7 +297,8 @@
     <MESSAGE value="Fix." />
     <MESSAGE value="Projects component in progress" />
     <MESSAGE value="Projects component in basically done." />
-    <option name="LAST_COMMIT_MESSAGE" value="Projects component in basically done." />
+    <MESSAGE value="Some fixes." />
+    <option name="LAST_COMMIT_MESSAGE" value="Some fixes." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

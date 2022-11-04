@@ -4,42 +4,34 @@ import useInfiniteScroll from "react-easy-infinite-scroll-hook";
 import SampleProjects from "../constants/SampleProjects";
 
 const Projects = () => {
-    const [projects, setProjects] = useState([]);
-    const [prevLoadPage, setPrevLoadPage] = useState(0);
+    const [projects, setProjects] = useState(SampleProjects[0]["projects"]); // Note: some bugs, if initial data is too low, scroll bar won't appear
 
-    const next = async (direction) => {
-        let loadPage;
-        if(direction === "down") loadPage = prevLoadPage + 1;
-        //else loadPage = prevLoadPage - 1;
+    const [loadPage, setLoadPage] = useState(1);
 
-        if(loadPage >= 1 && loadPage <= 4) {
-            let page;
-            for (let pg of SampleProjects) {
-                if (pg["page"] === loadPage) {
-                    page = pg["projects"];
-                    break;
-                }
-            }
+    const next = (direction) => {
+        if(loadPage < 5) {
+            console.log("HERE")
 
+            let page = SampleProjects[loadPage]["projects"];
             setProjects((prev) =>
-                [...prev, ...page] // direction === "up" ? [...page, ...prev] if in future we want to control what we load above
+                direction === "up" ? [...page, ...prev] : [...prev, ...page] // direction === "up" ? [...page, ...prev] if in future we want to control what we load above
             );
             console.log(`LOADED: ${direction} ${loadPage}`)
-            setPrevLoadPage(loadPage);
+            if (direction == "down") setLoadPage(loadPage + 1);
         }
     };
 
     const ref = useInfiniteScroll({
-        next,
+        next: next,
         rowCount: projects.length,
-        hasMore: { down: prevLoadPage !== 4 }, // up: prevLoadPage !== 0
+        hasMore: { down: true },
+        scrollThreshold: .2
     });
 
     let projectCards = [];
     projects.map((proj, index) => {
         projectCards.push(
-            <div key={index} style={{"height": "20%"}}>
-                <Card>
+                <Card key={index} style={{"width": "40%", "height": "30%", backgroundColor: "green"}}>
                     <Card.Body>
                         <Card.Title>{proj["projectId"]}</Card.Title>
                         <Card.Text>
@@ -47,7 +39,6 @@ const Projects = () => {
                         </Card.Text>
                     </Card.Body>
                 </Card>
-            </div>
         );
     });
 
@@ -55,15 +46,16 @@ const Projects = () => {
 
     return (
         <div style={styles["projects-parent"]}>
-            <Container style={styles["padding"]}/>
+            <div style={styles["padding"]}/>
 
-            <Container style={styles["projects"]}>
-                <div ref={ref} style={{overflowY: "auto"}}>
+            <div style={styles["projects"]}>
+                <div style={styles["padding2"]}/>
+                <div ref={ref} style={{backgroundColor: "purple", width: "80%", height: "100%", overflowY: "scroll"}}>
                     {projectCards}
                 </div>
-            </Container>
 
-            <Container style={styles["padding"]} />
+            </div>
+
         </div>
     );
 }
@@ -71,18 +63,28 @@ const Projects = () => {
 const styles = {
     "projects-parent": {
         "display": "flex",
-        "flexDirection": "column",
+        "flexDirection": "row",
         "height": "90%",
         "backgroundColor": "green"
     },
     projects: {
         "display": "flex",
-        "width": "20%",
-
+        "flexDirection": "row",
+        "width": "75%",
+        "height": "100%",
+        "backgroundColor": "blue",
     },
     padding: {
         "display": "flex",
-        "width": "20%"
+        "width": "25%",
+        "backgroundColor": "red",
+        "height": "100%"
+    },
+    padding2: {
+        "display": "flex",
+        "width": "20%",
+        "backgroundColor": "yellow",
+        "height": "100%"
     }
 }
 export default Projects;
