@@ -36,7 +36,7 @@ public class ProjectControllerTest {
     }
 
     //create 10 projects, should fail if already exists
-    /*@Test
+    @Test
     public void testCreate() throws Exception {
         System.out.println("\n\nCreate Test\n");
         ObjectMapper mapper = new ObjectMapper();
@@ -64,7 +64,7 @@ public class ProjectControllerTest {
         }
 
         System.out.println("\n");
-    }*/
+    }
 
     //return projects matching filters, may not return all as default pageable limits to 10
     @Test
