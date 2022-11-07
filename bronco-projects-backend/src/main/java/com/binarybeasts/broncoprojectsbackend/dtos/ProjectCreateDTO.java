@@ -2,7 +2,7 @@ package com.binarybeasts.broncoprojectsbackend.dtos;
 
 import lombok.Data;
 import java.util.List;
-
+ 
 @Data
 public class ProjectCreateDTO {
     private String name;
