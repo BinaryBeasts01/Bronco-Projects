@@ -44,28 +44,31 @@ const LoginForm = ({shouldShowLoginForm, closeLoginForm, showSignUpVerificationF
             aria-labelledby="contained-modal-title-vcenter"
             centered
         >
-            <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">
+            <Modal.Header style={{backgroundColor:'rgb(231, 199, 154)'}} closeButton>
+                <Modal.Title style={{color: "rgb(47, 93, 18)"}} id="contained-modal-title-vcenter">
                     Login
+
                 </Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body style={{backgroundColor:'rgb(249, 233, 210)'}}>
                 <Form onSubmit={handleLoginEvent}>
                     <Form.Control type="email" placeholder="Enter Email" onChange={(e) => setEmailForm(e.target.value)}/>
                     <br />
                     <Form.Control type="password" placeholder="Enter Password" onChange={(e) => setPassword(e.target.value)}/>
                     <br />
-                    <Button type="submit">Login</Button>
+                    <Button style={{ border: 'olive', backgroundColor:'olive'}} type="submit">Login</Button>
                 </Form>
 
             </Modal.Body>
-            <Modal.Footer>
+            <Modal.Footer style={{backgroundColor:'rgb(231, 199, 154)'}} >
                 <h6>
-                    Don't have an account? <span style={{color:'blue',cursor:'pointer'}} onClick={showSignUpVerificationForm}> Create one! </span>
+                    Don't have an account? <span style={{color:'rgb(47, 93, 18)',cursor:'pointer'}} onClick={showSignUpVerificationForm}> Create one! </span>
                 </h6>
             </Modal.Footer>
         </Modal>
     );
 }
+
+
 
 export default LoginForm;

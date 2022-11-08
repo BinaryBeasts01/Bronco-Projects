@@ -5,6 +5,7 @@ import AuthService from "../services/AuthService";
 import {Button, Card} from "react-bootstrap";
 import Projects from "../components/Projects";
 
+
 const Home = () => {
     const [email, setEmail] = useState(null)
 
@@ -22,7 +23,8 @@ const styles = {
         "fontFamily": "sans-serif",
         "backgroundColor": "black",
         "width": "100%",
-        "height": "100%"
+        "height": "100%",
+
     },
 }
 

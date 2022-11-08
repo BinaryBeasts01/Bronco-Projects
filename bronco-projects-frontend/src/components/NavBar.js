@@ -16,7 +16,7 @@ function NavBar({email, setEmail}) {
         form = <AuthForm email={email} setEmail={setEmail} shouldShowLoginForm={loginFormVisible}
                             closeLoginForm={() => {setShowLoginForm(false)}}/>
 
-        profile = <Button variant='success' onClick={() => {setShowLoginForm(true)}}> Login </Button>
+        profile = <Button style={{backgroundColor:'rgb(47, 93, 18)'}} variant='success' onClick={() => {setShowLoginForm(true)}} > Login </Button>
     }
     else {
         // init profile with user icon
@@ -26,7 +26,7 @@ function NavBar({email, setEmail}) {
     return (
         <Navbar style={styles["navbar"]}>
             <Container style={styles["logo"]}>
-                <Button>LOGO</Button>
+                <img style={styles["CCProjects"]} src={require('/Users/lyhoang/Desktop/ly3/bronco-projects-frontend/src/components/logoAni.gif')} />
             </Container>
             <Container style={styles["searchBar"]}>
                 <SearchBar />
@@ -39,27 +39,39 @@ function NavBar({email, setEmail}) {
     );
 }
 
+
+
 const styles = {
     navbar: {
-        "backgroundColor": "black",
-        "height": "10%",
-        "position": "sticky"
+        "backgroundColor": "white",
+        "height": "20%",
+        "position": "sticky",
+        "backgroundColor": "white",
     },
     logo: {
         "display": "flex",
+        "width": "30%",
         "justifyContent": "begin",
-        "width": "5%",
     },
+
+    CCProjects: {
+        "width": "100%"
+    },
+
     searchBar: {
         "display": "flex",
         "alignItems": "center",
+        "width": "55%",
         "justifyContent": "center",
+
     },
     profile: {
         "display": "flex",
-        "justifyContent": "end",
-        "width": "5%",
-    }
+        "width": "15%",
+        "justifyContent": "center",
+
+    },
+
 }
 
 

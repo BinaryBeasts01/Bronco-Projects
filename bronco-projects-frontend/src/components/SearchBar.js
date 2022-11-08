@@ -155,29 +155,38 @@ const styles = {
         "width": "100%",
         "display": "flex",
         "flexDirection": "column",
+        "border": "1px solid rgb(231, 199, 154)",
+
     },
+
     "search-inner": {
-        "display": "flex"
+        "display": "flex",
+        "-webkit-tap-highlight-color": "red"
     },
     "search-text": {
-        "width": "95%"
+        "width": "85%",
+        color: "rgb(158, 113, 74)",
     },
     "search-button": {
-        "width": "5%"
+        "width": "15%",
+        "backgroundColor": "rgb(231, 199, 154)",
     },
+
     dropdown: {
         "backgroundColor": "white",
         "display": "flex",
         "flexDirection": "column",
-        "border": "1px solid gray",
+        "border": "1px solid rgb(231, 199, 154)",
         "position": "absolute",
-        "top": "60px",
+        "top": "98px",
+        color: "rgb(231, 199, 154)",
+
     },
     "dropdown-row": {
         "cursor": "pointer",
         "textAlign": "start",
         "margin": "2px 0",
-        "borderBottom": "1px solid black",
+        "borderBottom": "1px solid rgb(231, 199, 154)",
     },
     "dropdown-row-last": {
         "cursor": "pointer",

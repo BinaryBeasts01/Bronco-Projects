@@ -48,14 +48,14 @@ const VerificationForm = ({setEmail, shouldShowVerificationForm, closeVerificati
         form = <Form onSubmit={handleEmailSubmit}>
             <Form.Control type="email" placeholder="Enter Email" onChange={(e) => setFormEmail(e.target.value)}/>
             <br />
-            <Button type="submit"> Submit</Button>
+            <Button style={{border: "olive", backgroundColor: "olive"}}  type="submit"> Submit</Button>
         </Form>
     }
     else {
         form = <Form onSubmit={handleVerificationCode}>
             <Form.Control type="number" onChange={(e) => {setVerificationCode(e.target.value)}}/>
             <br />
-            <Button type="submit">Submit</Button>
+            <Button style={{backgroundColor: "olive"}} type="submit">Submit</Button>
         </Form>
     }
 
@@ -67,12 +67,12 @@ const VerificationForm = ({setEmail, shouldShowVerificationForm, closeVerificati
             aria-labelledby="contained-modal-title-vcenter"
             centered
         >
-            <Modal.Header closeButton>
+            <Modal.Header style={{backgroundColor:'rgb(231, 199, 154)'}} closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
                     {!emailSubmitted ? "Verification" : "Enter Verification Code"}
                 </Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body style={{backgroundColor:'rgb(249, 233, 210)'}}>
                 {form}
             </Modal.Body>
         </Modal>

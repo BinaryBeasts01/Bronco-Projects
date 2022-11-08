@@ -31,7 +31,8 @@ const Projects = () => {
     let projectCards = [];
     projects.map((proj, index) => {
         projectCards.push(
-                <Card key={index} style={{"width": "40%", "height": "30%", backgroundColor: "green"}}>
+                <Card key={index} style={{"width": "60%", "height": "30%", "color": "white", backgroundColor: "rgb(47, 93, 18)"}}>
+
                     <Card.Body>
                         <Card.Title>{proj["projectId"]}</Card.Title>
                         <Card.Text>
@@ -50,7 +51,8 @@ const Projects = () => {
 
             <div style={styles["projects"]}>
                 <div style={styles["padding2"]}/>
-                <div ref={ref} style={{backgroundColor: "purple", width: "80%", height: "100%", overflowY: "scroll"}}>
+                <div ref={ref} style={{backgroundColor: "rgb(158, 113, 74)", width: "60%", height: "100%", overflowY: "scroll"}}>
+
                     {projectCards}
                 </div>
 
@@ -65,25 +67,26 @@ const styles = {
         "display": "flex",
         "flexDirection": "row",
         "height": "90%",
-        "backgroundColor": "green"
+        "backgroundColor": "white"
+    },
+    padding: {
+        "display": "flex",
+        "width": "30%",
+        "backgroundColor": "rgb(249, 233, 210)", //light beige
+        "height": "80%"
     },
     projects: {
         "display": "flex",
         "flexDirection": "row",
-        "width": "75%",
-        "height": "100%",
-        "backgroundColor": "blue",
+        "width": "70%",
+        "height": "80%",
+        "backgroundColor": "rgb(249, 233, 210)", //light beige
     },
-    padding: {
-        "display": "flex",
-        "width": "25%",
-        "backgroundColor": "red",
-        "height": "100%"
-    },
+
     padding2: {
         "display": "flex",
-        "width": "20%",
-        "backgroundColor": "yellow",
+        "width": "30%",
+        "backgroundColor": "rgb(231, 199, 154)", //medium beige
         "height": "100%"
     }
 }
