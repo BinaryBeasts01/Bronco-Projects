@@ -104,7 +104,7 @@ public class AuthController {
             u.setPassword(passwordEncoder.encode(user.getPassword()));
             u.setResumeFileId(resumeId);
             u.setTranscriptFileId(transcriptId);
-            u.setDepartment("Department");
+            u.setDepartment(user.getDepartment());
 
             userRepository.insert(u);
             return ResponseEntity.ok().body("Added user");
