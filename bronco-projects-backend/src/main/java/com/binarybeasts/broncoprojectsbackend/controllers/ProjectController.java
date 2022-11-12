@@ -35,7 +35,7 @@ public class ProjectController {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    @PostMapping("/latest_projects")
+    @PostMapping("/latest")
     public ResponseEntity<ProjectPageReturnDTO> getRecent(@PageableDefault(page = 0, size = 10, direction = Sort.Direction.DESC) Pageable pageable) {
         //if user authenticated, show projects by their department, otherwise most recent
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -57,7 +57,7 @@ public class ProjectController {
         return projectRepository.findAllByOrderByDateCreated(pageable).getContent();
     }
 
-    @PostMapping("/tags")
+    @PostMapping("/filter")
     public ResponseEntity<ProjectPageReturnDTO> getByTags(@PageableDefault(page = 0, size = 10, direction = Sort.Direction.DESC) Pageable pageable,
                                    @RequestBody ProjectFilterDTO filterDTO) {
         //add filters to query based on provided parameters
