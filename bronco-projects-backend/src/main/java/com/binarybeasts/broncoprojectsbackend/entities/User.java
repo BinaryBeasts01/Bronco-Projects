@@ -15,7 +15,8 @@ import java.util.List;
 @Data
 public class User implements UserDetails {
     @Id
-    private String userId;
+    private String userId; //email
+    private String name;
     private String password;
 
     private List<String> createdProjects;
@@ -53,9 +54,5 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public String getDepartment() {
-        return department;
     }
 }

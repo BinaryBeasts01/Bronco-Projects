@@ -23,11 +23,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
- 
 import java.io.IOException;
-import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -72,7 +68,7 @@ public class AuthController {
     }
 
     @PostMapping("/verification")
-    public ResponseEntity verifyVerificationCode(@RequestBody VerificationCodeDTO code) {
+    public ResponseEntity<?> verifyVerificationCode(@RequestBody VerificationCodeDTO code) {
        Optional<VerificationCode> optCode = verificationCodeRepository.findById(code.getEmail());
        if(optCode.isPresent() && optCode.get().getCode() == code.getCode())
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
@@ -89,8 +85,8 @@ public class AuthController {
     }
 
     @PostMapping(value="/user", consumes={"multipart/form-data"})
-    public ResponseEntity createNewUser(@ModelAttribute UserCreateDTO user)  {
-        if(userRepository.findById(user.getEmail()).isPresent())
+    public ResponseEntity<String> createNewUser(@ModelAttribute UserCreateDTO user)  {
+        if(userRepository.existsById(user.getEmail()))
             return ResponseEntity.badRequest().body("User exists");
 
         MultipartFile resume = user.getResume();
@@ -101,10 +97,11 @@ public class AuthController {
 
             User u = new User();
             u.setUserId(user.getEmail());
+            u.setName(user.getName());
             u.setPassword(passwordEncoder.encode(user.getPassword()));
             u.setResumeFileId(resumeId);
             u.setTranscriptFileId(transcriptId);
-            u.setDepartment("Department");
+            u.setDepartment(user.getDepartment());
 
             userRepository.insert(u);
             return ResponseEntity.ok().body("Added user");
@@ -115,7 +112,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity loginUser(@RequestBody LoginRequestDTO loginRequest) {
+    public ResponseEntity<?> loginUser(@RequestBody LoginRequestDTO loginRequest) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
             UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.getUsername());
