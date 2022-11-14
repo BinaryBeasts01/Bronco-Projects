@@ -26,7 +26,7 @@ function NavBar({email, setEmail}) {
     return (
         <Navbar style={styles["navbar"]}>
             <Container style={styles["logo"]}>
-                <img style={styles["CCProjects"]} src={require('/Users/lyhoang/Desktop/ly3/bronco-projects-frontend/src/components/logoAni.gif')} />
+                <img style={styles["CCProjects"]} src={require('./logoAni.gif')} />
             </Container>
             <Container style={styles["searchBar"]}>
                 <SearchBar />
@@ -46,7 +46,6 @@ const styles = {
         "backgroundColor": "white",
         "height": "20%",
         "position": "sticky",
-        "backgroundColor": "white",
     },
     logo: {
         "display": "flex",
