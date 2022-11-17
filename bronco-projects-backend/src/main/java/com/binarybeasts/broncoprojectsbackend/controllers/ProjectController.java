@@ -7,6 +7,7 @@ import com.binarybeasts.broncoprojectsbackend.entities.Project;
 import com.binarybeasts.broncoprojectsbackend.entities.User;
 import com.binarybeasts.broncoprojectsbackend.repositories.ProjectRepository;
 import com.binarybeasts.broncoprojectsbackend.repositories.UserRepository;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,10 +20,13 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
- 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/projects")
 public class ProjectController {
@@ -36,12 +40,12 @@ public class ProjectController {
     private MongoTemplate mongoTemplate;
 
     @PostMapping("/latest")
-    public ResponseEntity<ProjectPageReturnDTO> getRecent(@PageableDefault(page = 0, size = 10, direction = Sort.Direction.DESC) Pageable pageable) {
+    public ResponseEntity<ProjectPageReturnDTO> getRecent(@PageableDefault(page = 0, size = 10, sort = "dateCreated", direction = Sort.Direction.DESC) Pageable pageable) {
         //if user authenticated, show projects by their department, otherwise most recent
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ProjectPageReturnDTO returnDTO = new ProjectPageReturnDTO();
         Page<Project> page = userRepository.existsById(user.getUsername()) ? projectRepository.findByDepartment(user.getDepartment(), pageable)
-                                                                           : projectRepository.findAllByOrderByDateCreated(pageable);
+                                                                           : projectRepository.findAll(pageable);
 
         //return projects and page counts
         returnDTO.setProjects(page.getContent());
@@ -51,14 +55,16 @@ public class ProjectController {
         return ResponseEntity.ok().body(returnDTO);
     }
 
-    //testing throwaway, see testGetRecentWithoutUser() in ProjectControllerTest
-    @GetMapping("/top")
-    public List<Project> getTop(@PageableDefault(page = 0, size = 10, direction = Sort.Direction.DESC) Pageable pageable) {
-        return projectRepository.findAllByOrderByDateCreated(pageable).getContent();
+    @PostMapping("/id")
+    public ResponseEntity<?> getProjectById(@RequestBody ObjectNode json) {
+        Optional<Project> project = projectRepository.findById(json.get("id").asText());
+
+        return project.isPresent() ? ResponseEntity.ok().body(project)
+                                   : ResponseEntity.badRequest().body("Project with id " + json.get("id").asText() + " doesn't exist");
     }
 
     @PostMapping("/filter")
-    public ResponseEntity<ProjectPageReturnDTO> getByTags(@PageableDefault(page = 0, size = 10, direction = Sort.Direction.DESC) Pageable pageable,
+    public ResponseEntity<ProjectPageReturnDTO> getByTags(@PageableDefault(page = 0, size = 10, sort = "dateCreated", direction = Sort.Direction.DESC) Pageable pageable,
                                    @RequestBody ProjectFilterDTO filterDTO) {
         //add filters to query based on provided parameters
         Query query = new Query().with(pageable);
@@ -84,7 +90,7 @@ public class ProjectController {
     @PostMapping("/create")
     public ResponseEntity<String> createProject(@RequestBody ProjectCreateDTO project) {
         //verify project doesn't already exist
-        if(projectRepository.findById(project.getName()).isPresent()) {
+        if(projectRepository.existsById(project.getName())) {
             return ResponseEntity.badRequest().body("Project exists");
         }
 
@@ -94,6 +100,9 @@ public class ProjectController {
             return ResponseEntity.badRequest().body("No authenticated user");
         }
 
+        //Date date = Date.from(LocalDateTime.now().truncatedTo(ChronoUnit.DAYS).toInstant());
+        //LocalDateTime.now().truncatedTo(ChronoUnit.DAYS)
+
         //create project and add to user's list of created projects
         Project p = new Project();
         p.setName(project.getName());
@@ -101,7 +110,7 @@ public class ProjectController {
         p.setCreatedBy(user.getUsername());
         p.setDepartment(project.getDepartment());
         p.setTags(project.getTags());
-        p.setDateCreated(new Date());
+        p.setDateCreated(Date.from(Instant.ofEpochMilli(new Date().getTime()).truncatedTo(ChronoUnit.DAYS)));
         p.setSubscribedStudents(new ArrayList<>());
 
         //init list of created projects on first created
