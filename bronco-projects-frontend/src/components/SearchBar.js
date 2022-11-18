@@ -1,4 +1,4 @@
-import React, {useState, useRef, createRef} from "react";
+import React, {useState, useRef} from "react";
 import {SearchFilterList, SearchFilterListMap} from "../constants/SearchFilterList";
 import {useDetectClickOutside} from "react-detect-click-outside";
 
@@ -203,8 +203,8 @@ const styles = {
     }
 }
 
-const clickOutsideConfig = {
-    handleClickOutside: () => SearchBar.handleClickOutside,
-};
+// const clickOutsideConfig = {
+//     handleClickOutside: () => SearchBar.handleClickOutside,
+// };
 
 export default SearchBar;

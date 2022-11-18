@@ -1,7 +1,6 @@
 import React, {useEffect} from "react";
 import Home from "./screens/Home"
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import ProjectScreen from "./screens/ProjectScreen";
 
 function App() {
   useEffect(() => {
@@ -12,7 +11,6 @@ function App() {
       <Router>
         <Routes>
           <Route exact path='/' element={<Home />}/>
-            <Route exact path='/project/' element={<ProjectScreen />}/>
         </Routes>
       </Router>
       // Need to specify Browser Routes

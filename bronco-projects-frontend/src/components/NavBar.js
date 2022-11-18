@@ -25,8 +25,8 @@ function NavBar({email, setEmail}) {
 
     return (
         <Navbar style={styles["navbar"]}>
-            <Container style={styles["logo"]}>
-                <img style={styles["CCProjects"]} src={require('./logoAni.gif')} />
+            <Container style={styles["profile"]}>
+                <Button variant='info' />
             </Container>
             <Container style={styles["searchBar"]}>
                 <SearchBar />
@@ -51,10 +51,6 @@ const styles = {
         "display": "flex",
         "width": "30%",
         "justifyContent": "begin",
-    },
-
-    CCProjects: {
-        "width": "100%"
     },
 
     searchBar: {

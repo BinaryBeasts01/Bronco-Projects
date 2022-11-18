@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Card, Container} from "react-bootstrap";
+import {Card} from "react-bootstrap";
 import useInfiniteScroll from "react-easy-infinite-scroll-hook";
 import SampleProjects from "../constants/SampleProjects";
 
@@ -17,7 +17,7 @@ const Projects = () => {
                 direction === "up" ? [...page, ...prev] : [...prev, ...page] // direction === "up" ? [...page, ...prev] if in future we want to control what we load above
             );
             console.log(`LOADED: ${direction} ${loadPage}`)
-            if (direction == "down") setLoadPage(loadPage + 1);
+            if (direction === "down") setLoadPage(loadPage + 1);
         }
     };
 
@@ -29,8 +29,8 @@ const Projects = () => {
     });
 
     let projectCards = [];
-    projects.map((proj, index) => {
-        projectCards.push(
+    projectCards = projects.map((proj, index) => {
+        return (
                 <Card key={index} style={{"width": "60%", "height": "30%", "color": "white", backgroundColor: "rgb(47, 93, 18)"}}>
 
                     <Card.Body>
@@ -43,7 +43,7 @@ const Projects = () => {
         );
     });
 
-    const loader = <div className="loader">Loading ...</div>;
+    //const loader = <div className="loader">Loading ...</div>;
 
     return (
         <div style={styles["projects-parent"]}>
