@@ -26,7 +26,7 @@ function NavBar({email, setEmail}) {
     return (
         <Navbar style={styles["navbar"]}>
             <Container style={styles["profile"]}>
-                <Button variant='info' />
+                <Button variant='info'> LOGO </Button>
             </Container>
             <Container style={styles["searchBar"]}>
                 <SearchBar />
