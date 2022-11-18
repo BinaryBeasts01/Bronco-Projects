@@ -23,9 +23,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
+ 
 import java.io.IOException;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -102,6 +104,7 @@ public class AuthController {
             u.setPassword(passwordEncoder.encode(user.getPassword()));
             u.setResumeFileId(resumeId);
             u.setTranscriptFileId(transcriptId);
+            u.setDepartment(user.getDepartment());
 
             userRepository.insert(u);
             return ResponseEntity.ok().body("Added user");

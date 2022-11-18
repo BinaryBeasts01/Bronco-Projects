@@ -10,6 +10,7 @@
     <groupId>com.binary-beasts</groupId>
     <artifactId>bronco-projects-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+
     <name>Bronco Projects</name>
 
     <packaging>pom</packaging>

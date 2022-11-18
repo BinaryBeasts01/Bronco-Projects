@@ -23,6 +23,7 @@ public class User implements UserDetails {
 
     private String resumeFileId;
     private String transcriptFileId;
+    private String department;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -52,5 +53,9 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public String getDepartment() {
+        return department;
     }
 }

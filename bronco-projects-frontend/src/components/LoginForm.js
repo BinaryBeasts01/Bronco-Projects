@@ -8,7 +8,6 @@ import {useNavigate} from "react-router-dom";
 const LoginForm = ({shouldShowLoginForm, closeLoginForm, showSignUpVerificationForm, setEmail}) => {
     const [emailForm, setEmailForm] = useState(null);
     const [password, setPassword] = useState(null);
-    const navigator = useNavigate();
 
     const handleLoginEvent = async (e) => {
         e.preventDefault()
@@ -68,7 +67,5 @@ const LoginForm = ({shouldShowLoginForm, closeLoginForm, showSignUpVerificationF
         </Modal>
     );
 }
-
-
 
 export default LoginForm;

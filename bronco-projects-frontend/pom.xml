@@ -11,6 +11,7 @@
     <name>Bronco Projects Frontend</name>
 
     <build>
+
         <resources>
             <resource>
                 <directory>./build</directory>
