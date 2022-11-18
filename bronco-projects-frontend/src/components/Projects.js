@@ -52,7 +52,6 @@ const Projects = () => {
             <div style={styles["projects"]}>
                 <div style={styles["padding2"]}/>
                 <div ref={ref} style={{backgroundColor: "rgb(158, 113, 74)", width: "60%", height: "100%", overflowY: "scroll"}}>
-
                     {projectCards}
                 </div>
 
