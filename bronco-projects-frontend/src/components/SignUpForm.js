@@ -3,10 +3,8 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import AuthService from "../services/AuthService";
-//import {useNavigate} from "react-router-dom";
 
 const SignUpForm = ({email, showSignUpModal, closeSignUpModal}) => {
-    //const navigate = useNavigate();
     const [password, setPassword] = useState(null);
     const [resume, setResumeFile] = useState(null);
     const [transcript, setTranscriptFile] = useState(null);
@@ -14,10 +12,9 @@ const SignUpForm = ({email, showSignUpModal, closeSignUpModal}) => {
     const handleSubmitForm = async (e) => {
         e.preventDefault();
 
-        let authService = new AuthService();
-        let result = await authService.signUp(email, password, resume, transcript);
+        let result = await AuthService.signUp(email, password, resume, transcript);
         if(result) {
-            await authService.login(email, password);
+            await AuthService.login(email, password);
             //navigate("/");
         }
         else {

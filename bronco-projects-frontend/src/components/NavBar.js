@@ -8,15 +8,14 @@ import SearchBar from "./SearchBar"
 function NavBar({email, setEmail}) {
     const [loginFormVisible, setShowLoginForm] = useState(false);
 
-    let authService = new AuthService();
-    let form = null;
-    let profile = null;
+    let form;
+    let profile;
 
-    if(!authService.checkJWTValid()) {
+    if(!AuthService.checkJWTValid()) {
         form = <AuthForm email={email} setEmail={setEmail} shouldShowLoginForm={loginFormVisible}
                             closeLoginForm={() => {setShowLoginForm(false)}}/>
 
-        profile = <Button style={{backgroundColor:'rgb(47, 93, 18)'}} variant='success' onClick={() => {setShowLoginForm(true)}} > Login </Button>
+        profile = <Button variant='success' onClick={() => {setShowLoginForm(true)}}> Login </Button>
     }
     else {
         // init profile with user icon
@@ -39,35 +38,27 @@ function NavBar({email, setEmail}) {
     );
 }
 
-
-
 const styles = {
     navbar: {
-        "backgroundColor": "white",
-        "height": "20%",
-        "position": "sticky",
+        "backgroundColor": "black",
+        "height": "10%",
+        "position": "sticky"
     },
     logo: {
         "display": "flex",
-        "width": "30%",
         "justifyContent": "begin",
+        "width": "5%",
     },
-
     searchBar: {
         "display": "flex",
         "alignItems": "center",
-        "width": "55%",
         "justifyContent": "center",
-
     },
     profile: {
         "display": "flex",
-        "width": "15%",
-        "justifyContent": "center",
-
-    },
-
+        "justifyContent": "end",
+        "width": "5%",
+    }
 }
-
 
 export default NavBar;

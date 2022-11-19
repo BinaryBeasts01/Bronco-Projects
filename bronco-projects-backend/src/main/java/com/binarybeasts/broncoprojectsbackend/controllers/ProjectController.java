@@ -18,6 +18,8 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import java.time.Instant;
@@ -42,10 +44,16 @@ public class ProjectController {
     @PostMapping("/latest")
     public ResponseEntity<ProjectPageReturnDTO> getRecent(@PageableDefault(page = 0, size = 10, sort = "dateCreated", direction = Sort.Direction.DESC) Pageable pageable) {
         //if user authenticated, show projects by their department, otherwise most recent
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); // for whatever reason, if user is not logged in there are an "anonymousUser".
         ProjectPageReturnDTO returnDTO = new ProjectPageReturnDTO();
-        Page<Project> page = userRepository.existsById(user.getUsername()) ? projectRepository.findByDepartment(user.getDepartment(), pageable)
-                                                                           : projectRepository.findAll(pageable);
+        Page<Project> page;
+        if(!(authentication instanceof AnonymousAuthenticationToken)) {
+            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            page = projectRepository.findByDepartment(user.getDepartment(), pageable);
+        }
+        else {
+            page = projectRepository.findAll(pageable);
+        }
 
         //return projects and page counts
         returnDTO.setProjects(page.getContent());

@@ -13,8 +13,7 @@ const VerificationForm = ({setEmail, shouldShowVerificationForm, closeVerificati
     const handleVerificationCode = async (e) => {
         e.preventDefault()
         // verify code
-        let authService = new AuthService();
-        let correctCode = await authService.verifyCode(formEmail, verificationCode);
+        let correctCode = await AuthService.verifyCode(formEmail, verificationCode);
         if(correctCode) {
             closeVerificationForm()
             showNextModal()
@@ -35,27 +34,26 @@ const VerificationForm = ({setEmail, shouldShowVerificationForm, closeVerificati
             // show error
         }
         else {
-            let authService = new AuthService();
-            await authService.sendCode(formEmail);
+            await AuthService.sendCode(formEmail);
 
             setEmailSubmitted(true);
             setEmail(formEmail);
         }
     }
 
-    let form = null
+    let form;
     if(!emailSubmitted) {
         form = <Form onSubmit={handleEmailSubmit}>
             <Form.Control type="email" placeholder="Enter Email" onChange={(e) => setFormEmail(e.target.value)}/>
             <br />
-            <Button style={{border: "olive", backgroundColor: "olive"}}  type="submit"> Submit</Button>
+            <Button type="submit"> Submit</Button>
         </Form>
     }
     else {
         form = <Form onSubmit={handleVerificationCode}>
             <Form.Control type="number" onChange={(e) => {setVerificationCode(e.target.value)}}/>
             <br />
-            <Button style={{backgroundColor: "olive"}} type="submit">Submit</Button>
+            <Button type="submit">Submit</Button>
         </Form>
     }
 
@@ -67,12 +65,12 @@ const VerificationForm = ({setEmail, shouldShowVerificationForm, closeVerificati
             aria-labelledby="contained-modal-title-vcenter"
             centered
         >
-            <Modal.Header style={{backgroundColor:'rgb(231, 199, 154)'}} closeButton>
+            <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
                     {!emailSubmitted ? "Verification" : "Enter Verification Code"}
                 </Modal.Title>
             </Modal.Header>
-            <Modal.Body style={{backgroundColor:'rgb(249, 233, 210)'}}>
+            <Modal.Body>
                 {form}
             </Modal.Body>
         </Modal>

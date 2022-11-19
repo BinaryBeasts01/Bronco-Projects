@@ -155,38 +155,33 @@ const styles = {
         "width": "100%",
         "display": "flex",
         "flexDirection": "column",
-        "border": "1px solid rgb(231, 199, 154)",
-
     },
-
     "search-inner": {
-        "display": "flex",
-        "-webkit-tap-highlight-color": "red"
+        "display": "flex"
     },
     "search-text": {
-        "width": "85%",
-        color: "rgb(158, 113, 74)",
+        "width": "95%"
     },
     "search-button": {
-        "width": "15%",
-        "backgroundColor": "rgb(231, 199, 154)",
+        "width": "5%"
     },
-
     dropdown: {
         "backgroundColor": "white",
         "display": "flex",
         "flexDirection": "column",
-        "border": "1px solid rgb(231, 199, 154)",
+        "border": "1px solid gray",
         "position": "absolute",
-        "top": "98px",
-        color: "rgb(231, 199, 154)",
-
+        "top": "60px",
+        "zIndex": 999,
+        "z-index": 999
     },
     "dropdown-row": {
         "cursor": "pointer",
         "textAlign": "start",
         "margin": "2px 0",
-        "borderBottom": "1px solid rgb(231, 199, 154)",
+        "borderBottom": "1px solid black",
+        "zIndex": 999,
+        "z-index": 999
     },
     "dropdown-row-last": {
         "cursor": "pointer",
@@ -195,6 +190,8 @@ const styles = {
         '&:focus': {
             "backgroundColor": "red",
         },
+        "zIndex": 999,
+        "z-index": 999
     },
     "filter-text": {
         '&:focus': {

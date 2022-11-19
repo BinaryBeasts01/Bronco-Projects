@@ -1,21 +1,42 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Card} from "react-bootstrap";
 import useInfiniteScroll from "react-easy-infinite-scroll-hook";
-import SampleProjects from "../constants/SampleProjects";
+import ProjectsService from "../services/ProjectsService";
 
 const Projects = () => {
-    const [projects, setProjects] = useState(SampleProjects[0]["projects"]); // Note: some bugs, if initial data is too low, scroll bar won't appear
+    const [projects, setProjects] = useState([]); // Note: some bugs, if initial data is too low, scroll bar won't appear
+    const [loadPage, setLoadPage] = useState(null);
+    const [totalPages, setTotalPages] = useState(null);
+    const [currentSize, setCurrentSize] = useState(0);
 
-    const [loadPage, setLoadPage] = useState(1);
 
-    const next = (direction) => {
-        if(loadPage < 5) {
+    useEffect(()=> {
+        const fetchInitial = async () => {
+            let page = await ProjectsService.getProjectsPage(1);
+
+            console.log(`FIRST LOAD ${page}`);
+
+            setTotalPages(page["totalPages"]);
+            setCurrentSize(page["projects"].length);
+            setProjects(page["projects"]);
+            setLoadPage(2);
+        }
+
+        fetchInitial();
+    }, []); // depends on nothing so this is called after the first render
+
+    const next = async (direction) => {
+        if(loadPage <= totalPages) {
             console.log("HERE")
 
-            let page = SampleProjects[loadPage]["projects"];
+            let data = await ProjectsService.getProjectsPage(loadPage);
+            console.log(`Data ${data}`);
+            let page = data["projects"];
+
             setProjects((prev) =>
                 direction === "up" ? [...page, ...prev] : [...prev, ...page] // direction === "up" ? [...page, ...prev] if in future we want to control what we load above
             );
+            setCurrentSize(prev => prev + page.length);
             console.log(`LOADED: ${direction} ${loadPage}`)
             if (direction === "down") setLoadPage(loadPage + 1);
         }
@@ -23,7 +44,7 @@ const Projects = () => {
 
     const ref = useInfiniteScroll({
         next: next,
-        rowCount: projects.length,
+        rowCount: currentSize,
         hasMore: { down: true },
         scrollThreshold: .2
     });
@@ -31,10 +52,10 @@ const Projects = () => {
     let projectCards = [];
     projectCards = projects.map((proj, index) => {
         return (
-                <Card key={index} style={{"width": "60%", "height": "30%", "color": "white", backgroundColor: "rgb(47, 93, 18)"}}>
+                <Card key={index} style={{"width": "40%", "height": "30%", backgroundColor: "green"}}>
 
                     <Card.Body>
-                        <Card.Title>{proj["projectId"]}</Card.Title>
+                        <Card.Title>{proj["name"]}</Card.Title>
                         <Card.Text>
                             {proj["description"]}
                         </Card.Text>
@@ -50,8 +71,7 @@ const Projects = () => {
             <div style={styles["padding"]}/>
 
             <div style={styles["projects"]}>
-                <div style={styles["padding2"]}/>
-                <div ref={ref} style={{backgroundColor: "rgb(158, 113, 74)", width: "60%", height: "100%", overflowY: "scroll"}}>
+                <div ref={ref} style={{backgroundColor: "purple", width: "100%", height: "100%", overflowY: "scroll"}}>
                     {projectCards}
                 </div>
 
@@ -66,27 +86,20 @@ const styles = {
         "display": "flex",
         "flexDirection": "row",
         "height": "90%",
-        "backgroundColor": "white"
-    },
-    padding: {
-        "display": "flex",
-        "width": "30%",
-        "backgroundColor": "rgb(249, 233, 210)", //light beige
-        "height": "80%"
+        "backgroundColor": "green"
     },
     projects: {
         "display": "flex",
         "flexDirection": "row",
-        "width": "70%",
-        "height": "80%",
-        "backgroundColor": "rgb(249, 233, 210)", //light beige
+        "width": "55%",
+        "height": "100%",
+        "backgroundColor": "blue",
     },
-
-    padding2: {
+    padding: {
         "display": "flex",
-        "width": "30%",
-        "backgroundColor": "rgb(231, 199, 154)", //medium beige
+        "width": "45%",
+        "backgroundColor": "red",
         "height": "100%"
-    }
+    },
 }
 export default Projects;
