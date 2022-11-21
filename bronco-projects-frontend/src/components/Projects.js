@@ -2,15 +2,43 @@ import React, {useState, useEffect} from 'react';
 import {Card} from "react-bootstrap";
 import useInfiniteScroll from "react-easy-infinite-scroll-hook";
 import ProjectsService from "../services/ProjectsService";
+import {SearchFilterList} from "../constants/SearchFilterList";
 
-const Projects = () => {
+const Projects = ({searchInput}) => {
+
     const [projects, setProjects] = useState([]); // Note: some bugs, if initial data is too low, scroll bar won't appear
     const [loadPage, setLoadPage] = useState(null);
     const [totalPages, setTotalPages] = useState(null);
     const [currentSize, setCurrentSize] = useState(0);
 
+    const createSearchInputData = () => {
+        if (!searchInput) return null;
 
-    useEffect(()=> {
+        let searchData = {};
+        let inputs = searchInput.split("#");
+
+        for(let filter of SearchFilterList) {
+            for(let input of inputs) {
+                input = "#" + input;
+                if(input.includes(filter)) {
+                    let difference = input.replace(filter, "");
+                    let dataKey = filter.replace("#", "").replace(":", "");
+                    difference = difference.trim();
+                    let result = difference;
+                    if(filter === "#tags:")
+                        result = difference.split(',');
+                    searchData[dataKey] = result;
+                    break;
+                }
+            }
+        }
+
+        return searchData;
+    }
+
+    useEffect(() => {
+        console.log(JSON.stringify(createSearchInputData()));
+
         const fetchInitial = async () => {
             let page = await ProjectsService.getProjectsPage(1);
 
@@ -22,11 +50,12 @@ const Projects = () => {
             setLoadPage(2);
         }
 
-        fetchInitial();
-    }, []); // depends on nothing so this is called after the first render
+        //fetchInitial();
+        setTotalPages(100);
+    }, [searchInput]); // depends on nothing so this is called after the first render
 
     const next = async (direction) => {
-        if(loadPage <= totalPages) {
+        if(loadPage > totalPages) {
             console.log("HERE")
 
             let data = await ProjectsService.getProjectsPage(loadPage);

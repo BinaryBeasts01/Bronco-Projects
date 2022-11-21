@@ -1,6 +1,6 @@
 
 exports.SearchFilterList = [
-    "#created-by:",
+    "#by:",
     "#before:",
     "#after:",
     "#on:",
@@ -8,7 +8,7 @@ exports.SearchFilterList = [
 ];
 
 exports.SearchFilterListMap = {
-    "#created-by:": "Search by Project Owners",
+    "#by:": "Search by Project Owners",
     "#before:": "Search by Projects Created Before a Date(YYYY-MM-DD)",
     "#after:": "Search by Projects Created After a Date(YYYY-MM-DD)",
     "#on:": "Search by Projects Created On a Date(YYYY-MM-DD)",

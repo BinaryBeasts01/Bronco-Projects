@@ -6,7 +6,7 @@ import java.util.List;
  
 @Data
 public class ProjectFilterDTO {
-    private String createdBy;
+    private String by;
     private Date before;
     private Date after;
     private Date on;

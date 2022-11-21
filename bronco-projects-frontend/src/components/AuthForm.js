@@ -4,7 +4,7 @@ import VerificationForm from "./VerificationForm";
 import LoginForm from "./LoginForm";
 import SignUpForm from "./SignUpForm";
 
-const AuthForm = ({email, setEmail, shouldShowLoginForm, closeLoginForm}) => {
+const AuthForm = ({email, setEmail, shouldShowLoginForm, setIsLoggedIn, closeLoginForm}) => {
     const [signUpVerificationFormVisible, setSignUpVerificationFormVisible] = useState(false)
     const [signUpModalVisible, setSignUpModalVisible] = useState(false)
 
@@ -20,7 +20,7 @@ const AuthForm = ({email, setEmail, shouldShowLoginForm, closeLoginForm}) => {
                                                     showNextModal={() => setSignUpModalVisible(true)}/>
 
     let loginForm = <LoginForm shouldShowLoginForm={shouldShowLoginForm} closeLoginForm={closeLoginForm}
-                                setEmail={setEmail} showSignUpVerificationForm={showSignUpVerificationForm}/>
+                                setEmail={setEmail} showSignUpVerificationForm={showSignUpVerificationForm} setIsLoggedIn={setIsLoggedIn}/>
 
     return (
         <div>

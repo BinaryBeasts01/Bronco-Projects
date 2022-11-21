@@ -2,7 +2,7 @@ import React, {useState, useRef} from "react";
 import {SearchFilterList, SearchFilterListMap} from "../constants/SearchFilterList";
 import {useDetectClickOutside} from "react-detect-click-outside";
 
-const SearchBar = () => {
+const SearchBar = ({setProjectsSearchInput}) => {
     const [searchInput, setSearchInput] = useState("");
     const [searchFilterItems, setSearchFilterItems] = useState([]);
     const [filterResults, setFilterResults] = useState(null);
@@ -39,7 +39,7 @@ const SearchBar = () => {
         }
     }
 
-    const onSearchItemClick = (item) => { // assmuing user types # and then clicks on item. Ex. user types #create and then clicks on #created-by. So replacing #create with #created-by
+    const onSearchItemClick = (item) => { // assuming user types # and then clicks on item. Ex. user types #create and then clicks on #created-by. So replacing #create with #created-by
         let input = searchInputRef.current;
         let lastPos = input.lastIndexOf("#");
         if(lastPos === -1) {
@@ -141,7 +141,7 @@ const SearchBar = () => {
         <div ref={divRef} style={styles["search-container"]}>
             <div style={styles["search-inner"]}>
                 <input ref={inputRef} style={styles["search-text"]} type="text" value={searchInput} onClick={initItems} onChange={handleSearchInputChange}/>
-                <button style={styles["search-button"]} tabIndex={-1}> Search </button>
+                <button style={styles["search-button"]} tabIndex={-1} onClick={() => setProjectsSearchInput(searchInput)}> Search </button>
             </div>
             <div style={styles["dropdown"]} >
                 {filterResults}
@@ -173,7 +173,6 @@ const styles = {
         "position": "absolute",
         "top": "60px",
         "zIndex": 999,
-        "z-index": 999
     },
     "dropdown-row": {
         "cursor": "pointer",
@@ -181,7 +180,6 @@ const styles = {
         "margin": "2px 0",
         "borderBottom": "1px solid black",
         "zIndex": 999,
-        "z-index": 999
     },
     "dropdown-row-last": {
         "cursor": "pointer",
@@ -191,7 +189,6 @@ const styles = {
             "backgroundColor": "red",
         },
         "zIndex": 999,
-        "z-index": 999
     },
     "filter-text": {
         '&:focus': {

@@ -5,30 +5,31 @@ import AuthService from "../services/AuthService";
 import AuthForm from "./AuthForm";
 import SearchBar from "./SearchBar"
 
-function NavBar({email, setEmail}) {
+function NavBar({email, setEmail, setIsLoggedIn, setSearchInput}) {
     const [loginFormVisible, setShowLoginForm] = useState(false);
 
     let form;
     let profile;
 
     if(!AuthService.checkJWTValid()) {
-        form = <AuthForm email={email} setEmail={setEmail} shouldShowLoginForm={loginFormVisible}
+        form = <AuthForm email={email} setEmail={setEmail} shouldShowLoginForm={loginFormVisible} setIsLoggedIn={setIsLoggedIn}
                             closeLoginForm={() => {setShowLoginForm(false)}}/>
 
         profile = <Button variant='success' onClick={() => {setShowLoginForm(true)}}> Login </Button>
     }
     else {
         // init profile with user icon
+        setIsLoggedIn(true);
         profile = <Button variant='success' onClick={(e) => {console.log(email)}}>PROFILE BUTTON</Button>
     }
 
     return (
         <Navbar style={styles["navbar"]}>
             <Container style={styles["profile"]}>
-                <Button variant='info'> LOGO </Button>
+                <Button variant='info' onClick={() => setSearchInput(null)}> LOGO </Button>
             </Container>
             <Container style={styles["searchBar"]}>
-                <SearchBar />
+                <SearchBar setProjectsSearchInput={setSearchInput}/>
             </Container>
             <Container style={styles["profile"]}>
                 {profile}
