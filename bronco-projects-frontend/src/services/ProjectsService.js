@@ -27,7 +27,7 @@ class ProjectsService {
         let config = {
             method: 'post',
             url: url,
-            data: data
+            data: data,
             headers: {
                 'Content-Type': 'application/json'
             }
