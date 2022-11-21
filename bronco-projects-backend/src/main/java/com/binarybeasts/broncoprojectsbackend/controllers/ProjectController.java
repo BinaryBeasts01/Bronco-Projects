@@ -77,7 +77,7 @@ public class ProjectController {
         //add filters to query based on provided parameters
         Query query = new Query().with(pageable);
         if(filterDTO.getTags() != null) query.addCriteria(Criteria.where("tags").in(filterDTO.getTags()));
-        if(filterDTO.getCreatedBy() != null) query.addCriteria(Criteria.where("createdBy").is(filterDTO.getCreatedBy()));
+        if(filterDTO.getBy() != null) query.addCriteria(Criteria.where("createdBy").is(filterDTO.getBy()));
         if(filterDTO.getBefore() != null) query.addCriteria(Criteria.where("dateCreated").lte(filterDTO.getBefore()));
         if(filterDTO.getAfter() != null) query.addCriteria(Criteria.where("dateCreated").gte(filterDTO.getAfter()));
         if(filterDTO.getOn() != null) query.addCriteria(Criteria.where("dateCreated").is(filterDTO.getOn()));
