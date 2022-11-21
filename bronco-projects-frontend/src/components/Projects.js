@@ -25,8 +25,10 @@ const Projects = ({searchInput}) => {
                     let dataKey = filter.replace("#", "").replace(":", "");
                     difference = difference.trim();
                     let result = difference;
-                    if(filter === "#tags:")
-                        result = difference.split(',');
+                    if(filter === "#tags:") {
+                        result = [];
+                        difference.split(',').forEach((elem) => result.push(elem.trim()));
+                    }
                     searchData[dataKey] = result;
                     break;
                 }
