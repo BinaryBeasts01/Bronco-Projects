@@ -38,11 +38,18 @@ const Projects = ({searchInput}) => {
         return searchData;
     }
 
-    useEffect(() => {
-        console.log(JSON.stringify(createSearchInputData()));
+    const fetchPage = async (pageNum) => {
+        let data = createSearchInputData();
+        let page;
+        if (!data) page = await ProjectsService.getProjectsPage(pageNum);
+        else page = await ProjectsService.getSearchProjects(data, pageNum);
 
-        const fetchInitial = async () => {
-            let page = await ProjectsService.getProjectsPage(1);
+        return page;
+    }
+
+    useEffect(() => {
+        const fetchInitial =  () => {
+           let page = fetchPage(1);
 
             console.log(`FIRST LOAD ${page}`);
 
@@ -59,7 +66,7 @@ const Projects = ({searchInput}) => {
         if(loadPage <= totalPages) {
             console.log("HERE")
 
-            let data = await ProjectsService.getProjectsPage(loadPage);
+            let data = await fetchPage(loadPage);
             console.log(`Data ${data}`);
             let page = data["projects"];
 

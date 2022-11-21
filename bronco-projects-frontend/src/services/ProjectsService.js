@@ -22,11 +22,12 @@ class ProjectsService {
             });
     }
 
-    static getSearchProjects(search, page) {
+    static getSearchProjects(data, page) {
         let url = PROJECTS_URL + "filter";
         let config = {
-            method: 'get',
+            method: 'post',
             url: url,
+            data: data
             headers: {
                 'Content-Type': 'application/json'
             }
