@@ -52,12 +52,11 @@ const Projects = ({searchInput}) => {
             setLoadPage(2);
         }
 
-        //fetchInitial();
-        setTotalPages(100);
+        fetchInitial();
     }, [searchInput]); // depends on nothing so this is called after the first render
 
     const next = async (direction) => {
-        if(loadPage > totalPages) {
+        if(loadPage <= totalPages) {
             console.log("HERE")
 
             let data = await ProjectsService.getProjectsPage(loadPage);
