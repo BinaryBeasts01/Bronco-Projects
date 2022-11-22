@@ -48,8 +48,8 @@ const Projects = ({searchInput}) => {
     }
 
     useEffect(() => {
-        const fetchInitial =  () => {
-           let page = fetchPage(1);
+        const fetchInitial = async () => {
+           let page = await fetchPage(1);
 
             console.log(`FIRST LOAD ${page}`);
 
