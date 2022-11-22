@@ -1,10 +1,7 @@
 package com.binarybeasts.broncoprojectsbackend.controllers;
 
 import com.binarybeasts.broncoprojectsbackend.configurations.JwtTokenUtil;
-import com.binarybeasts.broncoprojectsbackend.dtos.JwtResponseDTO;
-import com.binarybeasts.broncoprojectsbackend.dtos.LoginRequestDTO;
-import com.binarybeasts.broncoprojectsbackend.dtos.UserCreateDTO;
-import com.binarybeasts.broncoprojectsbackend.dtos.VerificationCodeDTO;
+import com.binarybeasts.broncoprojectsbackend.dtos.*;
 import com.binarybeasts.broncoprojectsbackend.entities.User;
 import com.binarybeasts.broncoprojectsbackend.entities.VerificationCode;
 import com.binarybeasts.broncoprojectsbackend.repositories.UserRepository;
@@ -12,6 +9,7 @@ import com.binarybeasts.broncoprojectsbackend.repositories.VerificationCodeRepos
 import com.binarybeasts.broncoprojectsbackend.services.EmailService;
 import com.binarybeasts.broncoprojectsbackend.services.JwtUserDetailsService;
 import com.binarybeasts.broncoprojectsbackend.services.PdfFileService;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Random;
 
@@ -102,6 +101,9 @@ public class AuthController {
             u.setResumeFileId(resumeId);
             u.setTranscriptFileId(transcriptId);
             u.setDepartment(user.getDepartment());
+            u.setSubscribedProjects(new ArrayList<>());
+            u.setInterestedProjects(new ArrayList<>());
+            u.setCreatedProjects(new ArrayList<>());
 
             userRepository.insert(u);
             return ResponseEntity.ok().body("Added user");
@@ -125,5 +127,25 @@ public class AuthController {
         catch (BadCredentialsException e) {
             return ResponseEntity.badRequest().body("INVALID CREDENTIALS");
         }
+    }
+
+    @PostMapping("/id")
+    public ResponseEntity<?> getUserById(@RequestBody ObjectNode json) {
+        Optional<User> user = userRepository.findById(json.get("id").asText());
+
+        //return user if present
+        if(user.isPresent()) {
+            UserInfoDTO infoDTO = new UserInfoDTO();
+            infoDTO.setName(user.get().getName());
+            infoDTO.setUserId(user.get().getUserId());
+            infoDTO.setInterestedProjects(user.get().getInterestedProjects());
+            infoDTO.setDepartment(user.get().getDepartment());
+            infoDTO.setSubscribedProjects(user.get().getSubscribedProjects());
+            infoDTO.setCreatedProjects(user.get().getCreatedProjects());
+
+            return ResponseEntity.ok().body(infoDTO);
+        }
+
+        return ResponseEntity.badRequest().body("User with id \"" + json.get("id").asText() + "\" doesn't exist");
     }
 }

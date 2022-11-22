@@ -42,17 +42,18 @@ public class ProjectController {
     private MongoTemplate mongoTemplate;
 
     @PostMapping("/latest")
-    public ResponseEntity<ProjectPageReturnDTO> getRecent(@PageableDefault(page = 0, size = 10, sort = "dateCreated", direction = Sort.Direction.DESC) Pageable pageable) {
-        //if user authenticated, show projects by their department, otherwise most recent
+    public ResponseEntity<ProjectPageReturnDTO> getRecentProjects(@PageableDefault(page = 0, size = 10, sort = "dateCreated", direction = Sort.Direction.DESC) Pageable pageable) {
+        //if user authenticated, show recent projects by their department, otherwise most recent overall
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); // for whatever reason, if user is not logged in there are an "anonymousUser".
         ProjectPageReturnDTO returnDTO = new ProjectPageReturnDTO();
         Page<Project> page;
-        if(!(authentication instanceof AnonymousAuthenticationToken)) {
-            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            page = projectRepository.findByDepartment(user.getDepartment(), pageable);
+
+        if(authentication instanceof AnonymousAuthenticationToken) {
+            page = projectRepository.findAll(pageable);
         }
         else {
-            page = projectRepository.findAll(pageable);
+            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            page = projectRepository.findByDepartment(user.getDepartment(), pageable);
         }
 
         //return projects and page counts
@@ -67,12 +68,13 @@ public class ProjectController {
     public ResponseEntity<?> getProjectById(@RequestBody ObjectNode json) {
         Optional<Project> project = projectRepository.findById(json.get("id").asText());
 
+        //return project if it exists
         return project.isPresent() ? ResponseEntity.ok().body(project)
-                                   : ResponseEntity.badRequest().body("Project with id " + json.get("id").asText() + " doesn't exist");
+                                   : ResponseEntity.badRequest().body("Project with id \"" + json.get("id").asText() + "\" doesn't exist");
     }
 
     @PostMapping("/filter")
-    public ResponseEntity<ProjectPageReturnDTO> getByTags(@PageableDefault(page = 0, size = 10, sort = "dateCreated", direction = Sort.Direction.DESC) Pageable pageable,
+    public ResponseEntity<ProjectPageReturnDTO> getProjectsByFilter(@PageableDefault(page = 0, size = 10, sort = "dateCreated", direction = Sort.Direction.DESC) Pageable pageable,
                                    @RequestBody ProjectFilterDTO filterDTO) {
         //add filters to query based on provided parameters
         Query query = new Query().with(pageable);
@@ -99,7 +101,7 @@ public class ProjectController {
     public ResponseEntity<String> createProject(@RequestBody ProjectCreateDTO project) {
         //verify project doesn't already exist
         if(projectRepository.existsById(project.getName())) {
-            return ResponseEntity.badRequest().body("Project exists");
+            return ResponseEntity.badRequest().body("Project \"" + project.getName() + "\" already exists");
         }
 
         //verify create request made by authenticated user
@@ -108,10 +110,7 @@ public class ProjectController {
             return ResponseEntity.badRequest().body("No authenticated user");
         }
 
-        //Date date = Date.from(LocalDateTime.now().truncatedTo(ChronoUnit.DAYS).toInstant());
-        //LocalDateTime.now().truncatedTo(ChronoUnit.DAYS)
-
-        //create project and add to user's list of created projects
+        //create project
         Project p = new Project();
         p.setName(project.getName());
         p.setDescription(project.getDescription());
@@ -120,14 +119,94 @@ public class ProjectController {
         p.setTags(project.getTags());
         p.setDateCreated(Date.from(Instant.ofEpochMilli(new Date().getTime()).truncatedTo(ChronoUnit.DAYS)));
         p.setSubscribedStudents(new ArrayList<>());
+        p.setInterestedStudents(new ArrayList<>());
 
-        //init list of created projects on first created
-        if(user.getCreatedProjects() == null) user.setCreatedProjects(new ArrayList<>());
+        //add project to user's created projects list
         user.getCreatedProjects().add(p.getName());
 
         //update mongo
         projectRepository.insert(p);
         userRepository.save(user);
         return ResponseEntity.ok().body("Added project");
+    }
+
+    @PostMapping("/interest")
+    public ResponseEntity<String> interestedInProject(@RequestBody ObjectNode json) {
+        Optional<Project> project = projectRepository.findById(json.get("id").asText());
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        //check project exists
+        if(project.isEmpty()) {
+            return ResponseEntity.badRequest().body("Project \"" + json.get("id").asText() + "\" doesn't exist");
+        }
+
+        //check authenticated user
+        if(!userRepository.existsById(user.getUsername())) {
+            return ResponseEntity.badRequest().body("No authenticated user");
+        }
+
+        //don't re-interest in project
+        if(user.getInterestedProjects().contains(project.get().getName())) {
+            return ResponseEntity.badRequest().body("User already interested in project");
+        }
+
+        //don't interest if subscribed
+        if(user.getSubscribedProjects().contains(project.get().getName())) {
+            return ResponseEntity.badRequest().body("User already subscribed to project");
+        }
+
+        //checks for null lists, redundant since user/project creation initializes lists, but didn't in previous versions so not unnecessary yet
+        if(project.get().getInterestedStudents() == null) project.get().setInterestedStudents(new ArrayList<>());
+        if(user.getInterestedProjects() == null) user.setInterestedProjects(new ArrayList<>());
+
+        //add user and project to each other's subscribed lists
+        project.get().getInterestedStudents().add(user.getUserId());
+        user.getInterestedProjects().add(project.get().getName());
+
+        //update mongo
+        projectRepository.save(project.get());
+        userRepository.save(user);
+        return ResponseEntity.ok().body("Interested in project");
+    }
+
+    @PostMapping("/subscribe")
+    public ResponseEntity<String> subscribeToProject(@RequestBody ObjectNode json) {
+        Optional<Project> project = projectRepository.findById(json.get("id").asText());
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        //check project exists
+        if(project.isEmpty()) {
+            return ResponseEntity.badRequest().body("Project \"" + json.get("id").asText() + "\" doesn't exist");
+        }
+
+        //check authenticated user
+        if(!userRepository.existsById(user.getUsername())) {
+            return ResponseEntity.badRequest().body("No authenticated user");
+        }
+
+        //don't re-subscribe to project
+        if(user.getSubscribedProjects().contains(project.get().getName())) {
+            return ResponseEntity.badRequest().body("User already subscribed to project");
+        }
+
+        //checks for null lists, redundant since user/project creation initializes lists, but didn't in previous versions so not unnecessary yet
+        if(project.get().getInterestedStudents() == null) project.get().setInterestedStudents(new ArrayList<>());
+        if(user.getInterestedProjects() == null) user.setInterestedProjects(new ArrayList<>());
+
+        if(project.get().getSubscribedStudents() == null) project.get().setSubscribedStudents(new ArrayList<>());
+        if(user.getSubscribedProjects() == null) user.setSubscribedProjects(new ArrayList<>());
+
+        //remove user and project from each other's interested lists
+        project.get().getInterestedStudents().remove(user.getUserId());
+        user.getInterestedProjects().remove(project.get().getName());
+
+        //add user and project to each other's subscribed lists
+        project.get().getSubscribedStudents().add(user.getUserId());
+        user.getSubscribedProjects().add(project.get().getName());
+
+        //update mongo
+        projectRepository.save(project.get());
+        userRepository.save(user);
+        return ResponseEntity.ok().body("Subscribed to project");
     }
 }

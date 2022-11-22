@@ -6,7 +6,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -21,6 +20,7 @@ public class User implements UserDetails {
 
     private List<String> createdProjects;
     private List<String> subscribedProjects;
+    private List<String> interestedProjects;
 
     private String resumeFileId;
     private String transcriptFileId;

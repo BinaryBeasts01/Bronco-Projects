@@ -11,5 +11,4 @@ public class UserCreateDTO {
     private String department;
     private MultipartFile resume;
     private MultipartFile transcript;
-
 }

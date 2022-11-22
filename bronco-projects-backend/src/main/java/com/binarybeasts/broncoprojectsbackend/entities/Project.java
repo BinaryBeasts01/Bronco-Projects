@@ -16,6 +16,7 @@ public class Project {
     private String department;
  
     private List<String> subscribedStudents;
+    private List<String> interestedStudents;
     private List<String> tags;
 
     private Date dateCreated;
