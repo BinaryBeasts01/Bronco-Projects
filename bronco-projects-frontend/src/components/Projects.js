@@ -5,7 +5,7 @@ import ProjectsService from "../services/ProjectsService";
 import {SearchFilterList} from "../constants/SearchFilterList";
 
 const Projects = ({searchInput}) => {
-
+    console.log(ProjectsService.getProject(2988484434678226135));
     const [projects, setProjects] = useState([]); // Note: some bugs, if initial data is too low, scroll bar won't appear
     const [loadPage, setLoadPage] = useState(null);
     const [totalPages, setTotalPages] = useState(null);
