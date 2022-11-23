@@ -4,6 +4,7 @@ import useInfiniteScroll from "react-easy-infinite-scroll-hook";
 import ProjectsService from "../services/ProjectsService";
 import {SearchFilterList} from "../constants/SearchFilterList";
 
+
 const Projects = ({searchInput}) => {
 
     const [projects, setProjects] = useState([]); // Note: some bugs, if initial data is too low, scroll bar won't appear
@@ -88,21 +89,16 @@ const Projects = ({searchInput}) => {
 
     let projectCards = [];
     projectCards = projects.map((proj, index) => {
-        let cardStyle = {
-            width: "40%",
-            height: "30%",
-            backgroundImage: `url("https://c8.alamy.com/comp/F2HW6T/computer-science-meaning-information-technology-and-text-F2HW6T.jpg")`
-        }
-
         return (
-                <Card key={index} style={cardStyle}>
-                    <Card.Body>
-                        <Card.Title>{proj["name"]}</Card.Title>
-                        <Card.Text>
-                            {proj["description"]}
-                        </Card.Text>
-                    </Card.Body>
-                </Card>
+            <Card key={index} style={styles["project-card"]}>
+                <Card.Img style={{opacity: .5}} src={"https://i.pinimg.com/originals/f8/e7/2e/f8e72e7d126772e56a65295c28020e17.jpg"} alt="Card image" />
+                <Card.ImgOverlay style={{opacity: 1}}>
+                    <Card.Title style={{color: "black"}}>{proj["name"]}</Card.Title>
+                    <Card.Text style={{color: "white"}}>
+                        {proj["description"]}
+                    </Card.Text>
+                </Card.ImgOverlay>
+            </Card>
         );
     });
 
@@ -143,5 +139,10 @@ const styles = {
         "backgroundColor": "red",
         "height": "100%"
     },
+
+    "project-card": {
+        width: "40%",
+        height: "30%",
+    }
 }
 export default Projects;
