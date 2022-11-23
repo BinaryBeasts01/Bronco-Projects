@@ -88,8 +88,14 @@ const Projects = ({searchInput}) => {
 
     let projectCards = [];
     projectCards = projects.map((proj, index) => {
+        let cardStyle = {
+            width: "40%",
+            height: "30%",
+            backgroundImage: `url("https://c8.alamy.com/comp/F2HW6T/computer-science-meaning-information-technology-and-text-F2HW6T.jpg")`
+        }
+
         return (
-                <Card key={index} style={{"width": "40%", "height": "30%", backgroundColor: "green"}}>
+                <Card key={index} style={cardStyle}>
                     <Card.Body>
                         <Card.Title>{proj["name"]}</Card.Title>
                         <Card.Text>
