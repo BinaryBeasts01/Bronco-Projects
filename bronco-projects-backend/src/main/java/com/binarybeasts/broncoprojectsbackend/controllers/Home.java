@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class Home {
-    @RequestMapping(value = { "/", "/{x:[\\w\\-]+}", "/{x:^(?!api$).*$}/**/{y:[\\w\\-]+}" }, method = RequestMethod.GET)
+    @GetMapping(value = { "/", "/projects/{id}" })
     public String getHome() {
         return "index.html";
     }

@@ -90,7 +90,6 @@ const Projects = ({searchInput}) => {
     projectCards = projects.map((proj, index) => {
         return (
                 <Card key={index} style={{"width": "40%", "height": "30%", backgroundColor: "green"}}>
-
                     <Card.Body>
                         <Card.Title>{proj["name"]}</Card.Title>
                         <Card.Text>
