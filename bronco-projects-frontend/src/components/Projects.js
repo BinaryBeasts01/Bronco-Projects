@@ -1,13 +1,19 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Card} from "react-bootstrap";
 import useInfiniteScroll from "react-easy-infinite-scroll-hook";
 import ProjectsService from "../services/ProjectsService";
 import {SearchFilterList} from "../constants/SearchFilterList";
+import getDominantColor from "../services/Colors";
+import rgbHex from 'rgb-hex';
+import complementaryColors from "complementary-colors";
+import "../css/ProjectCard.css";
+
+import base64 from "../constants/EncodedImage"; // this is just for testing
 
 
 const Projects = ({searchInput}) => {
 
-    const [projects, setProjects] = useState([]); // Note: some bugs, if initial data is too low, scroll bar won't appear
+    const [projects, setProjects] = useState({"projects": [], "textColors": []}); // Note: some bugs, if initial data is too low, scroll bar won't appear
     const [loadPage, setLoadPage] = useState(null);
     const [totalPages, setTotalPages] = useState(null);
     const [currentSize, setCurrentSize] = useState(0);
@@ -48,15 +54,35 @@ const Projects = ({searchInput}) => {
         return page;
     }
 
+    const calculateColors = async (projects) => {
+        return await Promise.all(projects.map(async (proj, index) => {
+            let value = await getDominantColor(base64, false);
+
+            let hex = rgbHex(value[0], value[1], value[2]);
+            let color = new complementaryColors(hex);
+            let colors = color.complementary();
+            let primary = color.primary();
+
+            let complementary = colors.filter(x => !primary.includes(x))[0];
+
+            let res = [complementary.r, complementary.g, complementary.b];
+
+            if (res.toString() === [0, 0, 0].toString()) return [255, 255, 255];
+            else if (res.toString() === [255, 255, 255].toString()) return [0, 0, 0];
+            else return res;
+        }));
+    }
+
     useEffect(() => {
         const fetchInitial = async () => {
-           let page = await fetchPage(1);
+            let page = await fetchPage(1);
+            let colors = await calculateColors(page["projects"]);
 
-            console.log(`FIRST LOAD ${page}`);
+            console.log(`FIRST LOAD ${page} ${colors}`);
 
             setTotalPages(page["totalPages"]);
             setCurrentSize(page["projects"].length);
-            setProjects(page["projects"]);
+            setProjects({"projects": page["projects"], "textColors": colors});
             setLoadPage(2);
         }
 
@@ -68,15 +94,19 @@ const Projects = ({searchInput}) => {
             console.log("HERE")
 
             let data = await fetchPage(loadPage);
-            console.log(`Data ${data}`);
+            let colors = await calculateColors(data["projects"])
+
+            console.log(`Data ${data} ${colors}`);
             let page = data["projects"];
 
-            setProjects((prev) =>
-                direction === "up" ? [...page, ...prev] : [...prev, ...page] // direction === "up" ? [...page, ...prev] if in future we want to control what we load above
-            );
             setCurrentSize(prev => prev + page.length);
             console.log(`LOADED: ${direction} ${loadPage}`)
             if (direction === "down") setLoadPage(loadPage + 1);
+            setProjects(prev =>
+                direction === "up" ? {"projects": [...page, ...prev["projects"]], "textColors": [...colors, ...prev["textColors"]]} :
+                                        {"projects": [...prev["projects"], ...page], "textColors": [...prev["textColors"], ...colors]} // direction === "up" ? [...page, ...prev] if in future we want to control what we load above
+
+            );
         }
     };
 
@@ -87,18 +117,23 @@ const Projects = ({searchInput}) => {
         scrollThreshold: .2
     });
 
-    let projectCards = [];
-    projectCards = projects.map((proj, index) => {
+    let projectCards;
+    projectCards = projects["projects"].map((proj, index) => {
+        let color = projects["textColors"][index];
+        let textColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
         return (
-            <Card key={index} style={styles["project-card"]}>
-                <Card.Img style={{opacity: .5}} src={"https://i.pinimg.com/originals/f8/e7/2e/f8e72e7d126772e56a65295c28020e17.jpg"} alt="Card image" />
-                <Card.ImgOverlay style={{opacity: 1}}>
-                    <Card.Title style={{color: "black"}}>{proj["name"]}</Card.Title>
-                    <Card.Text style={{color: "white"}}>
-                        {proj["description"]}
-                    </Card.Text>
-                </Card.ImgOverlay>
-            </Card>
+            <div style={styles["project-card-parent"]}>
+                <div style={styles["project-card-padding"]}></div>
+                <Card key={index} className={"project-card"}>
+                    <Card.Img style={{width: "100%", height: "100%", objectFit: "cover", filter: "blur(3px)"}} src={"https://i.pinimg.com/originals/f8/e7/2e/f8e72e7d126772e56a65295c28020e17.jpg"} alt="Card image" />
+                    <Card.ImgOverlay style={{opacity: 1}}>
+                        <Card.Title style={{color: textColor}}>{proj["name"]}</Card.Title>
+                        <Card.Text style={{color: textColor}}>
+                            {proj["description"]}
+                        </Card.Text>
+                    </Card.ImgOverlay>
+                </Card>
+            </div>
         );
     });
 
@@ -109,8 +144,14 @@ const Projects = ({searchInput}) => {
             <div style={styles["padding"]}/>
 
             <div style={styles["projects"]}>
-                <div ref={ref} style={{backgroundColor: "purple", width: "100%", height: "100%", overflowY: "scroll"}}>
-                    {projectCards}
+                <div ref={ref} style={{ width: "100%", height: "100%", overflowY: "scroll", display: "flex", flexDirection: "row"}}>
+                    <div style={{width: "50%", height: "100%", display: "flex", flexDirection: "column"}}>
+                        {projectCards}
+                    </div>
+
+                    <div style={{width: "50%", height: "100%"}}>
+
+                    </div>
                 </div>
 
             </div>
@@ -124,25 +165,26 @@ const styles = {
         "display": "flex",
         "flexDirection": "row",
         "height": "90%",
-        "backgroundColor": "green"
     },
     projects: {
         "display": "flex",
         "flexDirection": "row",
-        "width": "55%",
+        "width": "60%",
         "height": "100%",
-        "backgroundColor": "blue",
+        "backgroundColor": "rbg(3,3,3)",
     },
     padding: {
         "display": "flex",
-        "width": "45%",
-        "backgroundColor": "red",
+        "width": "40%",
+        "backgroundColor": "rbg(3,3,3)",
         "height": "100%"
     },
-
-    "project-card": {
-        width: "40%",
-        height: "30%",
-    }
+    "project-card-parent": {
+        width: "100%",
+        height: "40%",
+    },
+    "project-card-padding": {
+        height: "10%",
+    },
 }
 export default Projects;

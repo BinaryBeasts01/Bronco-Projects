@@ -41,9 +41,10 @@ function NavBar({email, setEmail, setIsLoggedIn, setSearchInput}) {
 
 const styles = {
     navbar: {
-        "backgroundColor": "black",
+        "backgroundColor": "rgb(26,26,27)",
         "height": "10%",
-        "position": "sticky"
+        "position": "sticky",
+        borderBottom: "5px solid rgb(87, 88, 89)"
     },
     logo: {
         "display": "flex",
