@@ -12,7 +12,7 @@ function App() {
       <Router>
         <Routes>
             <Route exact path='/' element={<Home />}/>
-            <Route exact path="project/:id" element={<ProjectScreen />}/>
+            <Route exact path="projects/:id" element={<ProjectScreen />}/>
         </Routes>
       </Router>
       // Need to specify Browser Routes

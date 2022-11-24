@@ -2,8 +2,6 @@ import API_URL from "../constants/API_URL";
 import axios from "axios";
 
 const PROJECTS_URL = API_URL + "projects/";
-const PROJECT_URL = API_URL + "project/";
-
 class ProjectsService {
     static getProjectsPage(page) {
         let url = PROJECTS_URL + "latest";
@@ -41,18 +39,20 @@ class ProjectsService {
             })
     }
     static getProject(id) {
-        let url = PROJECT_URL + toString(id);
+        let url = PROJECTS_URL + "id";
+        let data = {"id": id}
         let config = {
             method: 'post',
             url: url,
             headers: {
                 'Content-Type': 'application/json'
             },
-            data: toString(id)
+            data: data
         }
         return axios(config)
             .then((response) => {
-                console.log(JSON.stringify(response.data));
+                console.log(response.data);
+                return response.data;
             })
             .catch((error) => {
                 console.log(error);

@@ -7,8 +7,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class Home {
-    @RequestMapping(value={"/", "/project/**"}, method= RequestMethod.GET)
+    @GetMapping("/")
     public String getHome() {
         return "index.html";
     }
+
+    @GetMapping("/projects/**")
+    public String getProjects() {return "forward:/";}
 }

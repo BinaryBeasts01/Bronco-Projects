@@ -8,7 +8,7 @@ import {useParams} from "react-router-dom";
 
 const ProjectScreen = () => {
     const [email, setEmail] = useState(null)
-    const {id}: { id:string } = useParams();
+    const { id }: {id: string } = useParams()
     // if it is load user specific data, get profile pic for navbar, get user recommendations for projects
     return (
         <div style={styles.home}>
