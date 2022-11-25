@@ -8,7 +8,9 @@ import rgbHex from 'rgb-hex';
 import complementaryColors from "complementary-colors";
 import "../css/ProjectCard.css";
 
-import base64 from "../constants/EncodedImage"; // this is just for testing
+import base64 from "../constants/EncodedImage";
+import Notifications from "./Notifications";
+import Sidebar from "./Sidebar"; // this is just for testing
 
 
 const Projects = ({searchInput}) => {
@@ -121,14 +123,25 @@ const Projects = ({searchInput}) => {
     projectCards = projects["projects"].map((proj, index) => {
         let color = projects["textColors"][index];
         let textColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+
+        let sliceMax = proj["tags"].length < 3 ? proj["tags"].length : 3;
+        let tags = "";
+        proj["tags"].slice(0, sliceMax).forEach((value, index) => {
+            if(index < sliceMax - 1) tags += `${value},`;
+            else tags += value;
+    });
+
+        let middot = `\u00B7`;
+
         return (
             <div style={styles["project-card-parent"]}>
-                <div style={styles["project-card-padding"]}></div>
+                <div style={index !== 0 ? styles["project-card-padding"] : {}}></div>
                 <Card key={index} className={"project-card"}>
                     <Card.Img style={{width: "100%", height: "100%", objectFit: "cover", filter: "blur(3px)"}} src={"https://i.pinimg.com/originals/f8/e7/2e/f8e72e7d126772e56a65295c28020e17.jpg"} alt="Card image" />
                     <Card.ImgOverlay style={{opacity: 1}}>
                         <Card.Title style={{color: textColor}}>{proj["name"]}</Card.Title>
-                        <Card.Text style={{color: textColor}}>
+                        <Card.Subtitle style={{color: textColor}}>{`${proj["createdBy"]} ${middot} ${proj["department"]} ${middot} ${tags}`} </Card.Subtitle>
+                        <Card.Text style={{color: textColor, textOverflow: "ellipsis"}}>
                             {proj["description"]}
                         </Card.Text>
                     </Card.ImgOverlay>
@@ -149,8 +162,8 @@ const Projects = ({searchInput}) => {
                         {projectCards}
                     </div>
 
-                    <div style={{width: "50%", height: "100%"}}>
-
+                    <div style={{width: "50%", height: "100%", display: "flex", flexDirection: "column", paddingLeft: "10%"}}>
+                        <Sidebar />
                     </div>
                 </div>
 
@@ -165,18 +178,19 @@ const styles = {
         "display": "flex",
         "flexDirection": "row",
         "height": "90%",
+        "paddingTop": "50px"
     },
     projects: {
         "display": "flex",
         "flexDirection": "row",
         "width": "60%",
         "height": "100%",
-        "backgroundColor": "rbg(3,3,3)",
+        "backgroundColor": "rgb(3,3,3)",
     },
     padding: {
         "display": "flex",
         "width": "40%",
-        "backgroundColor": "rbg(3,3,3)",
+        "backgroundColor": "rgb(3,3,3)",
         "height": "100%"
     },
     "project-card-parent": {
