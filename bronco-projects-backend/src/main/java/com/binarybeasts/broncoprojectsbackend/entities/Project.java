@@ -10,6 +10,7 @@ import java.util.List;
 @Data
 public class Project {
     @Id
+    private String uuid;
     private String name;
     private String description;
     private String createdBy;
