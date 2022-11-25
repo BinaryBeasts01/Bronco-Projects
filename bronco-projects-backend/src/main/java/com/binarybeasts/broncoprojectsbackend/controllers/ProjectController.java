@@ -121,6 +121,11 @@ public class ProjectController {
         p.setSubscribedStudents(new ArrayList<>());
         p.setInterestedStudents(new ArrayList<>());
 
+        //needed for older accounts/redundancy
+        if(user.getCreatedProjects() == null) {
+            user.setCreatedProjects(new ArrayList<>());
+        }
+
         //add project to user's created projects list
         user.getCreatedProjects().add(p.getName());
 
@@ -144,6 +149,19 @@ public class ProjectController {
         if(!userRepository.existsById(user.getUsername())) {
             return ResponseEntity.badRequest().body("No authenticated user");
         }
+
+        //needed for older accounts/redundancy
+        //if user does not have interested projects list, initialize it
+        if(user.getInterestedProjects() == null) {
+            user.setInterestedProjects(new ArrayList<>());
+        }
+
+        //needed for older accounts/redundancy
+        //if user does not have subscribed projects list, initialize it
+        if(user.getSubscribedProjects() == null) {
+            user.setSubscribedProjects(new ArrayList<>());
+        }
+
 
         //don't re-interest in project
         if(user.getInterestedProjects().contains(project.get().getName())) {
@@ -182,6 +200,18 @@ public class ProjectController {
         //check authenticated user
         if(!userRepository.existsById(user.getUsername())) {
             return ResponseEntity.badRequest().body("No authenticated user");
+        }
+
+        //needed for older accounts/redundancy
+        //if user does not have interested projects list, initialize it
+        if(user.getInterestedProjects() == null) {
+            user.setInterestedProjects(new ArrayList<>());
+        }
+
+        //needed for older accounts/redundancy
+        //if user does not have subscribed projects list, initialize it
+        if(user.getSubscribedProjects() == null) {
+            user.setSubscribedProjects(new ArrayList<>());
         }
 
         //don't re-subscribe to project
