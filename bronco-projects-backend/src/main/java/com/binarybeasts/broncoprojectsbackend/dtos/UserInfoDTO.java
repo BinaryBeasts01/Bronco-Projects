@@ -12,7 +12,6 @@ public class UserInfoDTO {
     private List<String> subscribedProjects;
     private List<String> interestedProjects;
 
-    //private String resumeFileId;
-    //private String transcriptFileId;
+    private String resumeFileId;
     private String department;
 }

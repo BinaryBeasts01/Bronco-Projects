@@ -1,12 +1,13 @@
 package com.binarybeasts.broncoprojectsbackend.dtos;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-
 import java.io.InputStream;
 
 @Data
-public class PDFFileDTO {
+public class FileDTO {
     private String name;
-    private InputStream in;
+    private String type;
+    private String size;
+    private byte[] file;
+    //private InputStream in;
 }

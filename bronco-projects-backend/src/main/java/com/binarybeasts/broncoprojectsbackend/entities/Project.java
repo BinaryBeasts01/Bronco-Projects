@@ -15,6 +15,8 @@ public class Project {
     private String description;
     private String createdBy;
     private String department;
+    private String status;
+    private String imageFileId;
  
     private List<String> subscribedStudents;
     private List<String> interestedStudents;

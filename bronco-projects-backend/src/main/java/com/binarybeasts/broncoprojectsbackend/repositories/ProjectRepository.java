@@ -8,4 +8,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 public interface ProjectRepository extends MongoRepository<Project, String> {
     //get projects that match department
     Page<Project> findByDepartment(String department, Pageable pageable);
+
+    //check if project with name already exists
+    boolean existsByName(String name);
 }
