@@ -93,8 +93,8 @@ public class AuthController {
         MultipartFile resume = user.getResume();
         MultipartFile transcript = user.getTranscript();
         try {
-            String resumeId = fileService.addPdf(resume.getName(), resume);
-            String transcriptId = fileService.addPdf(transcript.getName(), transcript);
+            String resumeId = fileService.addPdf(resume);
+            String transcriptId = fileService.addPdf(transcript);
 
             User u = new User();
             u.setUserId(user.getEmail());

@@ -133,7 +133,7 @@ public class ProjectController {
 
         try {
             MultipartFile image = project.getImage();
-            String imageId = fileService.addPhoto(image.getName(), image);
+            String imageId = fileService.addPhoto(image);
             p.setImageFileId(imageId);
         } catch (IOException e) {
             return ResponseEntity.badRequest().body("Could not add image");
