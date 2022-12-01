@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import NavBar from "../components/NavBar";
 import Projects from "../components/Projects";
-import API_URL from "../constants/API_URL";
 
 const Home = () => {
     const [email, setEmail] = useState(null)

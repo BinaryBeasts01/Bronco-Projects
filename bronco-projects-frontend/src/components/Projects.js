@@ -9,7 +9,6 @@ import complementaryColors from "complementary-colors";
 import "../css/ProjectCard.css";
 
 import base64 from "../constants/EncodedImage";
-import Notifications from "./Notifications";
 import Sidebar from "./Sidebar"; // this is just for testing
 
 

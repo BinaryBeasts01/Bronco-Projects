@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import {Card, ListGroup, ListGroupItem} from "react-bootstrap";
 import {EventLogList} from "./EventLogList";
 
 const Notifications = ({}) => {
