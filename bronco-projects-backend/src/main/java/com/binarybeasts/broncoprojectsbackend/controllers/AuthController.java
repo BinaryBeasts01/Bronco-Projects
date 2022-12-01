@@ -8,10 +8,12 @@ import com.binarybeasts.broncoprojectsbackend.repositories.UserRepository;
 import com.binarybeasts.broncoprojectsbackend.repositories.VerificationCodeRepository;
 import com.binarybeasts.broncoprojectsbackend.services.EmailService;
 import com.binarybeasts.broncoprojectsbackend.services.JwtUserDetailsService;
-import com.binarybeasts.broncoprojectsbackend.services.PdfFileService;
+import com.binarybeasts.broncoprojectsbackend.services.FileService;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -49,7 +51,7 @@ public class AuthController {
     private JwtUserDetailsService userDetailsService;
 
     @Autowired
-    private PdfFileService pdfFileService;
+    private FileService fileService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -91,8 +93,8 @@ public class AuthController {
         MultipartFile resume = user.getResume();
         MultipartFile transcript = user.getTranscript();
         try {
-            String resumeId = pdfFileService.addPdf(resume.getName(), resume);
-            String transcriptId = pdfFileService.addPdf(transcript.getName(), transcript);
+            String resumeId = fileService.addPdf(resume);
+            String transcriptId = fileService.addPdf(transcript);
 
             User u = new User();
             u.setUserId(user.getEmail());
@@ -142,10 +144,24 @@ public class AuthController {
             infoDTO.setDepartment(user.get().getDepartment());
             infoDTO.setSubscribedProjects(user.get().getSubscribedProjects());
             infoDTO.setCreatedProjects(user.get().getCreatedProjects());
+            infoDTO.setResumeFileId(user.get().getResumeFileId());
 
             return ResponseEntity.ok().body(infoDTO);
         }
 
         return ResponseEntity.badRequest().body("User with id \"" + json.get("id").asText() + "\" doesn't exist");
+    }
+
+    @PostMapping("/resume")
+    public ResponseEntity<?> getUserResume(@RequestBody ObjectNode json) {
+        try {
+            FileDTO pdf = fileService.getPdf(json.get("id").asText());
+            return ResponseEntity.ok()
+                    .contentType(MediaType.parseMediaType(pdf.getType()))
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + pdf.getName() + "\"")
+                    .body(pdf.getFile());
+        } catch(IOException e) {
+            return ResponseEntity.badRequest().body("Could not retrieve image");
+        }
     }
 }

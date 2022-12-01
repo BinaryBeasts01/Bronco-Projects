@@ -1,5 +1,6 @@
 package com.binarybeasts.broncoprojectsbackend.controllers;
 
+import com.binarybeasts.broncoprojectsbackend.dtos.FileDTO;
 import com.binarybeasts.broncoprojectsbackend.dtos.ProjectCreateDTO;
 import com.binarybeasts.broncoprojectsbackend.dtos.ProjectFilterDTO;
 import com.binarybeasts.broncoprojectsbackend.dtos.ProjectPageReturnDTO;
@@ -7,6 +8,7 @@ import com.binarybeasts.broncoprojectsbackend.entities.Project;
 import com.binarybeasts.broncoprojectsbackend.entities.User;
 import com.binarybeasts.broncoprojectsbackend.repositories.ProjectRepository;
 import com.binarybeasts.broncoprojectsbackend.repositories.UserRepository;
+import com.binarybeasts.broncoprojectsbackend.services.FileService;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,11 +19,15 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -40,6 +46,9 @@ public class ProjectController {
 
     @Autowired
     private MongoTemplate mongoTemplate;
+
+    @Autowired
+    private FileService fileService;
 
     @PostMapping("/latest")
     public ResponseEntity<ProjectPageReturnDTO> getRecentProjects(@PageableDefault(page = 0, size = 10, sort = "dateCreated", direction = Sort.Direction.DESC) Pageable pageable) {
@@ -97,11 +106,11 @@ public class ProjectController {
         return ResponseEntity.ok().body(returnDTO);
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<String> createProject(@RequestBody ProjectCreateDTO project) {
+    @PostMapping(value="/create", consumes={"multipart/form-data"})
+    public ResponseEntity<String> createProject(@ModelAttribute ProjectCreateDTO project) {
         //verify project doesn't already exist
-        if(projectRepository.existsById(project.getName())) {
-            return ResponseEntity.badRequest().body("Project \"" + project.getName() + "\" already exists");
+        if(projectRepository.existsByName(project.getName())) {
+            return ResponseEntity.badRequest().body("Project with name \"" + project.getName() + "\" already exists");
         }
 
         //verify create request made by authenticated user
@@ -120,14 +129,26 @@ public class ProjectController {
         p.setDateCreated(Date.from(Instant.ofEpochMilli(new Date().getTime()).truncatedTo(ChronoUnit.DAYS)));
         p.setSubscribedStudents(new ArrayList<>());
         p.setInterestedStudents(new ArrayList<>());
+        p.setStatus("Active");
 
-        //add project to user's created projects list
-        user.getCreatedProjects().add(p.getName());
+        try {
+            MultipartFile image = project.getImage();
+            String imageId = fileService.addPhoto(image);
+            p.setImageFileId(imageId);
+        } catch (IOException e) {
+            return ResponseEntity.badRequest().body("Could not add image");
+        }
+
+        //needed for older accounts/redundancy
+        if(user.getCreatedProjects() == null) {
+            user.setCreatedProjects(new ArrayList<>());
+        }
 
         //update mongo
         projectRepository.insert(p);
+        user.getCreatedProjects().add(p.getUuid()); //done after project insert to be able to use uuid
         userRepository.save(user);
-        return ResponseEntity.ok().body("Added project");
+        return ResponseEntity.ok().body("Created project \"" + p.getName() + "\" with id \"" + p.getUuid() + "\"");
     }
 
     @PostMapping("/interest")
@@ -145,28 +166,41 @@ public class ProjectController {
             return ResponseEntity.badRequest().body("No authenticated user");
         }
 
+        //needed for older accounts/redundancy
+        //if user does not have interested projects list, initialize it
+        if(user.getInterestedProjects() == null) {
+            user.setInterestedProjects(new ArrayList<>());
+        }
+
+        //needed for older accounts/redundancy
+        //if user does not have subscribed projects list, initialize it
+        if(user.getSubscribedProjects() == null) {
+            user.setSubscribedProjects(new ArrayList<>());
+        }
+
         //don't re-interest in project
-        if(user.getInterestedProjects().contains(project.get().getName())) {
-            return ResponseEntity.badRequest().body("User already interested in project");
+        if(user.getInterestedProjects().contains(project.get().getUuid())) {
+            return ResponseEntity.badRequest().body("User already interested in project \"" + json.get("id").asText() + "\"");
         }
 
         //don't interest if subscribed
-        if(user.getSubscribedProjects().contains(project.get().getName())) {
-            return ResponseEntity.badRequest().body("User already subscribed to project");
+        if(user.getSubscribedProjects().contains(project.get().getUuid())) {
+            return ResponseEntity.badRequest().body("User already subscribed to project \"" + json.get("id").asText() + "\"");
         }
 
         //checks for null lists, redundant since user/project creation initializes lists, but didn't in previous versions so not unnecessary yet
-        if(project.get().getInterestedStudents() == null) project.get().setInterestedStudents(new ArrayList<>());
-        if(user.getInterestedProjects() == null) user.setInterestedProjects(new ArrayList<>());
+        if(project.get().getInterestedStudents() == null) {
+            project.get().setInterestedStudents(new ArrayList<>());
+        }
 
         //add user and project to each other's subscribed lists
         project.get().getInterestedStudents().add(user.getUserId());
-        user.getInterestedProjects().add(project.get().getName());
+        user.getInterestedProjects().add(project.get().getUuid());
 
         //update mongo
         projectRepository.save(project.get());
         userRepository.save(user);
-        return ResponseEntity.ok().body("Interested in project");
+        return ResponseEntity.ok().body("Interested in project \"" + json.get("id").asText() + "\"");
     }
 
     @PostMapping("/subscribe")
@@ -184,29 +218,70 @@ public class ProjectController {
             return ResponseEntity.badRequest().body("No authenticated user");
         }
 
+        //needed for older accounts/redundancy
+        //if user does not have interested projects list, initialize it
+        if(user.getInterestedProjects() == null) {
+            user.setInterestedProjects(new ArrayList<>());
+        }
+
+        //needed for older accounts/redundancy
+        //if user does not have subscribed projects list, initialize it
+        if(user.getSubscribedProjects() == null) {
+            user.setSubscribedProjects(new ArrayList<>());
+        }
+
         //don't re-subscribe to project
-        if(user.getSubscribedProjects().contains(project.get().getName())) {
-            return ResponseEntity.badRequest().body("User already subscribed to project");
+        if(user.getSubscribedProjects().contains(project.get().getUuid())) {
+            return ResponseEntity.badRequest().body("User already subscribed to project \"" + json.get("id").asText() + "\"");
         }
 
         //checks for null lists, redundant since user/project creation initializes lists, but didn't in previous versions so not unnecessary yet
-        if(project.get().getInterestedStudents() == null) project.get().setInterestedStudents(new ArrayList<>());
-        if(user.getInterestedProjects() == null) user.setInterestedProjects(new ArrayList<>());
+        if(project.get().getInterestedStudents() == null) {
+            project.get().setInterestedStudents(new ArrayList<>());
+        }
 
-        if(project.get().getSubscribedStudents() == null) project.get().setSubscribedStudents(new ArrayList<>());
-        if(user.getSubscribedProjects() == null) user.setSubscribedProjects(new ArrayList<>());
+        if(project.get().getSubscribedStudents() == null) {
+            project.get().setSubscribedStudents(new ArrayList<>());
+        }
 
         //remove user and project from each other's interested lists
         project.get().getInterestedStudents().remove(user.getUserId());
-        user.getInterestedProjects().remove(project.get().getName());
+        user.getInterestedProjects().remove(project.get().getUuid());
 
         //add user and project to each other's subscribed lists
         project.get().getSubscribedStudents().add(user.getUserId());
-        user.getSubscribedProjects().add(project.get().getName());
+        user.getSubscribedProjects().add(project.get().getUuid());
 
         //update mongo
         projectRepository.save(project.get());
         userRepository.save(user);
-        return ResponseEntity.ok().body("Subscribed to project");
+        return ResponseEntity.ok().body("Subscribed to project \"" + json.get("id").asText() + "\"");
+    }
+
+    @PostMapping("/status")
+    public ResponseEntity<String> updateProjectStatus(@RequestBody ObjectNode json) {
+        Optional<Project> project = projectRepository.findById(json.get("id").asText());
+
+        //check project exists
+        if(project.isEmpty()) {
+            return ResponseEntity.badRequest().body("Project \"" + json.get("id").asText() + "\" doesn't exist");
+        }
+
+        project.get().setStatus(json.get("status").asText());
+        projectRepository.save(project.get());
+        return ResponseEntity.ok().body("Project status updated to \"" + json.get("status").asText() + "\"");
+    }
+
+    @PostMapping("/image")
+    public ResponseEntity<?> getProjectImage(@RequestBody ObjectNode json) {
+        try {
+            FileDTO photo = fileService.getPhoto(json.get("id").asText());
+            return ResponseEntity.ok()
+                    .contentType(MediaType.parseMediaType(photo.getType()))
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + photo.getName() + "\"")
+                    .body(photo.getFile());
+        } catch(IOException e) {
+            return ResponseEntity.badRequest().body("Could not retrieve image");
+        }
     }
 }
