@@ -130,6 +130,7 @@ public class ProjectController {
 
         try {
             p.setImage(Base64.getEncoder().encodeToString(project.getImage().getBytes()));
+            p.setExtension(project.getImage().getContentType().substring(project.getImage().getContentType().lastIndexOf('/') + 1));
         } catch (IOException e) {
             return ResponseEntity.badRequest().body("Could not add image");
         }
