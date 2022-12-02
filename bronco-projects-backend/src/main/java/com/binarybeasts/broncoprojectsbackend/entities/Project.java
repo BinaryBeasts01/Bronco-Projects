@@ -17,6 +17,7 @@ public class Project {
     private String department;
     private String status;
     private String image;
+    private String extension;
  
     private List<String> subscribedStudents;
     private List<String> interestedStudents;
