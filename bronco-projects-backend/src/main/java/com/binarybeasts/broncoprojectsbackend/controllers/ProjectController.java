@@ -1,6 +1,5 @@
 package com.binarybeasts.broncoprojectsbackend.controllers;
 
-import com.binarybeasts.broncoprojectsbackend.dtos.FileDTO;
 import com.binarybeasts.broncoprojectsbackend.dtos.ProjectCreateDTO;
 import com.binarybeasts.broncoprojectsbackend.dtos.ProjectFilterDTO;
 import com.binarybeasts.broncoprojectsbackend.dtos.ProjectPageReturnDTO;
@@ -19,14 +18,11 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -34,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.Base64;
 
 @RestController
 @RequestMapping("/api/projects")
@@ -132,9 +129,7 @@ public class ProjectController {
         p.setStatus("Active");
 
         try {
-            MultipartFile image = project.getImage();
-            String imageId = fileService.addPhoto(image);
-            p.setImageFileId(imageId);
+            p.setImage(Base64.getEncoder().encodeToString(project.getImage().getBytes()));
         } catch (IOException e) {
             return ResponseEntity.badRequest().body("Could not add image");
         }
@@ -270,18 +265,5 @@ public class ProjectController {
         project.get().setStatus(json.get("status").asText());
         projectRepository.save(project.get());
         return ResponseEntity.ok().body("Project status updated to \"" + json.get("status").asText() + "\"");
-    }
-
-    @PostMapping("/image")
-    public ResponseEntity<?> getProjectImage(@RequestBody ObjectNode json) {
-        try {
-            FileDTO photo = fileService.getPhoto(json.get("id").asText());
-            return ResponseEntity.ok().body(new String(photo.getFile()));
-                    //.contentType(MediaType.parseMediaType(photo.getType()))
-                    //.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + photo.getName() + "\"")
-                    //.body(new String(photo.getFile()));
-        } catch(IOException e) {
-            return ResponseEntity.badRequest().body("Could not retrieve image");
-        }
     }
 }
