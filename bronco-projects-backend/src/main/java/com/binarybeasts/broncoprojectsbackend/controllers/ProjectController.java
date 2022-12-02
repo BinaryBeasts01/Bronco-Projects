@@ -276,10 +276,10 @@ public class ProjectController {
     public ResponseEntity<?> getProjectImage(@RequestBody ObjectNode json) {
         try {
             FileDTO photo = fileService.getPhoto(json.get("id").asText());
-            return ResponseEntity.ok()
-                    .contentType(MediaType.parseMediaType(photo.getType()))
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + photo.getName() + "\"")
-                    .body(photo.getFile());
+            return ResponseEntity.ok().body(new String(photo.getFile()));
+                    //.contentType(MediaType.parseMediaType(photo.getType()))
+                    //.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + photo.getName() + "\"")
+                    //.body(new String(photo.getFile()));
         } catch(IOException e) {
             return ResponseEntity.badRequest().body("Could not retrieve image");
         }
