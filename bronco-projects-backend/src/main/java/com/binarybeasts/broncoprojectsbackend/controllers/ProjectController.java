@@ -30,10 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/projects")
@@ -132,9 +129,7 @@ public class ProjectController {
         p.setStatus("Active");
 
         try {
-            MultipartFile image = project.getImage();
-            String imageId = fileService.addPhoto(image);
-            p.setImageFileId(imageId);
+            p.setImage(Base64.getEncoder().encodeToString(project.getImage().getBytes()));
         } catch (IOException e) {
             return ResponseEntity.badRequest().body("Could not add image");
         }
@@ -270,18 +265,5 @@ public class ProjectController {
         project.get().setStatus(json.get("status").asText());
         projectRepository.save(project.get());
         return ResponseEntity.ok().body("Project status updated to \"" + json.get("status").asText() + "\"");
-    }
-
-    @PostMapping("/image")
-    public ResponseEntity<?> getProjectImage(@RequestBody ObjectNode json) {
-        try {
-            FileDTO photo = fileService.getPhoto(json.get("id").asText());
-            return ResponseEntity.ok().body(new String(photo.getFile()));
-                    //.contentType(MediaType.parseMediaType(photo.getType()))
-                    //.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + photo.getName() + "\"")
-                    //.body(new String(photo.getFile()));
-        } catch(IOException e) {
-            return ResponseEntity.badRequest().body("Could not retrieve image");
-        }
     }
 }

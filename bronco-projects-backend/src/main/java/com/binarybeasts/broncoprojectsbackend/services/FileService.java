@@ -12,10 +12,7 @@ import org.springframework.data.mongodb.gridfs.GridFsOperations;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Base64;
 
 @Service
 public class FileService {
@@ -43,25 +40,5 @@ public class FileService {
         pdf.setFile(operations.getResource(file).getInputStream().readAllBytes());
 
         return pdf;
-    }
-
-    public String addPhoto(MultipartFile file) throws IOException {
-        DBObject metaData = new BasicDBObject();
-        metaData.put("fileSize", file.getSize());
-        ObjectId id = gridFsTemplate.store(
-                new ByteArrayInputStream(Base64.getEncoder().encode(file.getBytes())), file.getName(), file.getContentType(), metaData);
-        return id.toString();
-    }
-
-    public FileDTO getPhoto(String id) throws IllegalStateException, IOException {
-        GridFSFile file = gridFsTemplate.findOne(new Query(Criteria.where("_id").is(id)));
-        FileDTO photo = new FileDTO();
-
-        photo.setName(file.getFilename());
-        photo.setType(file.getMetadata().get("_contentType").toString());
-        photo.setSize(file.getMetadata().get("fileSize").toString());
-        photo.setFile(operations.getResource(file).getInputStream().readAllBytes());
-
-        return photo;
     }
 }
