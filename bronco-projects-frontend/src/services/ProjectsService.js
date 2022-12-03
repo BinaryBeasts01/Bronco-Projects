@@ -16,6 +16,7 @@ class ProjectsService {
 
         return axios(config)
             .then((response) => {
+                console.log("PROJECTS")
                 console.log(response.data)
                 return response.data
             });
@@ -38,6 +39,7 @@ class ProjectsService {
                 return response.data;
             })
     }
+
     static getProject(id) {
         let url = PROJECTS_URL + "id";
         let data = {"id": id}

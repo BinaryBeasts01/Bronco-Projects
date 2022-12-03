@@ -79,7 +79,8 @@ const Projects = ({searchInput}) => {
             let page = await fetchPage(1);
             let colors = await calculateColors(page["projects"]);
 
-            console.log(`FIRST LOAD ${page} ${colors}`);
+            console.log(`FIRST LOAD`);
+            console.log(`${page}`)
 
             setTotalPages(page["totalPages"]);
             setCurrentSize(page["projects"].length);
