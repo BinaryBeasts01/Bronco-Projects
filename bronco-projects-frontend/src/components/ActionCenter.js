@@ -1,7 +1,14 @@
 import React from "react";
 import {Button, Card, ListGroup, ListGroupItem} from "react-bootstrap";
+import {useNavigate} from "react-router-dom";
 
-const ActionCenter = () => {
+const ActionCenter = ({email}) => {
+    const navigate = useNavigate();
+
+    const openProjectAdmin = () => {
+        navigate("/project_admin", {state:{email: email}});
+    }
+
     return (
       <Card>
           <Card.Title>Actions</Card.Title>
@@ -10,7 +17,7 @@ const ActionCenter = () => {
                   <Button>Create Project</Button>
               </ListGroupItem>
               <ListGroupItem>
-                  <Button>View Created Projects</Button>
+                  <Button onClick={openProjectAdmin}>View Created Projects</Button>
               </ListGroupItem>
           </ListGroup>
       </Card>

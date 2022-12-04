@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import Home from "./screens/Home";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ProjectScreen from "./screens/ProjectScreen";
+import ProjectAdminScreen from "./screens/ProjectAdminScreen";
 
 function App() {
   useEffect(() => {
@@ -13,6 +14,7 @@ function App() {
         <Routes>
             <Route exact path='/' element={<Home />}/>
             <Route exact path="projects/:id" element={<ProjectScreen />}/>
+            <Route exact path="/project_admin" element={<ProjectAdminScreen />}/>
         </Routes>
       </Router>
       // Need to specify Browser Routes

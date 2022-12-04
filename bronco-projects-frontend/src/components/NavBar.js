@@ -20,6 +20,7 @@ function NavBar({email, setEmail, setIsLoggedIn, setSearchInput}) {
     else {
         // init profile with user icon
         setIsLoggedIn(true);
+        // set email based on jwt token
         profile = <Button variant='success' onClick={(e) => {console.log(email)}}>PROFILE BUTTON</Button>
     }
 

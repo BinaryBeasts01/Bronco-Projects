@@ -15,10 +15,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -150,6 +149,17 @@ public class AuthController {
         }
 
         return ResponseEntity.badRequest().body("User with id \"" + json.get("id").asText() + "\" doesn't exist");
+    }
+
+    @GetMapping("/id")
+    public ResponseEntity<?> getUserId(Authentication authentication) {
+        if(authentication instanceof AnonymousAuthenticationToken) {
+            return ResponseEntity.badRequest().body("NO TOKEN PROVIDED");
+        }
+        else {
+            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            return ResponseEntity.ok().body(user.getUserId());
+        }
     }
 
     @PostMapping("/resume")

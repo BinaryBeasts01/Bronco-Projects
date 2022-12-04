@@ -118,10 +118,23 @@ class AuthService {
         const user = JSON.parse(localStorage.getItem('user'));
 
         if (user && user['accessToken']) {
-            return { Authorization: 'Bearer ' + user['accessToken'] };
+            return { 'Authorization': 'Bearer ' + user['accessToken'] };
         }
         else
             return {};
+    }
+
+    static getUserIdFromToken() {
+        let url = AUTH_URL + "id/"
+        let config = {
+            method: "get",
+            url: url,
+            headers: {...this.authHeader()}
+        }
+        return axios(config)
+            .then((response) => {
+                return response.data;
+            })
     }
 }
 
