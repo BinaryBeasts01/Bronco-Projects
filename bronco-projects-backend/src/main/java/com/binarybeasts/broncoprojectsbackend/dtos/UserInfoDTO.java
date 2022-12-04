@@ -1,6 +1,5 @@
 package com.binarybeasts.broncoprojectsbackend.dtos;
 
-import com.binarybeasts.broncoprojectsbackend.entities.Project;
 import lombok.Data;
 import java.util.List;
 
@@ -9,9 +8,9 @@ public class UserInfoDTO {
     private String userId;
     private String name;
 
-    private List<Project> createdProjects;
-    private List<Project> subscribedProjects;
-    private List<Project> interestedProjects;
+    private List<String> createdProjects;
+    private List<String> subscribedProjects;
+    private List<String> interestedProjects;
 
     private String resumeFileId;
     private String department;

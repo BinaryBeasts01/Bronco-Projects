@@ -18,9 +18,9 @@ public class User implements UserDetails {
     private String name;
     private String password;
 
-    private List<Project> createdProjects;
-    private List<Project> subscribedProjects;
-    private List<Project> interestedProjects;
+    private List<String> createdProjects;
+    private List<String> subscribedProjects;
+    private List<String> interestedProjects;
 
     private String resumeFileId;
     private String transcriptFileId;

@@ -26,11 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.Base64;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/projects")
@@ -142,7 +138,7 @@ public class ProjectController {
 
         //update mongo
         projectRepository.insert(p);
-        user.getCreatedProjects().add(p); //done after project insert to be able to use uuid
+        user.getCreatedProjects().add(p.getUuid()); //done after project insert to be able to use uuid
         userRepository.save(user);
         return ResponseEntity.ok().body("Created project \"" + p.getName() + "\" with id \"" + p.getUuid() + "\"");
     }
@@ -175,12 +171,12 @@ public class ProjectController {
         }
 
         //don't re-interest in project
-        if(containsUuid(user.getInterestedProjects(), project.get().getUuid())) {
+        if(user.getInterestedProjects().contains(project.get().getUuid())) {
             return ResponseEntity.badRequest().body("User already interested in project \"" + json.get("id").asText() + "\"");
         }
 
         //don't interest if subscribed
-        if(containsUuid(user.getSubscribedProjects(), project.get().getUuid())) {
+        if(user.getSubscribedProjects().contains(project.get().getUuid())) {
             return ResponseEntity.badRequest().body("User already subscribed to project \"" + json.get("id").asText() + "\"");
         }
 
@@ -191,7 +187,7 @@ public class ProjectController {
 
         //add user and project to each other's subscribed lists
         project.get().getInterestedStudents().add(user.getUserId());
-        user.getInterestedProjects().add(project.get());
+        user.getInterestedProjects().add(project.get().getUuid());
 
         //update mongo
         projectRepository.save(project.get());
@@ -227,7 +223,7 @@ public class ProjectController {
         }
 
         //don't re-subscribe to project
-        if(containsUuid(user.get().getSubscribedProjects(), project.get().getUuid())) {
+        if(user.get().getSubscribedProjects().contains(project.get().getUuid())) {
             return ResponseEntity.badRequest().body("User already subscribed to project \"" + json.get("id").asText() + "\"");
         }
 
@@ -242,11 +238,11 @@ public class ProjectController {
 
         //remove user and project from each other's interested lists
         project.get().getInterestedStudents().remove(user.get().getUserId());
-        user.get().getInterestedProjects().removeIf(v -> v.getUuid().equals(project.get().getUuid()));
+        user.get().getInterestedProjects().remove(project.get().getUuid());
 
         //add user and project to each other's subscribed lists
         project.get().getSubscribedStudents().add(user.get().getUserId());
-        user.get().getSubscribedProjects().add(project.get());
+        user.get().getSubscribedProjects().add(project.get().getUuid());
 
         //update mongo
         projectRepository.save(project.get());
@@ -268,14 +264,19 @@ public class ProjectController {
         return ResponseEntity.ok().body("Project status updated to \"" + json.get("status").asText() + "\"");
     }
 
-    //helper function to check if project list contains project with uuid
-    private boolean containsUuid(final List<Project> projects, String uuid) {
-        for(Project p : projects) {
-            if(p.getUuid().equals(uuid)) {
-                return true;
-            }
+    @PostMapping("/created")
+    public ResponseEntity<?> getCreatedProjects() {
+        List<String> order = Arrays.asList("Active", "In Progress", "Closed");
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if(!userRepository.existsById(user.getUserId())) {
+            return ResponseEntity.badRequest().body("No authenticated user");
         }
 
-        return false;
+        Comparator<Project> comparator = Comparator.comparing(p -> order.indexOf(p.getStatus()));
+        ArrayList<Project> projects = new ArrayList<>();
+        projectRepository.findAllById(user.getCreatedProjects()).forEach(projects::add);
+        projects.sort(comparator);
+        return ResponseEntity.ok().body(projects);
     }
 }
