@@ -142,7 +142,7 @@ public class ProjectController {
 
         //update mongo
         projectRepository.insert(p);
-        user.getCreatedProjects().add(p.getUuid()); //done after project insert to be able to use uuid
+        user.getCreatedProjects().add(p); //done after project insert to be able to use uuid
         userRepository.save(user);
         return ResponseEntity.ok().body("Created project \"" + p.getName() + "\" with id \"" + p.getUuid() + "\"");
     }
@@ -175,12 +175,12 @@ public class ProjectController {
         }
 
         //don't re-interest in project
-        if(user.getInterestedProjects().contains(project.get().getUuid())) {
+        if(containsUuid(user.getInterestedProjects(), project.get().getUuid())) {
             return ResponseEntity.badRequest().body("User already interested in project \"" + json.get("id").asText() + "\"");
         }
 
         //don't interest if subscribed
-        if(user.getSubscribedProjects().contains(project.get().getUuid())) {
+        if(containsUuid(user.getSubscribedProjects(), project.get().getUuid())) {
             return ResponseEntity.badRequest().body("User already subscribed to project \"" + json.get("id").asText() + "\"");
         }
 
@@ -191,7 +191,7 @@ public class ProjectController {
 
         //add user and project to each other's subscribed lists
         project.get().getInterestedStudents().add(user.getUserId());
-        user.getInterestedProjects().add(project.get().getUuid());
+        user.getInterestedProjects().add(project.get());
 
         //update mongo
         projectRepository.save(project.get());
@@ -227,7 +227,7 @@ public class ProjectController {
         }
 
         //don't re-subscribe to project
-        if(user.get().getSubscribedProjects().contains(project.get().getUuid())) {
+        if(containsUuid(user.get().getSubscribedProjects(), project.get().getUuid())) {
             return ResponseEntity.badRequest().body("User already subscribed to project \"" + json.get("id").asText() + "\"");
         }
 
@@ -242,11 +242,11 @@ public class ProjectController {
 
         //remove user and project from each other's interested lists
         project.get().getInterestedStudents().remove(user.get().getUserId());
-        user.get().getInterestedProjects().remove(project.get().getUuid());
+        user.get().getInterestedProjects().removeIf(v -> v.getUuid().equals(project.get().getUuid()));
 
         //add user and project to each other's subscribed lists
         project.get().getSubscribedStudents().add(user.get().getUserId());
-        user.get().getSubscribedProjects().add(project.get().getUuid());
+        user.get().getSubscribedProjects().add(project.get());
 
         //update mongo
         projectRepository.save(project.get());
@@ -266,5 +266,16 @@ public class ProjectController {
         project.get().setStatus(json.get("status").asText());
         projectRepository.save(project.get());
         return ResponseEntity.ok().body("Project status updated to \"" + json.get("status").asText() + "\"");
+    }
+
+    //helper function to check if project list contains project with uuid
+    private boolean containsUuid(final List<Project> projects, String uuid) {
+        for(Project p : projects) {
+            if(p.getUuid().equals(uuid)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
