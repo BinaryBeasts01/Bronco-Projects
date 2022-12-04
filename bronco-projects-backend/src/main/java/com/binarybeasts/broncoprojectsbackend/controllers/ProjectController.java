@@ -202,7 +202,7 @@ public class ProjectController {
     @PostMapping("/subscribe")
     public ResponseEntity<String> subscribeToProject(@RequestBody ObjectNode json) {
         Optional<Project> project = projectRepository.findById(json.get("id").asText());
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<User> user = userRepository.findById(json.get("user").asText());
 
         //check project exists
         if(project.isEmpty()) {
@@ -210,24 +210,24 @@ public class ProjectController {
         }
 
         //check authenticated user
-        if(!userRepository.existsById(user.getUsername())) {
-            return ResponseEntity.badRequest().body("No authenticated user");
+        if(user.isEmpty()) {
+            return ResponseEntity.badRequest().body("User \n" + json.get("user").asText() + "\n cannot be found");
         }
 
         //needed for older accounts/redundancy
         //if user does not have interested projects list, initialize it
-        if(user.getInterestedProjects() == null) {
-            user.setInterestedProjects(new ArrayList<>());
+        if(user.get().getInterestedProjects() == null) {
+            user.get().setInterestedProjects(new ArrayList<>());
         }
 
         //needed for older accounts/redundancy
         //if user does not have subscribed projects list, initialize it
-        if(user.getSubscribedProjects() == null) {
-            user.setSubscribedProjects(new ArrayList<>());
+        if(user.get().getSubscribedProjects() == null) {
+            user.get().setSubscribedProjects(new ArrayList<>());
         }
 
         //don't re-subscribe to project
-        if(user.getSubscribedProjects().contains(project.get().getUuid())) {
+        if(user.get().getSubscribedProjects().contains(project.get().getUuid())) {
             return ResponseEntity.badRequest().body("User already subscribed to project \"" + json.get("id").asText() + "\"");
         }
 
@@ -241,16 +241,16 @@ public class ProjectController {
         }
 
         //remove user and project from each other's interested lists
-        project.get().getInterestedStudents().remove(user.getUserId());
-        user.getInterestedProjects().remove(project.get().getUuid());
+        project.get().getInterestedStudents().remove(user.get().getUserId());
+        user.get().getInterestedProjects().remove(project.get().getUuid());
 
         //add user and project to each other's subscribed lists
-        project.get().getSubscribedStudents().add(user.getUserId());
-        user.getSubscribedProjects().add(project.get().getUuid());
+        project.get().getSubscribedStudents().add(user.get().getUserId());
+        user.get().getSubscribedProjects().add(project.get().getUuid());
 
         //update mongo
         projectRepository.save(project.get());
-        userRepository.save(user);
+        userRepository.save(user.get());
         return ResponseEntity.ok().body("Subscribed to project \"" + json.get("id").asText() + "\"");
     }
 
