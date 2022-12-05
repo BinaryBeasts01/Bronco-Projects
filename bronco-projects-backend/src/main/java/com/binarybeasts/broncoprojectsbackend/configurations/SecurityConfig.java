@@ -75,10 +75,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers("/api/projects/id")
                 .permitAll()
-                .antMatchers("/api/projects/subscribe")// NEED TO RETHINK WHAT ENDPOINTS SHOULD BE PUBLIC! Subscribe & created should be private. Leaving it public for now
-                .permitAll()
-                .antMatchers("/api/projects/created")
-                .permitAll()
                 .anyRequest().authenticated().and()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
