@@ -13,7 +13,7 @@ import base64 from "../constants/EncodedImage";
 import Sidebar from "./Sidebar"; // this is just for testing
 
 
-const Projects = ({searchInput, email}) => {
+const Projects = ({searchInput, email, isLoggedIn}) => {
 
     const [projects, setProjects] = useState({"projects": [], "textColors": []}); // Note: some bugs, if initial data is too low, scroll bar won't appear
     const [loadPage, setLoadPage] = useState(null);
@@ -49,6 +49,7 @@ const Projects = ({searchInput, email}) => {
 
     const fetchPage = async (pageNum) => {
         let data = createSearchInputData();
+        console.log(data)
         let page;
         if (!data) page = await ProjectsService.getProjectsPage(pageNum);
         else page = await ProjectsService.getSearchProjects(data, pageNum);
@@ -70,19 +71,19 @@ const Projects = ({searchInput, email}) => {
     useEffect(() => {
         const fetchInitial = async () => {
             let page = await fetchPage(0);
-            let colors = await calculateColors(page["projects"]);
-
             console.log(`FIRST LOAD`);
             console.log(page)
+            let colors = await calculateColors(page["projects"]);
+            console.log(colors);
 
             setTotalPages(page["totalPages"]);
             setCurrentSize(page["projects"].length);
             setProjects({"projects": page["projects"], "textColors": colors});
-            setLoadPage(2);
+            setLoadPage(1);
         }
-
+        console.log(`SEARCH INPUT ${searchInput}`)
         fetchInitial();
-    }, [searchInput]); // depends on nothing so this is called after the first render
+    }, [searchInput]); // depends on searchInput so called everytime searchInput changes
 
     const next = async (direction) => {
         if(loadPage <= totalPages) {
@@ -131,9 +132,10 @@ const Projects = ({searchInput, email}) => {
                 <Card key={index} className={"project-card"}>
                     <Card.Img style={{width: "100%", height: "100%", objectFit: "cover", filter: "blur(7px)"}} src={`data:image/${proj["extension"]};base64, ${proj["image"]}`} alt="Card image" />
                     <Card.ImgOverlay style={{opacity: 1}}>
-                        <Card.Title style={{color: textColor}}>{proj["name"]}</Card.Title>
-                        <Card.Subtitle style={{color: textColor}}>{`${proj["createdBy"]} ${middot} ${proj["department"]} ${middot} ${tags}`} </Card.Subtitle>
-                        <Card.Text style={{color: textColor, textOverflow: "ellipsis"}}>
+                        <Card.Title style={{color: textColor, fontSize: "120%"}}>{proj["name"]}</Card.Title>
+                        <Card.Subtitle style={{color: textColor, fontSize: "120%"}}>{`${proj["createdBy"]} ${middot} ${proj["department"]} ${middot} ${tags}`} </Card.Subtitle>
+                        <br/>
+                        <Card.Text style={{color: textColor, textOverflow: "ellipsis", fontSize: "120%"}}>
                             {proj["description"]}
                         </Card.Text>
                     </Card.ImgOverlay>
@@ -154,7 +156,7 @@ const Projects = ({searchInput, email}) => {
                     </div>
 
                     <div style={{width: "25%", height: "100%", display: "flex", flexDirection: "column", paddingLeft: "10%"}}>
-                        <Sidebar email={email}/>
+                        {isLoggedIn ? <Sidebar email={email}/> : null}
                     </div>
                 </div>
 
@@ -171,7 +173,9 @@ const styles = {
         "alignItems": "center",
         "justifyContent": "center",
         "height": "90%",
-        "paddingTop": "50px"
+        "paddingTop": "50px",
+        position: "relative",
+        zIndex: 1,
     },
     projects: {
         "display": "flex",

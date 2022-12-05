@@ -1,11 +1,11 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Navbar from "react-bootstrap/Navbar";
 import {Button, Container} from "react-bootstrap";
 import AuthService from "../services/AuthService";
 import AuthForm from "./AuthForm";
 import SearchBar from "./SearchBar"
 
-function NavBar({email, setEmail, setIsLoggedIn, setSearchInput}) {
+function NavBar({isLoggedIn, email, setEmail, setIsLoggedIn, setSearchInput}) {
     const [loginFormVisible, setShowLoginForm] = useState(false);
 
     let form;
@@ -24,10 +24,14 @@ function NavBar({email, setEmail, setIsLoggedIn, setSearchInput}) {
         profile = <Button variant='success' onClick={(e) => {console.log(email)}}>PROFILE BUTTON</Button>
     }
 
+    useEffect(() => {
+        if(isLoggedIn) AuthService.getUserIdFromToken().then((res) => setEmail(res));
+    }, [isLoggedIn])
+
     return (
         <Navbar style={styles["navbar"]}>
             <Container style={styles["profile"]}>
-                <Button variant='info' onClick={() => setSearchInput(null)}> LOGO </Button>
+                <Button variant='info' onClick={(e) => {setSearchInput(null)}}> LOGO </Button>
             </Container>
             <Container style={styles["searchBar"]}>
                 <SearchBar setProjectsSearchInput={setSearchInput}/>
@@ -45,7 +49,8 @@ const styles = {
         "backgroundColor": "rgb(26,26,27)",
         "height": "10%",
         "position": "sticky",
-        borderBottom: "5px solid rgb(87, 88, 89)"
+        borderBottom: "5px solid rgb(87, 88, 89)",
+        zIndex: 2
     },
     logo: {
         "display": "flex",

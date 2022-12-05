@@ -15,7 +15,7 @@
     perspective-origin: 252.562px 117.5px;
     transform-origin: 252.562px 117.5px;
     caret-color: rgba(0, 0, 0, 0.87);
-    border: 1px solid rgba(34, 36, 38, 0.15);
+    border: 3px solid rgb(87, 88, 89);
     border-radius: 4px 4px 4px 4px;
     flex-flow: column nowrap;
     font: normal normal 400 normal 14px / 19.999px Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
@@ -137,13 +137,13 @@
     perspective-origin: 237.562px 76px;
     transform-origin: 237.562px 76px;
     caret-color: rgba(0, 0, 0, 0.6);
-    border: 0px none rgba(238, 238, 238, 0.6);
     font: normal normal 400 normal 14px / 19.999px monospace, monospace;
     margin: 0px;
     outline: rgba(0, 0, 0, 0.6) none 0px;
     display: flex;
     flex-direction: column;
 }
+
 
 #event-log-msg-text {
     box-sizing: border-box;
@@ -166,10 +166,14 @@
     text-overflow: ellipsis;
 }
 
+#event-log-msg-text:hover {
+    border: 1px solid gold
+}
+
 
 .event-log-msg-separator {
     border: 0;
     height: 0;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid rgb(87, 88, 89);
 }

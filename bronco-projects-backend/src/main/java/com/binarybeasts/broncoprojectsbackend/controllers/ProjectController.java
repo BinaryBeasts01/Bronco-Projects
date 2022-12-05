@@ -264,7 +264,7 @@ public class ProjectController {
         return ResponseEntity.ok().body("Project status updated to \"" + json.get("status").asText() + "\"");
     }
 
-    @PostMapping("/created")
+    @GetMapping("/created")
     public ResponseEntity<?> getCreatedProjects() {
         List<String> order = Arrays.asList("Active", "In Progress", "Closed");
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -277,6 +277,7 @@ public class ProjectController {
         ArrayList<Project> projects = new ArrayList<>();
         projectRepository.findAllById(user.getCreatedProjects()).forEach(projects::add);
         projects.sort(comparator);
+
         return ResponseEntity.ok().body(projects);
     }
 }

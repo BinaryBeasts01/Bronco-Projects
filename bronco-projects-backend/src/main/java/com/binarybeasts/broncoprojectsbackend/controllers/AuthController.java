@@ -169,7 +169,7 @@ public class AuthController {
                     .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + pdf.getName() + "\"")
                     .body(pdf.getFile());
         } catch(IOException e) {
-            return ResponseEntity.badRequest().body("Could not retrieve image");
+            return ResponseEntity.badRequest().body("Could not retrieve resume");
         }
     }
 }

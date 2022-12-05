@@ -57,7 +57,6 @@ class EventLogList extends React.Component {
                                         {logText}
                                         <hr className="event-log-msg-separator"/>
                                     </div>)
-
                             })
                         }
                     </pre>

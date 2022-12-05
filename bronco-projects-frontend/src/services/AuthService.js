@@ -125,7 +125,7 @@ class AuthService {
     }
 
     static getUserIdFromToken() {
-        let url = AUTH_URL + "id/"
+        let url = AUTH_URL + "id"
         let config = {
             method: "get",
             url: url,
@@ -135,6 +135,24 @@ class AuthService {
             .then((response) => {
                 return response.data;
             })
+    }
+
+    static getUserFromId(email) {
+        let url = AUTH_URL + "id";
+        let data = {"id": email}
+        let config = {
+            method: "post",
+            headers: {'Content-Type': 'application/json'},
+            data: data,
+            url: url,
+        }
+        console.log(`URL ${url}`)
+        console.log(config)
+        return axios(config)
+            .then((response) => {
+                return response.data
+            })
+            .catch((e) => console.log(e))
     }
 }
 
