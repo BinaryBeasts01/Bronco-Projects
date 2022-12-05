@@ -41,7 +41,7 @@ const ProjectAdmin = () => {
                 style={style}
             >
                 <Dropdown.Item>Send Message</Dropdown.Item>
-                <Dropdown.Item>Close Project</Dropdown.Item>
+                <Dropdown.Item onClick={() => closeProjectAction(index)}>Close Project</Dropdown.Item>
             </DropdownButton>
         }
         else {
@@ -55,6 +55,18 @@ const ProjectAdmin = () => {
         setSelectedIndex(index);
         setSelectProject(project);
         setShowSubscribeStudentsModal(true);
+    }
+
+    const closeProjectAction = async (index) => {
+        await ProjectsService.changeProjectStatus(createdProjects[index]["uuid"], states.CLOSED);
+
+        let cp = [...createdProjects];
+        let project = {...createdProjects[index]};
+        project["status"] = states.CLOSED;
+        cp[index] = project;
+
+        console.log("SUBSCRIBED HERE")
+        setCreatedProjects(cp);
     }
 
     const subscribeStudents = async (index, students) => { // called when user clicks apply on modal

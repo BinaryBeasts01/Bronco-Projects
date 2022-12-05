@@ -64,8 +64,6 @@ class EventLogList extends React.Component {
             </div>
 
         );
-
-
     }
 
 }

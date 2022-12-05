@@ -199,6 +199,12 @@ public class ProjectController {
     public ResponseEntity<String> subscribeToProject(@RequestBody ObjectNode json) {
         Optional<Project> project = projectRepository.findById(json.get("id").asText());
         Optional<User> user = userRepository.findById(json.get("user").asText());
+        User owner = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        //verify user
+        if(!userRepository.existsById(owner.getUserId())) {
+            return ResponseEntity.badRequest().body("No authenticated user");
+        }
 
         //check project exists
         if(project.isEmpty()) {
@@ -207,7 +213,12 @@ public class ProjectController {
 
         //check authenticated user
         if(user.isEmpty()) {
-            return ResponseEntity.badRequest().body("User \n" + json.get("user").asText() + "\n cannot be found");
+            return ResponseEntity.badRequest().body("User \"" + json.get("user").asText() + "\" cannot be found");
+        }
+
+        //verify owner is owner of project
+        if(!project.get().getCreatedBy().equals(owner.getUsername())) {
+            return ResponseEntity.badRequest().body("User \"" + owner.getUsername() + "\" is not owner of project \"" + project.get().getUuid() + "\"");
         }
 
         //needed for older accounts/redundancy
@@ -253,10 +264,21 @@ public class ProjectController {
     @PostMapping("/status")
     public ResponseEntity<String> updateProjectStatus(@RequestBody ObjectNode json) {
         Optional<Project> project = projectRepository.findById(json.get("id").asText());
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        //verify user exists
+        if(!userRepository.existsById(user.getUserId())) {
+            return ResponseEntity.badRequest().body("No authenticated user");
+        }
 
         //check project exists
         if(project.isEmpty()) {
             return ResponseEntity.badRequest().body("Project \"" + json.get("id").asText() + "\" doesn't exist");
+        }
+
+        //verify user is owner of project
+        if(!project.get().getCreatedBy().equals(user.getUsername())) {
+            return ResponseEntity.badRequest().body("User \"" + user.getUsername() + "\" is not owner of project \"" + project.get().getUuid() + "\"");
         }
 
         project.get().setStatus(json.get("status").asText());
@@ -269,6 +291,7 @@ public class ProjectController {
         List<String> order = Arrays.asList("Active", "In Progress", "Closed");
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
+        //verify user exists
         if(!userRepository.existsById(user.getUserId())) {
             return ResponseEntity.badRequest().body("No authenticated user");
         }
