@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import AuthService from "../services/AuthService";
 
-const LoginForm = ({shouldShowLoginForm, closeLoginForm, showSignUpVerificationForm, setEmail}) => {
+const LoginForm = ({shouldShowLoginForm, closeLoginForm, showSignUpVerificationForm, setEmail, setIsLoggedIn}) => {
     const [emailForm, setEmailForm] = useState(null);
     const [password, setPassword] = useState(null);
 
@@ -20,13 +20,13 @@ const LoginForm = ({shouldShowLoginForm, closeLoginForm, showSignUpVerificationF
             // show error
         }
         else {
-            let service = new AuthService();
             setEmail(emailForm);
-            let response = await service.login(emailForm, password);
+            let response = await AuthService.login(emailForm, password);
             console.log(response)
             if(response) {
-                console.log("INSIDE NAVIGATOR")
-                closeLoginForm()
+                console.log("INSIDE NAVIGATOR");
+                closeLoginForm();
+                setIsLoggedIn(true);
             }
             else {
                 // show error message

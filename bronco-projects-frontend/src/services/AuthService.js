@@ -1,13 +1,15 @@
 import jwt_decode from "jwt-decode";
 
 import axios from 'axios';
+import API_URL from '../constants/API_URL'
 
-const API_URL = "http://localhost:8080/api/auth/";
+const AUTH_URL = API_URL + "auth/";
+
 const HttpStatusCodes = require("http-status-codes");
 
 class AuthService {
-    login(username, password) {
-        let url = API_URL + "login";
+    static login(username, password) {
+        let url = AUTH_URL + "login";
         let config = {
             method: 'post',
             url: url,
@@ -29,8 +31,8 @@ class AuthService {
             });
     }
 
-    sendCode(email) {
-        let url = API_URL + "verificationcode";
+    static sendCode(email) {
+        let url = AUTH_URL + "verificationcode";
         let config = {
             method: 'post',
             url: url,
@@ -46,9 +48,9 @@ class AuthService {
             });
     }
 
-    verifyCode(email, code) {
+    static verifyCode(email, code) {
         console.log("INSIDE VERIFY")
-        let url = API_URL + "verification";
+        let url = AUTH_URL + "verification";
         let config = {
             method: 'post',
             url: url,
@@ -60,22 +62,19 @@ class AuthService {
         console.log(`CONFIG: ${config}`)
         return axios(config)
             .then((response) => {
-                if (response.status === HttpStatusCodes.ACCEPTED) {
-                    return true;
-                }
-                else {
-                    return false;
-                }
+                return (response.status === HttpStatusCodes.ACCEPTED);
             });
     }
 
-    signUp(email, password, resumeFile, transcriptFile) {
+    static signUp(email, password, name, department, resumeFile, transcriptFile) {
         const FormData = require('form-data');
-        let url = API_URL + "user";
+        let url = AUTH_URL + "user";
 
         let data = new FormData();
         data.append("email", email);
         data.append("password", password);
+        data.append("name", name);
+        data.append("department", department);
         data.append("resume", resumeFile);
         data.append("transcript", transcriptFile);
         console.log(data)
@@ -98,11 +97,11 @@ class AuthService {
             });
     }
 
-    logout() {
+    static logout() {
         localStorage.removeItem("user");
     }
 
-    checkJWTValid() {
+    static checkJWTValid() {
         let isExpired = false;
         const token = localStorage.getItem('user');
         if(!token) return false;
@@ -115,14 +114,45 @@ class AuthService {
         return isExpired;
     }
 
-    authHeader() {
+    static authHeader() {
         const user = JSON.parse(localStorage.getItem('user'));
 
         if (user && user['accessToken']) {
-            return { Authorization: 'Bearer ' + user['accessToken'] };
+            return { 'Authorization': 'Bearer ' + user['accessToken'] };
         }
         else
             return {};
+    }
+
+    static getUserIdFromToken() {
+        let url = AUTH_URL + "id"
+        let config = {
+            method: "get",
+            url: url,
+            headers: {...this.authHeader()}
+        }
+        return axios(config)
+            .then((response) => {
+                return response.data;
+            })
+    }
+
+    static getUserFromId(email) {
+        let url = AUTH_URL + "id";
+        let data = {"id": email}
+        let config = {
+            method: "post",
+            headers: {'Content-Type': 'application/json'},
+            data: data,
+            url: url,
+        }
+        console.log(`URL ${url}`)
+        console.log(config)
+        return axios(config)
+            .then((response) => {
+                return response.data
+            })
+            .catch((e) => console.log(e))
     }
 }
 

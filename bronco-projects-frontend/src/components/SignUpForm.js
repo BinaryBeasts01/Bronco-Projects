@@ -3,21 +3,21 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import AuthService from "../services/AuthService";
-//import {useNavigate} from "react-router-dom";
 
 const SignUpForm = ({email, showSignUpModal, closeSignUpModal}) => {
-    //const navigate = useNavigate();
     const [password, setPassword] = useState(null);
+    const [name, setName] = useState(null);
+    const [department, setDepartment] = useState(null);
+
     const [resume, setResumeFile] = useState(null);
     const [transcript, setTranscriptFile] = useState(null);
 
     const handleSubmitForm = async (e) => {
         e.preventDefault();
 
-        let authService = new AuthService();
-        let result = await authService.signUp(email, password, resume, transcript);
+        let result = await AuthService.signUp(email, password, name, department, resume, transcript);
         if(result) {
-            await authService.login(email, password);
+            await AuthService.login(email, password);
             //navigate("/");
         }
         else {
@@ -43,6 +43,10 @@ const SignUpForm = ({email, showSignUpModal, closeSignUpModal}) => {
             <Modal.Body>
                 <Form onSubmit={handleSubmitForm}>
                     <Form.Control type="password" placeholder="Enter Password" onChange={(e) => setPassword(e.target.value)}/>
+                    <br/>
+                    <Form.Control type="text" placeholder="Enter Name" onChange={(e) => setName(e.target.value)}/>
+                    <br/>
+                    <Form.Control type="text" placeholder="Enter Department" onChange={(e) => setDepartment(e.target.value)}/>
                     <br/>
                     <Form.Label>Provide Your Resume</Form.Label>
                     <Form.Control type="file" onChange={(e) => setResumeFile(e.target.files[0])}/>

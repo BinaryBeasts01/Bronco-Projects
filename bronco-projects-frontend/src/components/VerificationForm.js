@@ -13,8 +13,7 @@ const VerificationForm = ({setEmail, shouldShowVerificationForm, closeVerificati
     const handleVerificationCode = async (e) => {
         e.preventDefault()
         // verify code
-        let authService = new AuthService();
-        let correctCode = await authService.verifyCode(formEmail, verificationCode);
+        let correctCode = await AuthService.verifyCode(formEmail, verificationCode);
         if(correctCode) {
             closeVerificationForm()
             showNextModal()
@@ -35,15 +34,14 @@ const VerificationForm = ({setEmail, shouldShowVerificationForm, closeVerificati
             // show error
         }
         else {
-            let authService = new AuthService();
-            await authService.sendCode(formEmail);
+            await AuthService.sendCode(formEmail);
 
             setEmailSubmitted(true);
             setEmail(formEmail);
         }
     }
 
-    let form = null
+    let form;
     if(!emailSubmitted) {
         form = <Form onSubmit={handleEmailSubmit}>
             <Form.Control type="email" placeholder="Enter Email" onChange={(e) => setFormEmail(e.target.value)}/>
