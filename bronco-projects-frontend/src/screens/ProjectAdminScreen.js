@@ -8,7 +8,7 @@ import ProjectAdmin from "../components/ProjectAdmin";
 
 const ProjectAdminScreen = () => {
     let navigate = useNavigate();
-    let location = useLocation();
+
     const [isLoggedIn, setIsLoggedIn] = useState(true); // if user sees this screen,
                                                                 // it must mean they already logged in because if they are not,
                                                                 // we are not displaying button to view created projects

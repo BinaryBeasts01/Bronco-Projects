@@ -9,8 +9,8 @@ import hexRGB from 'hex-rgb';
 import {contrastColor} from 'contrast-color';
 import "../css/ProjectCard.css";
 
-import base64 from "../constants/EncodedImage";
-import Sidebar from "./Sidebar"; // this is just for testing
+import Sidebar from "./Sidebar";
+import {useNavigate} from "react-router-dom"; // this is just for testing
 
 
 const Projects = ({searchInput, email, isLoggedIn}) => {
@@ -19,6 +19,8 @@ const Projects = ({searchInput, email, isLoggedIn}) => {
     const [loadPage, setLoadPage] = useState(null);
     const [totalPages, setTotalPages] = useState(null);
     const [currentSize, setCurrentSize] = useState(0);
+
+    let navigate = useNavigate();
 
     const createSearchInputData = () => {
         if (!searchInput) return null;
@@ -112,6 +114,10 @@ const Projects = ({searchInput, email, isLoggedIn}) => {
         scrollThreshold: .2
     });
 
+    const openProjectPage = (projectId) => {
+        navigate(`/projects/${projectId}`);
+    }
+
     let projectCards;
     projectCards = projects["projects"].map((proj, index) => {
         let color = projects["textColors"][index];
@@ -129,7 +135,7 @@ const Projects = ({searchInput, email, isLoggedIn}) => {
         return (
             <div style={styles["project-card-parent"]}>
                 <div style={index !== 0 ? styles["project-card-padding"] : {}}></div>
-                <Card key={index} className={"project-card"}>
+                <Card key={index} className={"project-card"} onClick={() => openProjectPage(proj["uuid"])}>
                     <Card.Img style={{width: "100%", height: "100%", objectFit: "cover", filter: "blur(7px)"}} src={`data:image/${proj["extension"]};base64, ${proj["image"]}`} alt="Card image" />
                     <Card.ImgOverlay style={{opacity: 1}}>
                         <Card.Title style={{color: textColor, fontSize: "120%"}}>{proj["name"]}</Card.Title>

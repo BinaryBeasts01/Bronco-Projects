@@ -1,18 +1,28 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import NavBar from "../components/NavBar";
-import AuthForm from "../components/AuthForm";
-import AuthService from "../services/AuthService";
-import {Button, Card} from "react-bootstrap";
 import Project from "../components/Project";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 const ProjectScreen = () => {
     const [email, setEmail] = useState(null)
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
+
+    const [searchInput, setSearchInput] = useState('');
+
     const { id } = useParams()
-    // if it is load user specific data, get profile pic for navbar, get user recommendations for projects
+
+    let navigate = useNavigate();
+
+    useEffect(() => {
+        if(searchInput !== '') {
+            console.log("HERE")
+            navigate("/", {state: {searchInput: searchInput}});
+        }
+    }, [searchInput]);
+
     return (
         <div style={styles.home}>
-            <NavBar email={email} setEmail={setEmail}/>
+            <NavBar isLoggedIn={isLoggedIn} email={email} setEmail={setEmail} setIsLoggedIn={setIsLoggedIn} setSearchInput={setSearchInput}/>
             <Project projectID={id}/>
         </div>
     );
