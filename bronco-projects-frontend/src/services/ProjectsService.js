@@ -1,10 +1,34 @@
 import API_URL from "../constants/API_URL";
 import axios from "axios";
 import AuthService from "./AuthService";
+import FormData from "form-data";
+import HttpStatusCodes from "http-status-codes";
 
 const PROJECTS_URL = API_URL + "projects/";
 
 class ProjectsService {
+    static apply(projectID) {
+        let url = PROJECTS_URL + "interest"
+        let data = {"id": projectID}
+        let config = {
+            method: 'post',
+            url: url,
+            headers: {
+                ...AuthService.authHeader(),
+                'Content-Type': 'application/json'
+            },
+            data: data
+        }
+        return axios(config)
+            .then((response) => {
+                console.log(response.data);
+                return response.data;
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
     static getProjectsPage(page) {
         let url = PROJECTS_URL + "latest";
         let config = {
@@ -22,6 +46,36 @@ class ProjectsService {
                 console.log("PROJECTS")
                 console.log(response.data)
                 return response.data
+            });
+    }
+    static createProject(name, description, image, tags, department) {
+        const FormData = require('form-data');
+        let url = PROJECTS_URL + "create";
+
+        let data = new FormData();
+        data.append("name", name);
+        data.append("description", description);
+        data.append("image", image);
+        data.append("tags", tags);
+        data.append("department", department);
+
+        let config = {
+            method: 'post',
+            url: url,
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                ...AuthService.authHeader()
+            },
+            data : data
+        };
+        return axios(config)
+            .then((response) => {
+                if (response.status === HttpStatusCodes.OK) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
             });
     }
 

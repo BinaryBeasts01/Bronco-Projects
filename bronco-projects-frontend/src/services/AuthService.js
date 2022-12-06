@@ -101,19 +101,6 @@ class AuthService {
         localStorage.removeItem("user");
     }
 
-    static checkJWTValid() {
-        let isExpired = false;
-        const token = localStorage.getItem('user');
-        if(!token) return false;
-
-        let decodedToken= jwt_decode(token);
-        let dateNow = new Date();
-
-        if(decodedToken.exp < dateNow.getTime())
-            isExpired = true;
-        return isExpired;
-    }
-
     static authHeader() {
         const user = JSON.parse(localStorage.getItem('user'));
 
@@ -125,15 +112,31 @@ class AuthService {
     }
 
     static getUserIdFromToken() {
+        if(Object.keys(this.authHeader()).length === 0)
+            return null;
+
         let url = AUTH_URL + "id"
         let config = {
             method: "get",
             url: url,
             headers: {...this.authHeader()}
         }
+        console.log(config)
         return axios(config)
             .then((response) => {
-                return response.data;
+                console.log("ID DATA")
+                console.log(response);
+                if (response.status === HttpStatusCodes.OK) {
+                    return response.data;
+                }
+                else {
+                    this.logout();
+                    return null;
+                }
+            })
+            .catch((e) => {
+                this.logout(); // remove any old token if there is one.
+                return null;
             })
     }
 

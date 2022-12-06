@@ -24,7 +24,7 @@ const Home = () => {
     return (
         <div style={styles.home}>
             <NavBar isLoggedIn={loggedIn} email={email} setEmail={setEmail} setSearchInput={setSearchInput} setIsLoggedIn={setIsLoggedIn} />
-            <Projects searchInput={searchInput} email={email} isLoggedIn={loggedIn} />
+            <Projects searchInput={searchInput} isLoggedIn={loggedIn} />
         </div>
     );
 }

@@ -4,6 +4,7 @@ import com.binarybeasts.broncoprojectsbackend.configurations.JwtTokenUtil;
 import com.binarybeasts.broncoprojectsbackend.dtos.*;
 import com.binarybeasts.broncoprojectsbackend.entities.User;
 import com.binarybeasts.broncoprojectsbackend.entities.VerificationCode;
+import com.binarybeasts.broncoprojectsbackend.repositories.NotificationRepository;
 import com.binarybeasts.broncoprojectsbackend.repositories.UserRepository;
 import com.binarybeasts.broncoprojectsbackend.repositories.VerificationCodeRepository;
 import com.binarybeasts.broncoprojectsbackend.services.EmailService;
@@ -37,6 +38,9 @@ public class AuthController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private NotificationRepository notificationRepository;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -103,6 +107,7 @@ public class AuthController {
             u.setSubscribedProjects(new ArrayList<>());
             u.setInterestedProjects(new ArrayList<>());
             u.setCreatedProjects(new ArrayList<>());
+            u.setNotifications(new ArrayList<>());
 
             userRepository.insert(u);
             return ResponseEntity.ok().body("Added user");
@@ -142,6 +147,7 @@ public class AuthController {
             infoDTO.setSubscribedProjects(user.get().getSubscribedProjects());
             infoDTO.setCreatedProjects(user.get().getCreatedProjects());
             infoDTO.setResumeFileId(user.get().getResumeFileId());
+            infoDTO.setNotifications(user.get().getNotifications());
 
             return ResponseEntity.ok().body(infoDTO);
         }
@@ -155,8 +161,13 @@ public class AuthController {
             return ResponseEntity.badRequest().body("NO TOKEN PROVIDED");
         }
         else {
-            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            return ResponseEntity.ok().body(user.getUserId());
+            try {
+                User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                return ResponseEntity.ok().body(user.getUserId());
+            }
+            catch(Exception e) {
+                return ResponseEntity.badRequest().body("Unable to get id");
+            }
         }
     }
 

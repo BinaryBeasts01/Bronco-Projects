@@ -5,6 +5,7 @@ import SubscribeStudentsModal from "./SubscribeStudentsModal";
 import "../css/ProjectCard.css";
 import {Text} from "react-native-web";
 import {Dropdown} from "react-bootstrap";
+import SendNotificationModal from "./SendNotificationModal";
 
 
 const ProjectAdmin = () => {
@@ -13,6 +14,7 @@ const ProjectAdmin = () => {
     const [selectedProject, setSelectProject] = useState(null)
 
     const [showSubscribeStudentsModal, setShowSubscribeStudentsModal] = useState(false);
+    const [showSendNotificationModal, setShowSendNotificationModal] = useState(false);
 
     const states = {ACTIVE: "Active", IN_PROGRESS: "In Progress", CLOSED: "Closed"}
 
@@ -40,7 +42,7 @@ const ProjectAdmin = () => {
                 title={"Actions"}
                 style={style}
             >
-                <Dropdown.Item>Send Message</Dropdown.Item>
+                <Dropdown.Item onClick={() => sendMessageAction(project)}>Send Message</Dropdown.Item>
                 <Dropdown.Item onClick={() => closeProjectAction(index)}>Close Project</Dropdown.Item>
             </DropdownButton>
         }
@@ -55,6 +57,11 @@ const ProjectAdmin = () => {
         setSelectedIndex(index);
         setSelectProject(project);
         setShowSubscribeStudentsModal(true);
+    }
+
+    const sendMessageAction = (project) => {
+        setSelectProject(project);
+        setShowSendNotificationModal(true);
     }
 
     const closeProjectAction = async (index) => {
@@ -95,7 +102,7 @@ const ProjectAdmin = () => {
         }
 
         fetchCreatedProjects();
-    }, [createdProjects]);
+    }, []);
 
 
     let createdProjectCards = createdProjects.map((proj, index) => {
@@ -123,9 +130,18 @@ const ProjectAdmin = () => {
         setSelectProject(null)
     }
 
+    const closeNotificationModal = () => {
+        console.log("HERE")
+        setShowSendNotificationModal(false);
+        setSelectedIndex(null);
+        setSelectProject(null);
+    }
+
 
     let subscribeStudentsModal = showSubscribeStudentsModal ? <SubscribeStudentsModal shouldShowModal={showSubscribeStudentsModal} closeModal={closeSubscribeModal}
-                                                         index={selectedIndex} project={selectedProject} subscribeStudentsFunc={subscribeStudents}/> : null;
+                                                         index={selectedIndex} project={selectedProject} subscribeStudentsFunc={subscribeStudents} closeModal={closeNotificationModal}/> : null;
+
+    let notificationModal = showSendNotificationModal ? <SendNotificationModal project={selectedProject} showSendNotificationModal={showSendNotificationModal} closeModal={closeNotificationModal}/> : null;
 
     //const loader = <div className="loader">Loading ...</div>;
 
@@ -139,8 +155,8 @@ const ProjectAdmin = () => {
                 </div>
 
             </div>
-
             {subscribeStudentsModal}
+            {notificationModal}
         </div>
     );
 }

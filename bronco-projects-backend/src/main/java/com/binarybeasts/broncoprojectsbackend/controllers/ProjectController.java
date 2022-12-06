@@ -5,6 +5,7 @@ import com.binarybeasts.broncoprojectsbackend.dtos.ProjectFilterDTO;
 import com.binarybeasts.broncoprojectsbackend.dtos.ProjectPageReturnDTO;
 import com.binarybeasts.broncoprojectsbackend.entities.Project;
 import com.binarybeasts.broncoprojectsbackend.entities.User;
+import com.binarybeasts.broncoprojectsbackend.repositories.NotificationRepository;
 import com.binarybeasts.broncoprojectsbackend.repositories.ProjectRepository;
 import com.binarybeasts.broncoprojectsbackend.repositories.UserRepository;
 import com.binarybeasts.broncoprojectsbackend.services.FileService;
@@ -24,8 +25,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 @RestController
@@ -36,6 +35,9 @@ public class ProjectController {
  
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private NotificationRepository notificationRepository;
 
     @Autowired
     private MongoTemplate mongoTemplate;
@@ -82,9 +84,19 @@ public class ProjectController {
         Query query = new Query().with(pageable);
         if(filterDTO.getTags() != null) query.addCriteria(Criteria.where("tags").in(filterDTO.getTags()));
         if(filterDTO.getBy() != null) query.addCriteria(Criteria.where("createdBy").is(filterDTO.getBy()));
-        if(filterDTO.getBefore() != null) query.addCriteria(Criteria.where("dateCreated").lte(filterDTO.getBefore()));
-        if(filterDTO.getAfter() != null) query.addCriteria(Criteria.where("dateCreated").gte(filterDTO.getAfter()));
-        if(filterDTO.getOn() != null) query.addCriteria(Criteria.where("dateCreated").is(filterDTO.getOn()));
+        if(filterDTO.getBefore() != null) query.addCriteria(Criteria.where("dateCreated").lte(setZero(filterDTO.getBefore())));
+        if(filterDTO.getAfter() != null) query.addCriteria(Criteria.where("dateCreated").gte(setZero(filterDTO.getAfter())));
+        if(filterDTO.getOn() != null) {
+            Date on = setZero(filterDTO.getOn());
+
+            //next day from on
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(on);
+            calendar.add(Calendar.DATE, 1);
+
+            //look for dates >= starting point of day and < start of next day
+            query.addCriteria(new Criteria().andOperator(Arrays.asList(Criteria.where("dateCreated").gte(on), Criteria.where("dateCreated").lt(calendar.getTime()))));
+        }
 
         //build page with mongo template to execute query
         ProjectPageReturnDTO returnDTO = new ProjectPageReturnDTO();
@@ -97,6 +109,17 @@ public class ProjectController {
         returnDTO.setCurrentPage(page.getNumber());
         returnDTO.setTotalElements(page.getTotalElements());
         return ResponseEntity.ok().body(returnDTO);
+    }
+
+    private Date setZero(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.add(Calendar.HOUR_OF_DAY, -8);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.add(Calendar.DATE, 1);
+        return calendar.getTime();
     }
 
     @PostMapping(value="/create", consumes={"multipart/form-data"})
@@ -119,7 +142,8 @@ public class ProjectController {
         p.setCreatedBy(user.getUsername());
         p.setDepartment(project.getDepartment());
         p.setTags(project.getTags());
-        p.setDateCreated(Date.from(Instant.ofEpochMilli(new Date().getTime()).truncatedTo(ChronoUnit.DAYS)));
+        //p.setDateCreated(Date.from(Instant.ofEpochMilli(new Date().getTime()).truncatedTo(ChronoUnit.DAYS)));
+        p.setDateCreated(new Date());
         p.setSubscribedStudents(new ArrayList<>());
         p.setInterestedStudents(new ArrayList<>());
         p.setStatus("Active");

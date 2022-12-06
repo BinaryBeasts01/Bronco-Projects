@@ -13,8 +13,8 @@ const ProjectAdminScreen = () => {
                                                                 // it must mean they already logged in because if they are not,
                                                                 // we are not displaying button to view created projects
 
-    const [email, setEmail] = useState(null); // either user clicks home button in which case null, or user types something in searchbar
-    const [searchInput, setSearchInput] = useState('');
+    const [email, setEmail] = useState(null);
+    const [searchInput, setSearchInput] = useState(''); // either user clicks home button in which case null, or user types something in searchbar
 
     useEffect(() => {
         if(searchInput !== '') {
