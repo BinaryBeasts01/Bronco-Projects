@@ -162,8 +162,13 @@ public class AuthController {
             return ResponseEntity.badRequest().body("NO TOKEN PROVIDED");
         }
         else {
-            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            return ResponseEntity.ok().body(user.getUserId());
+            try {
+                User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                return ResponseEntity.ok().body(user.getUserId());
+            }
+            catch(Exception e) {
+                return ResponseEntity.badRequest().body("Unable to get id");
+            }
         }
     }
 

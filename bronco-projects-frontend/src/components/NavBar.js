@@ -11,7 +11,7 @@ function NavBar({isLoggedIn, email, setEmail, setIsLoggedIn, setSearchInput}) {
     let form;
     let profile;
 
-    if(!AuthService.checkJWTValid()) {
+    if(!AuthService.getUserIdFromToken()) {
         form = <AuthForm email={email} setEmail={setEmail} shouldShowLoginForm={loginFormVisible} setIsLoggedIn={setIsLoggedIn}
                             closeLoginForm={() => {setShowLoginForm(false)}}/>
 

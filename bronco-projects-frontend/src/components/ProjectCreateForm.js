@@ -12,14 +12,13 @@ const ProjectCreateForm = ({showProjectCreateModal, closeProjectCreateModal}) =>
     const [tags, setTags] = useState(null);
     const [department, setDepartment] = useState(null);
 
-    const navigate = useNavigate();
-
     const handleSubmitForm = async (e) => {
         e.preventDefault();
 
+        console.log(name, description, department);
         await ProjectsService.createProject(name, description, image, tags, department);
         closeProjectCreateModal();
-        navigate("/", {state: {searchInput: null}});
+        window.location.reload();
     }
 
     return (
@@ -42,7 +41,7 @@ const ProjectCreateForm = ({showProjectCreateModal, closeProjectCreateModal}) =>
                     <Form.Control type="text" placeholder="Enter Description" onChange={(e) => setDescription(e.target.value)}/>
                     <br/>
                     <Form.Label>Provide an Image</Form.Label>
-                    <Form.Control type="file" onChange={(e) => setImage(e.target.value)}/>
+                    <Form.Control type="file" onChange={(e) => setImage(e.target.files[0])}/>
                     <br/>
                     <Form.Control type="text" placeholder="Enter Tags" onChange={(e) => setTags(e.target.value)}/>
                     <br/>

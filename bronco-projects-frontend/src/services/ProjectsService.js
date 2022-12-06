@@ -36,7 +36,7 @@ class ProjectsService {
         data.append("image", image);
         data.append("tags", tags);
         data.append("department", department);
-        console.log(data)
+
         let config = {
             method: 'post',
             url: url,
