@@ -5,7 +5,6 @@ import AuthService from "../services/AuthService";
 import AuthForm from "./AuthForm";
 import SearchBar from "./SearchBar"
 import {useNavigate} from "react-router-dom";
-import Logo from "../Logo.svg"
 
 function NavBar({isLoggedIn, email, setEmail, setIsLoggedIn, setSearchInput}) {
     const [loginFormVisible, setShowLoginForm] = useState(false);
@@ -41,7 +40,7 @@ function NavBar({isLoggedIn, email, setEmail, setIsLoggedIn, setSearchInput}) {
     return (
         <Navbar style={styles["navbar"]}>
             <Container style={styles["profile"]}>
-                <Button styles={{backgroundImage: `url(${Logo})`, backgroundSize:"cover", width:"10%", height:"70%"}} onClick={(e) => {setSearchInput(null)}}/>
+                <Button styles={{backgroundImage:"url('./images/logo.png')"}} onClick={(e) => {setSearchInput(null)}}> Home </Button>
             </Container>
             <Container style={styles["searchBar"]}>
                 <SearchBar setProjectsSearchInput={setSearchInput}/>
