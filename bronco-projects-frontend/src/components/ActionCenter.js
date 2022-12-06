@@ -17,10 +17,10 @@ const ActionCenter = ({email}) => {
     return (
           <ListGroup horizontal={true} style={{paddingBottom: "10%"}}>
               <ListGroupItem style={{backgroundColor: "rgb(3,3,3)"}}>
-                  <Button>Create Project</Button>
+                  <Button>Create</Button>
               </ListGroupItem>
               <ListGroupItem style={{backgroundColor: "rgb(3,3,3)"}}>
-                  <Button onClick={() => setOpenCreatedProjects(true)}>View Created Projects</Button>
+                  <Button onClick={() => setOpenCreatedProjects(true)}>My Projects</Button>
               </ListGroupItem>
           </ListGroup>
     );
