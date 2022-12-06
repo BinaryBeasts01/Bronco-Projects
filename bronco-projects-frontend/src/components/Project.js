@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import SampleProjects from "../constants/SampleProjects";
 import ProjectsService from "../services/ProjectsService";
+import {Button} from "react-bootstrap";
 function Project({projectID}) {
     const [project, setProject] = useState(null);
     useEffect( () => {
@@ -23,6 +24,7 @@ function Project({projectID}) {
         >
             <h1 style={{color: 'white'}}>{!project ? "Loading": project["name"]}</h1>
             <h2 style={{color: 'white'}}>{!project ? "Loading": project["description"]}</h2>
+            <Button onClick={() => ProjectsService.apply(projectID)}>Apply</Button>
         </div>
     );
 }
