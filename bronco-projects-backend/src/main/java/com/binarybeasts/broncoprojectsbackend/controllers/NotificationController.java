@@ -16,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Optional;
 
@@ -135,6 +136,7 @@ public class NotificationController {
             notifications.add(returnDTO);
         });
 
+        Collections.reverse(notifications);
         return ResponseEntity.ok().body(notifications);
     }
 }
