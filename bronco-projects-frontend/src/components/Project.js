@@ -54,10 +54,7 @@ function Project({projectID, isLoggedIn}) {
                         <Text style={{color: "white", fontSize: "90%", "justifyContent": "center", "alignItems": "center"}}>{`Created By:\n${createdBy}`}</Text>
                     </div>
                     <br/>
-                    <div style={{height: "10%", borderBottom: "1px solid rgb(87, 88, 89)"}}>
-                        <Text style={{color: "white", fontSize: "90%", "justifyContent": "center", "alignItems": "center"}}>{`On:\n${date}`}</Text>
-                    </div>
-                    <br/>
+                  
                     <div style={{height: "10%", borderBottom: "1px solid rgb(87, 88, 89)"}}>
                         <Text style={{color: "white", fontSize: "90%", "justifyContent": "center", "alignItems": "center"}}>{`Department:\n${department}`}</Text>
                     </div>
