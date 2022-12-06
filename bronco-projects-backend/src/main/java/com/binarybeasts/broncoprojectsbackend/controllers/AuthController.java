@@ -2,7 +2,6 @@ package com.binarybeasts.broncoprojectsbackend.controllers;
 
 import com.binarybeasts.broncoprojectsbackend.configurations.JwtTokenUtil;
 import com.binarybeasts.broncoprojectsbackend.dtos.*;
-import com.binarybeasts.broncoprojectsbackend.entities.Notification;
 import com.binarybeasts.broncoprojectsbackend.entities.User;
 import com.binarybeasts.broncoprojectsbackend.entities.VerificationCode;
 import com.binarybeasts.broncoprojectsbackend.repositories.NotificationRepository;
@@ -183,20 +182,5 @@ public class AuthController {
         } catch(IOException e) {
             return ResponseEntity.badRequest().body("Could not retrieve resume");
         }
-    }
-
-    @GetMapping("/notifications")
-    public ResponseEntity<?> getNotifications() {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        //verify user exists
-        if(!userRepository.existsById(user.getUserId())) {
-            return ResponseEntity.badRequest().body("No authenticated user");
-        }
-
-        ArrayList<Notification> notifications = new ArrayList<>();
-        notificationRepository.findAllById(user.getNotifications()).forEach(notifications::add);
-
-        return ResponseEntity.ok().body(notifications);
     }
 }
