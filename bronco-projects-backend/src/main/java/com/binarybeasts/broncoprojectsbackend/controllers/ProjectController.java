@@ -25,8 +25,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 @RestController
@@ -91,15 +89,13 @@ public class ProjectController {
         if(filterDTO.getOn() != null) {
             Date on = setZero(filterDTO.getOn());
 
+            //next day from on
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(on);
             calendar.add(Calendar.DATE, 1);
 
-            System.out.println(on);
-            System.out.println(calendar.getTime());
-
-            query.addCriteria(Criteria.where("dateCreated").gte(on).lt(calendar.getTime()));
-            //query.addCriteria(Criteria.where("dateCreated").is(setZero(filterDTO.getOn())));
+            //look for dates >= starting point of day and < start of next day
+            query.addCriteria(new Criteria().andOperator(Arrays.asList(Criteria.where("dateCreated").gte(on), Criteria.where("dateCreated").lt(calendar.getTime()))));
         }
 
         //build page with mongo template to execute query
@@ -116,10 +112,14 @@ public class ProjectController {
     }
 
     private Date setZero(Date date) {
-        date.setHours(0);
-        date.setMinutes(0);
-        date.setSeconds(0);
-        return date;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.add(Calendar.HOUR_OF_DAY, -8);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.add(Calendar.DATE, 1);
+        return calendar.getTime();
     }
 
     @PostMapping(value="/create", consumes={"multipart/form-data"})
