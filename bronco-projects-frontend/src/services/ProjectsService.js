@@ -66,7 +66,7 @@ class ProjectsService {
         let config = {
             method: 'post',
             url: url,
-            headers: {'Content-Type': 'application/json'},
+            headers: {'Content-Type': 'application/json', ...AuthService.authHeader()},
             data: data
         }
 
