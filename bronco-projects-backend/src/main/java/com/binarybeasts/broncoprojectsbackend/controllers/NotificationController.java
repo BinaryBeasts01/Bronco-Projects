@@ -78,7 +78,7 @@ public class NotificationController {
 
             //add notification
             student.getNotifications().add(n.getUuid());
-            emailService.sendMessage(student.getUserId(),"Notification for " + project.get().getName(), notification.getMessage());
+            //emailService.sendMessage(student.getUserId(),"Notification for " + project.get().getName(), notification.getMessage());
         }
 
         //save all students

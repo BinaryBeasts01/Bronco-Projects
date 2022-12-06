@@ -22,9 +22,10 @@ const NotificationModal = ({notification, showNotification, closeNotification}) 
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <h3>{`From: ${notification["from"]} On: ${notification["date"]}`}</h3>
+                <p>{`From: ${notification["from"]} On: ${notification["date"]}`}</p>
+                <br/>
                 <p>
-                    ${notification["message"]}
+                    {notification["message"]}
                 </p>
 
             </Modal.Body>

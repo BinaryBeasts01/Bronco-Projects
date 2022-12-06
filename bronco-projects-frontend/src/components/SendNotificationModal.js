@@ -10,11 +10,11 @@ const SendNotificationModal = ({project, showSendNotificationModal, closeModal})
     const [title, setTitle] = useState(null);
     const [message, setMessage] = useState(null);
 
-    const handleSubmitForm = (e) => {
+    const handleSubmitForm = async (e) => {
         e.preventDefault();
 
         console.log(title, message);
-        NotificationsService.sendNotification(project["uuid"], title, message); // in the future can show success message await NotificationService.sendNotification and if true display success
+        await NotificationsService.sendNotification(project["uuid"], title, message); // in the future can show success message await NotificationService.sendNotification and if true display success
                                                                                 // one problem, notification gets sent to email as well and that is a bottleneck
         closeModal();
     }

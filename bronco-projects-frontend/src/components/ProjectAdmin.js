@@ -141,7 +141,7 @@ const ProjectAdmin = () => {
     let subscribeStudentsModal = showSubscribeStudentsModal ? <SubscribeStudentsModal shouldShowModal={showSubscribeStudentsModal} closeModal={closeSubscribeModal}
                                                          index={selectedIndex} project={selectedProject} subscribeStudentsFunc={subscribeStudents} closeModal={closeNotificationModal}/> : null;
 
-    let notificationModal = showSendNotificationModal ? <SendNotificationModal project={selectedProject} showSendNotificationModal={showSendNotificationModal} closeModal={closeNotificationModal()}/> : null;
+    let notificationModal = showSendNotificationModal ? <SendNotificationModal project={selectedProject} showSendNotificationModal={showSendNotificationModal} closeModal={closeNotificationModal}/> : null;
 
     //const loader = <div className="loader">Loading ...</div>;
 

@@ -4,9 +4,18 @@ import {Button, Container} from "react-bootstrap";
 import AuthService from "../services/AuthService";
 import AuthForm from "./AuthForm";
 import SearchBar from "./SearchBar"
+import {useNavigate} from "react-router-dom";
 
 function NavBar({isLoggedIn, email, setEmail, setIsLoggedIn, setSearchInput}) {
     const [loginFormVisible, setShowLoginForm] = useState(false);
+
+    const navigate = useNavigate();
+
+    const logout = () => {
+        AuthService.logout();
+        setIsLoggedIn(false);
+        navigate("/");
+    }
 
     let form;
     let profile;
@@ -21,9 +30,7 @@ function NavBar({isLoggedIn, email, setEmail, setIsLoggedIn, setSearchInput}) {
         // init profile with user icon
         setIsLoggedIn(true);
         // set email based on jwt token
-        profile = <Button variant='danger' onClick={(e) => {console.log(email)
-            AuthService.logout()
-            window.location.reload()}}>Logout</Button>
+        profile = <Button variant='danger' onClick={(e) => logout()}>Logout</Button>
     }
 
     useEffect(() => {
