@@ -10,6 +10,7 @@ import com.binarybeasts.broncoprojectsbackend.entities.User;
 import com.binarybeasts.broncoprojectsbackend.repositories.NotificationRepository;
 import com.binarybeasts.broncoprojectsbackend.repositories.ProjectRepository;
 import com.binarybeasts.broncoprojectsbackend.repositories.UserRepository;
+import com.binarybeasts.broncoprojectsbackend.services.EmailService;
 import com.binarybeasts.broncoprojectsbackend.services.FileService;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,9 @@ public class ProjectController {
 
     @Autowired
     private FileService fileService;
+
+    @Autowired
+    private EmailService emailService;
 
     @PostMapping("/latest")
     public ResponseEntity<ProjectPageReturnDTO> getRecentProjects(@PageableDefault(page = 0, size = 10, sort = "dateCreated", direction = Sort.Direction.DESC) Pageable pageable) {
@@ -338,7 +342,9 @@ public class ProjectController {
         //create notification and save to notifications collection
         Notification n = new Notification();
         n.setMessage(notification.getMessage());
-        n.setSent(new Date());
+        n.setDate(new Date());
+        n.setFrom(project.get().getCreatedBy());
+        n.setTitle(notification.getTitle());
         notificationRepository.insert(n);
 
         //get list of students to notify
@@ -353,6 +359,7 @@ public class ProjectController {
 
             //add notification
             student.getNotifications().add(n.getUuid());
+            emailService.sendMessage(student.getUserId(),"Notification for " + project.get().getName(), notification.getMessage());
         }
 
         //save all students
