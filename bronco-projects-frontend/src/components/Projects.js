@@ -141,7 +141,10 @@ const Projects = ({searchInput, isLoggedIn}) => {
                         <Card.Title style={{color: textColor, fontSize: "120%"}}>{proj["name"]}</Card.Title>
                         <Card.Subtitle style={{color: textColor, fontSize: "120%"}}>{`${proj["createdBy"]} ${middot} ${proj["department"]} ${middot} ${tags}`} </Card.Subtitle>
                         <br/>
-                        <Card.Text style={{color: textColor, textOverflow: "ellipsis", fontSize: "120%"}}>
+                        <Card.Text style={{color: textColor, fontSize: "120%", flex: 1,
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis"}}>
                             {proj["description"]}
                         </Card.Text>
                     </Card.ImgOverlay>
@@ -201,6 +204,7 @@ const styles = {
         height: "40%",
     },
     "project-card-padding": {
+        display: "flex",
         height: "10%",
     },
 }
