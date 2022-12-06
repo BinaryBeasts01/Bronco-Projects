@@ -2,7 +2,6 @@ package com.binarybeasts.broncoprojectsbackend.controllers;
 
 import com.binarybeasts.broncoprojectsbackend.configurations.JwtTokenUtil;
 import com.binarybeasts.broncoprojectsbackend.dtos.*;
-import com.binarybeasts.broncoprojectsbackend.entities.Notification;
 import com.binarybeasts.broncoprojectsbackend.entities.User;
 import com.binarybeasts.broncoprojectsbackend.entities.VerificationCode;
 import com.binarybeasts.broncoprojectsbackend.repositories.NotificationRepository;
@@ -25,7 +24,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
@@ -179,52 +177,5 @@ public class AuthController {
         } catch(IOException e) {
             return ResponseEntity.badRequest().body("Could not retrieve resume");
         }
-    }
-
-    @GetMapping("/notifications")
-    public ResponseEntity<?> getNotifications() {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        //verify user exists
-        if(!userRepository.existsById(user.getUserId())) {
-            return ResponseEntity.badRequest().body("No authenticated user");
-        }
-
-        //format date to dd-mm-yyyy
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        ArrayList<NotificationReturnDTO> notifications = new ArrayList<>();
-
-        //build notifications to return, formatting each date
-        notificationRepository.findAllById(user.getNotifications()).forEach(v -> {
-            NotificationReturnDTO returnDTO = new NotificationReturnDTO();
-            returnDTO.setFrom(v.getFrom());
-            returnDTO.setMessage(v.getMessage());
-            returnDTO.setTitle(v.getTitle());
-            returnDTO.setDate(formatter.format(v.getDate()));
-            notifications.add(returnDTO);
-        });
-
-        return ResponseEntity.ok().body(notifications);
-    }
-
-    @PostMapping("/delete")
-    public ResponseEntity<String> removeNotification(@RequestBody ObjectNode json) {
-        Optional<Notification> notification = notificationRepository.findById(json.get("id").asText());
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        //verify notification id
-        if(notification.isEmpty()) {
-            return ResponseEntity.badRequest().body("Notification \"" + json.get("id").asText() + "\" doesn't exist");
-        }
-
-        //verify user exists
-        if(!userRepository.existsById(user.getUserId())) {
-            return ResponseEntity.badRequest().body("No authenticated user");
-        }
-
-        //remove notification and update mongo
-        user.getNotifications().remove(notification.get().getUuid());
-        userRepository.save(user);
-        return ResponseEntity.ok().body("Notification deleted");
     }
 }
