@@ -3,6 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import ProjectsService from "../services/ProjectsService";
+import {useNavigate} from "react-router-dom";
 
 const ProjectCreateForm = ({showProjectCreateModal, closeProjectCreateModal}) => {
     const [name, setName] = useState(null);
@@ -11,11 +12,14 @@ const ProjectCreateForm = ({showProjectCreateModal, closeProjectCreateModal}) =>
     const [tags, setTags] = useState(null);
     const [department, setDepartment] = useState(null);
 
+    const navigate = useNavigate();
+
     const handleSubmitForm = async (e) => {
         e.preventDefault();
 
         await ProjectsService.createProject(name, description, image, tags, department);
         closeProjectCreateModal();
+        navigate("/", {state: {searchInput: null}});
     }
 
     return (
