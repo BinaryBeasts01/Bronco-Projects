@@ -46,7 +46,7 @@ jobs:
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
           aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
-          region: us-west-1
+          region: us-east-1
           application_name: Bronco Projects
           environment_name: Broncoprojects-env
           version_label: ${{github.SHA}}
