@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import {EventLogList} from "./EventLogList";
 import NotificationsService from "../services/NotificationsService";
 import NotificationModal from "./NotificationModal";
-import "../css/EventLogList.css";
+import "../css/Notifications.css";
 
 const Notifications = ({}) => {
     const [notifications, setNotifications] = useState([]);
