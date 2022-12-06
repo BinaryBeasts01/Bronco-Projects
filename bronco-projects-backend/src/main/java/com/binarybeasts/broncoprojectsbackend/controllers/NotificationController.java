@@ -10,6 +10,7 @@ import com.binarybeasts.broncoprojectsbackend.repositories.ProjectRepository;
 import com.binarybeasts.broncoprojectsbackend.repositories.UserRepository;
 import com.binarybeasts.broncoprojectsbackend.services.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -125,7 +126,7 @@ public class NotificationController {
         }
 
         //build notifications to return, formatting each date
-        notificationRepository.findAllById(user.getNotifications()).forEach(v -> {
+        notificationRepository.findAllByUuidIn(user.getNotifications(), Sort.by(Sort.Direction.DESC, "date")).forEach(v -> {
             NotificationReturnDTO returnDTO = new NotificationReturnDTO();
             returnDTO.setFrom(v.getFrom());
             returnDTO.setMessage(v.getMessage());
