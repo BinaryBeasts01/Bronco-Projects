@@ -86,9 +86,21 @@ public class ProjectController {
         Query query = new Query().with(pageable);
         if(filterDTO.getTags() != null) query.addCriteria(Criteria.where("tags").in(filterDTO.getTags()));
         if(filterDTO.getBy() != null) query.addCriteria(Criteria.where("createdBy").is(filterDTO.getBy()));
-        if(filterDTO.getBefore() != null) query.addCriteria(Criteria.where("dateCreated").lte(filterDTO.getBefore()));
-        if(filterDTO.getAfter() != null) query.addCriteria(Criteria.where("dateCreated").gte(filterDTO.getAfter()));
-        if(filterDTO.getOn() != null) query.addCriteria(Criteria.where("dateCreated").is(filterDTO.getOn()));
+        if(filterDTO.getBefore() != null) query.addCriteria(Criteria.where("dateCreated").lte(setZero(filterDTO.getBefore())));
+        if(filterDTO.getAfter() != null) query.addCriteria(Criteria.where("dateCreated").gte(setZero(filterDTO.getAfter())));
+        if(filterDTO.getOn() != null) {
+            Date on = setZero(filterDTO.getOn());
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(on);
+            calendar.add(Calendar.DATE, 1);
+
+            System.out.println(on);
+            System.out.println(calendar.getTime());
+
+            query.addCriteria(Criteria.where("dateCreated").gte(on).lt(calendar.getTime()));
+            //query.addCriteria(Criteria.where("dateCreated").is(setZero(filterDTO.getOn())));
+        }
 
         //build page with mongo template to execute query
         ProjectPageReturnDTO returnDTO = new ProjectPageReturnDTO();
@@ -101,6 +113,13 @@ public class ProjectController {
         returnDTO.setCurrentPage(page.getNumber());
         returnDTO.setTotalElements(page.getTotalElements());
         return ResponseEntity.ok().body(returnDTO);
+    }
+
+    private Date setZero(Date date) {
+        date.setHours(0);
+        date.setMinutes(0);
+        date.setSeconds(0);
+        return date;
     }
 
     @PostMapping(value="/create", consumes={"multipart/form-data"})
@@ -123,7 +142,8 @@ public class ProjectController {
         p.setCreatedBy(user.getUsername());
         p.setDepartment(project.getDepartment());
         p.setTags(project.getTags());
-        p.setDateCreated(Date.from(Instant.ofEpochMilli(new Date().getTime()).truncatedTo(ChronoUnit.DAYS)));
+        //p.setDateCreated(Date.from(Instant.ofEpochMilli(new Date().getTime()).truncatedTo(ChronoUnit.DAYS)));
+        p.setDateCreated(new Date());
         p.setSubscribedStudents(new ArrayList<>());
         p.setInterestedStudents(new ArrayList<>());
         p.setStatus("Active");

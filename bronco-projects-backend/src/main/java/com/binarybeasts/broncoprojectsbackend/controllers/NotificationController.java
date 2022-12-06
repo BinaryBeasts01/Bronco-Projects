@@ -9,7 +9,6 @@ import com.binarybeasts.broncoprojectsbackend.repositories.NotificationRepositor
 import com.binarybeasts.broncoprojectsbackend.repositories.ProjectRepository;
 import com.binarybeasts.broncoprojectsbackend.repositories.UserRepository;
 import com.binarybeasts.broncoprojectsbackend.services.EmailService;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -96,6 +95,11 @@ public class NotificationController {
             return ResponseEntity.badRequest().body("No authenticated user");
         }
 
+        //ensure user has notifications list
+        if(user.getNotifications() == null) {
+            user.setNotifications(new ArrayList<>());
+        }
+
         //remove notifications and update mongo
         notificationRepository.findAllById(user.getNotifications()).forEach(v -> user.getNotifications().remove(v.getUuid()));
         userRepository.save(user);
@@ -114,6 +118,11 @@ public class NotificationController {
         //format date to dd-mm-yyyy
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         ArrayList<NotificationReturnDTO> notifications = new ArrayList<>();
+
+        //ensure user has notifications list
+        if(user.getNotifications() == null) {
+            user.setNotifications(new ArrayList<>());
+        }
 
         //build notifications to return, formatting each date
         notificationRepository.findAllById(user.getNotifications()).forEach(v -> {
