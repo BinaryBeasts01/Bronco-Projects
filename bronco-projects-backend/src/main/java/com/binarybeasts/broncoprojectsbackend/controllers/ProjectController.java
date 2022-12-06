@@ -1,10 +1,13 @@
 package com.binarybeasts.broncoprojectsbackend.controllers;
 
+import com.binarybeasts.broncoprojectsbackend.dtos.NotificationDTO;
 import com.binarybeasts.broncoprojectsbackend.dtos.ProjectCreateDTO;
 import com.binarybeasts.broncoprojectsbackend.dtos.ProjectFilterDTO;
 import com.binarybeasts.broncoprojectsbackend.dtos.ProjectPageReturnDTO;
+import com.binarybeasts.broncoprojectsbackend.entities.Notification;
 import com.binarybeasts.broncoprojectsbackend.entities.Project;
 import com.binarybeasts.broncoprojectsbackend.entities.User;
+import com.binarybeasts.broncoprojectsbackend.repositories.NotificationRepository;
 import com.binarybeasts.broncoprojectsbackend.repositories.ProjectRepository;
 import com.binarybeasts.broncoprojectsbackend.repositories.UserRepository;
 import com.binarybeasts.broncoprojectsbackend.services.FileService;
@@ -36,6 +39,9 @@ public class ProjectController {
  
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private NotificationRepository notificationRepository;
 
     @Autowired
     private MongoTemplate mongoTemplate;
@@ -302,5 +308,55 @@ public class ProjectController {
         projects.sort(comparator);
 
         return ResponseEntity.ok().body(projects);
+    }
+
+    @PostMapping("/notify")
+    public ResponseEntity<String> sendNotification(@RequestBody NotificationDTO notification) {
+        Optional<Project> project = projectRepository.findById(notification.getId());
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        //verify user exists
+        if(!userRepository.existsById(user.getUserId())) {
+            return ResponseEntity.badRequest().body("No authenticated user");
+        }
+
+        //check project exists
+        if(project.isEmpty()) {
+            return ResponseEntity.badRequest().body("Project \"" + notification.getId() + "\" doesn't exist");
+        }
+
+        //verify user is owner of project
+        if(!project.get().getCreatedBy().equals(user.getUsername())) {
+            return ResponseEntity.badRequest().body("User \"" + user.getUsername() + "\" is not owner of project \"" + project.get().getUuid() + "\"");
+        }
+
+        //verify users to notify
+        if(project.get().getSubscribedStudents().size() == 0) {
+            return ResponseEntity.badRequest().body("No subscribed users");
+        }
+
+        //create notification and save to notifications collection
+        Notification n = new Notification();
+        n.setMessage(notification.getMessage());
+        n.setSent(new Date());
+        notificationRepository.insert(n);
+
+        //get list of students to notify
+        ArrayList<User> students = new ArrayList<>();
+        userRepository.findAllById(project.get().getSubscribedStudents()).forEach(students::add);
+
+        for(User student : students) {
+            //init list if doesn't exist
+            if(student.getNotifications() == null) {
+                student.setNotifications(new ArrayList<>());
+            }
+
+            //add notification
+            student.getNotifications().add(n.getUuid());
+        }
+
+        //save all students
+        userRepository.saveAll(students);
+        return ResponseEntity.ok().body("Notifications sent");
     }
 }
