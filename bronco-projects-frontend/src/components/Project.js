@@ -2,7 +2,8 @@ import React, {useState, useEffect} from "react";
 import SampleProjects from "../constants/SampleProjects";
 import ProjectsService from "../services/ProjectsService";
 import {Button} from "react-bootstrap";
-function Project({projectID}) {
+
+function Project({projectID, isLoggedIn}) {
     const [project, setProject] = useState(null);
     useEffect( () => {
         const assignProject = async () => {
@@ -11,10 +12,9 @@ function Project({projectID}) {
             setProject(proj)
         }
         assignProject()
-    })
+    },[])
     return (
         //{SampleProjects[pageIndex]["projects"][projectID]["description"]}
-
         <div
             style={{
                 display: 'flex',
@@ -24,7 +24,7 @@ function Project({projectID}) {
         >
             <h1 style={{color: 'white'}}>{!project ? "Loading": project["name"]}</h1>
             <h2 style={{color: 'white'}}>{!project ? "Loading": project["description"]}</h2>
-            <Button onClick={() => ProjectsService.apply(projectID)}>Apply</Button>
+            {isLoggedIn ? <Button onClick={() => ProjectsService.apply(projectID)}>Apply</Button> : null}
         </div>
     );
 }

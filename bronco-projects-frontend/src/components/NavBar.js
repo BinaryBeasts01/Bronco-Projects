@@ -21,7 +21,9 @@ function NavBar({isLoggedIn, email, setEmail, setIsLoggedIn, setSearchInput}) {
         // init profile with user icon
         setIsLoggedIn(true);
         // set email based on jwt token
-        profile = <Button variant='success' onClick={(e) => {console.log(email)}}>PROFILE BUTTON</Button>
+        profile = <Button variant='success' onClick={(e) => {console.log(email)
+            AuthService.logout()
+            window.location.reload()}}>Logout</Button>
     }
 
     useEffect(() => {

@@ -5,7 +5,7 @@ import {useNavigate, useParams} from "react-router-dom";
 
 const ProjectScreen = () => {
     const [email, setEmail] = useState(null)
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const [searchInput, setSearchInput] = useState('');
 
@@ -23,7 +23,7 @@ const ProjectScreen = () => {
     return (
         <div style={styles.home}>
             <NavBar isLoggedIn={isLoggedIn} email={email} setEmail={setEmail} setIsLoggedIn={setIsLoggedIn} setSearchInput={setSearchInput}/>
-            <Project projectID={id}/>
+            <Project projectID={id} isLoggedIn={isLoggedIn}/>
         </div>
     );
 }
