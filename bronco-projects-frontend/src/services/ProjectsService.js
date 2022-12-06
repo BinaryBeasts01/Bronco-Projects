@@ -28,7 +28,7 @@ class ProjectsService {
     }
     static createProject(name, description, image, tags, department) {
         const FormData = require('form-data');
-        let url = PROJECTS_URL + "project";
+        let url = PROJECTS_URL + "create";
 
         let data = new FormData();
         data.append("name", name);
