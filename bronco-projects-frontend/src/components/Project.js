@@ -27,7 +27,7 @@ function Project({projectID, isLoggedIn}) {
         tags = "";
         project["tags"].forEach((tag, i) => {
             if(i !== project["tags"].length - 1)
-                tags += `${tag},`
+                tags += `${tag}, `
             else
                 tags += tag
         });
