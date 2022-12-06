@@ -3,13 +3,11 @@ import AuthService from "./AuthService";
 import axios from "axios";
 import HttpStatusCodes from "http-status-codes";
 
-
-const AUTH_URL = API_URL + "auth/";
-const PROJECTS_URL = API_URL + "projects/";
+const NOTIFICATIONS_URL = API_URL + "notifications/"
 
 class NotificationsService {
     static getNotifications() {
-        let url = AUTH_URL + "notifications/get";
+        let url = NOTIFICATIONS_URL + "get";
         let config = {
             method: 'get',
             url: url,
@@ -27,9 +25,9 @@ class NotificationsService {
             });
     }
 
-    static sendNotification(projectId, message) {
-        let url = PROJECTS_URL + "notify";
-        let data = {id: projectId, message: message}
+    static sendNotification(projectId, title, message) {
+        let url = NOTIFICATIONS_URL + "notify";
+        let data = {id: projectId, title: title, message: message}
 
         let config = {
             method: 'post',
@@ -41,6 +39,8 @@ class NotificationsService {
             data: data
         };
 
+        console.log("CONFIG")
+        console.log(config)
         return axios(config)
             .then((response) => {
                 if (response.status === HttpStatusCodes.OK) {
@@ -54,7 +54,7 @@ class NotificationsService {
     }
 
     static deleteNotifications = () => {
-        let url = AUTH_URL + "notifications/delete";
+        let url = NOTIFICATIONS_URL + "delete";
         let config = {
             method: 'get',
             url: url,
