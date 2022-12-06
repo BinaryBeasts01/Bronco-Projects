@@ -11,5 +11,7 @@ public class Notification {
     @Id
     private String uuid;
     private String message;
-    private Date sent;
+    private String from;
+    private String title;
+    private Date date;
 }

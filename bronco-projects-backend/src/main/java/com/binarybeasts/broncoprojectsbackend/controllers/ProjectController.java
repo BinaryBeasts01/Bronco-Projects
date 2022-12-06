@@ -342,7 +342,9 @@ public class ProjectController {
         //create notification and save to notifications collection
         Notification n = new Notification();
         n.setMessage(notification.getMessage());
-        n.setSent(new Date());
+        n.setDate(new Date());
+        n.setFrom(project.get().getCreatedBy());
+        n.setTitle(notification.getTitle());
         notificationRepository.insert(n);
 
         //get list of students to notify

@@ -25,6 +25,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
@@ -189,8 +190,19 @@ public class AuthController {
             return ResponseEntity.badRequest().body("No authenticated user");
         }
 
-        ArrayList<Notification> notifications = new ArrayList<>();
-        notificationRepository.findAllById(user.getNotifications()).forEach(notifications::add);
+        //format date to dd-mm-yyyy
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        ArrayList<NotificationReturnDTO> notifications = new ArrayList<>();
+
+        //build notifications to return, formatting each date
+        notificationRepository.findAllById(user.getNotifications()).forEach(v -> {
+            NotificationReturnDTO returnDTO = new NotificationReturnDTO();
+            returnDTO.setFrom(v.getFrom());
+            returnDTO.setMessage(v.getMessage());
+            returnDTO.setTitle(v.getTitle());
+            returnDTO.setDate(formatter.format(v.getDate()));
+            notifications.add(returnDTO);
+        });
 
         return ResponseEntity.ok().body(notifications);
     }
