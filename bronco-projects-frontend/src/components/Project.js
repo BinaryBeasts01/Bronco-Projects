@@ -43,7 +43,7 @@ function Project({projectID, isLoggedIn}) {
             <br/>
             <div style={styles["metadata"]}>
                 <div style={styles["description"]}>
-                    <Text style={{color: "white", fontSize: "150%", "justifyContent": "center", "alignItems": "center"}}>{name}</Text>
+                    <Text style={{color: "white", fontSize: "150%", "justifyContent": "center", "alignItems": "center"}}>{description}</Text>
                 </div>
                 <div style={styles["misc"]}>
                     <div style={{height: "20%", paddingBottom: "5%", border: "1px solid rgb(87, 88, 89)"}}>
