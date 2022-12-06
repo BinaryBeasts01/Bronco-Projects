@@ -20,7 +20,7 @@ const Notifications = ({}) => {
         <EventLogList
             title={"Notifications"}
             logs={notificationsList}
-            clearBtnText={"Clear notifications"}
+            clearBtnText={"Clear"}
         />
     );
 }
