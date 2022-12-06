@@ -206,4 +206,25 @@ public class AuthController {
 
         return ResponseEntity.ok().body(notifications);
     }
+
+    @PostMapping("/delete")
+    public ResponseEntity<String> removeNotification(@RequestBody ObjectNode json) {
+        Optional<Notification> notification = notificationRepository.findById(json.get("id").asText());
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        //verify notification id
+        if(notification.isEmpty()) {
+            return ResponseEntity.badRequest().body("Notification \"" + json.get("id").asText() + "\" doesn't exist");
+        }
+
+        //verify user exists
+        if(!userRepository.existsById(user.getUserId())) {
+            return ResponseEntity.badRequest().body("No authenticated user");
+        }
+
+        //remove notification and update mongo
+        user.getNotifications().remove(notification.get().getUuid());
+        userRepository.save(user);
+        return ResponseEntity.ok().body("Notification deleted");
+    }
 }
