@@ -14,15 +14,8 @@ const ProjectCreateForm = ({showProjectCreateModal, closeProjectCreateModal}) =>
     const handleSubmitForm = async (e) => {
         e.preventDefault();
 
-        let result = await ProjectsService.createProject(name, description, image, tags, department);
-        if(result) {
-            //navigate("/");
-        }
-        else {
-            // display error message.
-            // maybe authService should return error message instead of false
-            // so that user can know specific error.
-        }
+        await ProjectsService.createProject(name, description, image, tags, department);
+        closeProjectCreateModal();
     }
 
     return (

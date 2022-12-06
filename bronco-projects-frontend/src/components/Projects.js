@@ -13,7 +13,7 @@ import Sidebar from "./Sidebar";
 import {useNavigate} from "react-router-dom"; // this is just for testing
 
 
-const Projects = ({searchInput, email, isLoggedIn}) => {
+const Projects = ({searchInput, isLoggedIn}) => {
 
     const [projects, setProjects] = useState({"projects": [], "textColors": []}); // Note: some bugs, if initial data is too low, scroll bar won't appear
     const [loadPage, setLoadPage] = useState(null);
@@ -162,7 +162,7 @@ const Projects = ({searchInput, email, isLoggedIn}) => {
                     </div>
 
                     <div style={{width: "25%", height: "100%", display: "flex", flexDirection: "column", paddingLeft: "10%"}}>
-                        {isLoggedIn ? <Sidebar email={email}/> : null}
+                        {isLoggedIn ? <Sidebar /> : null}
                     </div>
                 </div>
 
