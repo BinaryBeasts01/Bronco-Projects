@@ -47,7 +47,7 @@ function Project({projectID, isLoggedIn}) {
                 </div>
                 <div style={styles["misc"]}>
                     <div style={{height: "20%", paddingBottom: "5%", border: "1px solid rgb(87, 88, 89)"}}>
-                        <img style={{width: "100%", height: "100%", objectFit: "contain"}} src={image} alt="Image"/>
+                        <img style={{width: "100%", height: "100%", objectFit: "cover"}} src={image} alt="Image"/>
                     </div>
 
                     <div style={{height: "10%", borderBottom: "1px solid rgb(87, 88, 89)", paddingTop: "5%"}}>
