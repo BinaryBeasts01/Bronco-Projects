@@ -55,9 +55,7 @@ function Project({projectID, isLoggedIn}) {
                     </div>
                     <br/>
                     <div style={{height: "10%", borderBottom: "1px solid rgb(87, 88, 89)"}}>
-                        <Text style={{color: "white", fontSize: "90%", "justifyContent": "center", "alignItems": "center", flex: 1, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis"}}>
-                            {`On:\n${date}`}
-                        </Text>
+                        <Text style={{color: "white", fontSize: "90%", "justifyContent": "center", "alignItems": "center"}}>{`On:\n${date}`}</Text>
                     </div>
                     <br/>
                     <div style={{height: "10%", borderBottom: "1px solid rgb(87, 88, 89)"}}>
