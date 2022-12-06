@@ -1,3 +1,3 @@
-const API_URL = "http://localhost:8080/api/";
+const API_URL = "http://broncoprojects-env.eba-wmjzdh2c.us-east-1.elasticbeanstalk.com/api";
 
 export default API_URL;
