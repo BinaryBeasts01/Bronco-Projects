@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import SampleProjects from "../constants/SampleProjects";
 import ProjectsService from "../services/ProjectsService";
-import {Button, ListGroup, ListGroupItem} from "react-bootstrap";
+import {Button, Card, Col, Container, ListGroup, ListGroupItem, Row} from "react-bootstrap";
 import {Text} from "react-native-web";
 
 function Project({projectID, isLoggedIn}) {
@@ -32,81 +32,75 @@ function Project({projectID, isLoggedIn}) {
                 tags += tag
         });
     }
+    // in the future can put values in a dict like info["name"] = SOMETHING and iterate over keys, and for each key creating a row
+    // a lot of duplicated code below. Would be better to abstract
 
     return (
         //{SampleProjects[pageIndex]["projects"][projectID]["description"]}
-        <div style={styles["project-parent"]}>
-           <div style={styles["title"]}>
-               <Text style={{color: "white", fontSize: "150%", "justifyContent": "center", "alignItems": "center", textAlign: "center"}}>{name}</Text>
-           </div>
-            <br/>
-            <br/>
-            <div style={styles["metadata"]}>
-                <div style={styles["description"]}>
-                    <Text style={{color: "white", fontSize: "150%", "justifyContent": "center", "alignItems": "center"}}>{description}</Text>
-                </div>
-                <div style={styles["misc"]}>
-                    <div style={{height: "20%", paddingBottom: "5%", border: "1px solid rgb(87, 88, 89)"}}>
-                        <img style={{width: "100%", height: "100%", objectFit: "cover"}} src={image} alt="Image"/>
-                    </div>
-
-                    <div style={{height: "10%", borderBottom: "1px solid rgb(87, 88, 89)", paddingTop: "5%"}}>
-                        <Text style={{color: "white", fontSize: "90%", "justifyContent": "center", "alignItems": "center"}}>{`Created By:\n${createdBy}`}</Text>
-                    </div>
-                    <br/>
-                  
-                    <div style={{height: "10%", borderBottom: "1px solid rgb(87, 88, 89)"}}>
-                        <Text style={{color: "white", fontSize: "90%", "justifyContent": "center", "alignItems": "center"}}>{`Department:\n${department}`}</Text>
-                    </div>
-                    <br/>
-                    <div style={{height: "10%", paddingBottom: "5%"}}>
-                        <Text style={{color: "white", fontSize: "90%", "justifyContent": "center", "alignItems": "center"}}>{`Tags:\n${tags}`}</Text>
-                    </div>
-                    <div style={{height: "10%"}}>
-                        {isLoggedIn ? <Button style={{width:"100%"}} variant={"success"} onClick={() => ProjectsService.apply(projectID)}>Apply</Button> : null}
-                    </div>
-                </div>
-            </div>
-        </div>
+        <Container fluid style={styles["project-parent"]}>
+            <Card style={{width: "100%", height: "100%", backgroundColor: "rgb(3,3,3)", border: "1 px solid green"}}>
+                <Card.Header className="d-flex justify-content-between">
+                    <Text style={styles["title"]}> {name} </Text>
+                </Card.Header>
+                <Card.Body>
+                    <Row md={12} style={{width: "100%", height: "100%"}}>
+                        <Col md={7} style={{height: "100%", justifyContent: "center", alignItems: "center"}}>
+                            <Text style={{...styles["text"], ...styles["overflow"]}}>{description}</Text>
+                        </Col>
+                        <Col md={{span: 4, offset: 1}} style={{height: "100%"}}>
+                            <Row style={styles["padding"]}>
+                                <img style={{width: "100%", height: "100%", objectFit: "cover"}} src={image} alt="Image"/>
+                            </Row>
+                            <Row style={styles["padding"]}>
+                                <Text style={styles["text"]}>{`Created By: ${createdBy}`}</Text>
+                            </Row>
+                            <Row style={styles["padding"]}>
+                                <Text style={styles["text"]}>{`On: ${date}`}</Text>
+                            </Row>
+                            <Row style={styles["padding"]}>
+                                <Text style={styles["text"]}>{`Department: ${department}`}</Text>
+                            </Row>
+                            <Row style={styles["padding"]}>
+                                <Text style={styles["text"]}>{`Tags: ${tags}`}</Text>
+                            </Row>
+                            <Row style={styles["padding"]}>
+                                {isLoggedIn ? <Button style={{width:"100%"}} variant={"success"} onClick={() => ProjectsService.apply(projectID)}>Apply</Button> : null}
+                            </Row>
+                        </Col>
+                    </Row>
+                </Card.Body>
+            </Card>
+        </Container>
     );
 }
 
 const styles = {
     "project-parent": {
         "display": "flex",
-        "flexDirection": "column",
         "alignItems": "center",
         "justifyContent": "center",
-        "height": "90%",
-        "paddingTop": "50px",
+        height: "100%",
         position: "relative",
         zIndex: 1,
+        "backgroundColor": "rgb(3,3,3)",
     },
-    "title": {
-        width: "25%",
-        height: "10%",
-        "alignItems": "center",
-        "justifyContent": "center",
-        border: "3px solid green",
-        borderRadius: "3px",
-        textAlign: "center",
+    text: {
+        color: "white",
+        fontSize: "1em",
+        justifyContent: "center",
+        alignItems: "center"
     },
-    "metadata": {
-        width: "25%",
-        height: "90%",
-        display: "flex",
-        flexDirection: "row",
-        border: "3px solid green",
-        borderRadius: "3px"
+    title: {
+        color: "white",
+        fontSize: "1.2em",
+        justifyContent: "center",
+        alignItems: "center"
     },
-    "description": {
-        width: "60%"
+    overflow: {
+        overflowY: "scroll"
     },
-    "misc": {
-        width: "40%",
-        paddingLeft: "10%",
-        display: "flex",
-        flexDirection: "column"
+    padding: {
+        paddingBottom: "5%"
     }
 }
 

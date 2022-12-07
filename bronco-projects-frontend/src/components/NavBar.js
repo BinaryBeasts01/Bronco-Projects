@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import Navbar from "react-bootstrap/Navbar";
-import {Button, Container} from "react-bootstrap";
+import {Button, Container, Nav, Offcanvas} from "react-bootstrap";
 import AuthService from "../services/AuthService";
 import AuthForm from "./AuthForm";
 import SearchBar from "./SearchBar"
@@ -8,6 +8,7 @@ import {useNavigate} from "react-router-dom";
 
 function NavBar({isLoggedIn, email, setEmail, setIsLoggedIn, setSearchInput}) {
     const [loginFormVisible, setShowLoginForm] = useState(false);
+    const [navCollapsed, setNavCollapsed] = useState(false)
 
     const navigate = useNavigate();
 
@@ -16,6 +17,8 @@ function NavBar({isLoggedIn, email, setEmail, setIsLoggedIn, setSearchInput}) {
         setIsLoggedIn(false);
         navigate("/");
     }
+
+    useEffect(() => setNavCollapsed(window.innerWidth <= 768), []); // check if screen width <= md <- bootstrap
 
     let form;
     let profile;
@@ -37,17 +40,62 @@ function NavBar({isLoggedIn, email, setEmail, setIsLoggedIn, setSearchInput}) {
         if(isLoggedIn) AuthService.getUserIdFromToken().then((res) => setEmail(res));
     }, [isLoggedIn])
 
+    let homeButton = <Button styles={{backgroundImage:"url('./images/logo.png')"}} onClick={(e) => {setSearchInput(null)}}> Home </Button>;
+    let searchBar = <SearchBar setProjectsSearchInput={setSearchInput}/>;
+
+    let homeNav =
+        <Nav className="justify-content-begin flex-grow-1 pe-3">
+        <Nav.Item> {homeButton} </Nav.Item>
+    </Nav>
+
+    let searchBarExpanded =
+        <Container style={styles["searchBarExpanded"]}>
+            {searchBar}
+    </Container>
+
+    let searchBarCollapsed =
+        <Container style={styles["searchBarCollapsed"]}>
+            {searchBar}
+        </Container>
+
+    let profileNav =
+        <Nav className="justify-content-emd flex-grow-1 pe-3">
+            <Nav.Item> {profile} </Nav.Item>
+        </Nav>
+
+    let expanded =
+        <Container fluid>
+            {homeNav}
+            {searchBarExpanded}
+            {profileNav}
+    </Container>
+
+    let collapsed =
+        <Container fluid>
+            {searchBarCollapsed}
+            <Navbar.Toggle style={{backgroundColor: "white"}} aria-controls={`offcanvasNavbar-expand-lg`} />
+            <Navbar.Offcanvas
+                id={`offcanvasNavbar-expand-lg`}
+                aria-labelledby={`offcanvasNavbarLabel-expand-lg`}
+                placement="end"
+            >
+                <Offcanvas.Header closeButton>
+                    <Offcanvas.Title id={`offcanvasNavbarLabel-expand-lg`}>
+                        Options
+                    </Offcanvas.Title>
+                </Offcanvas.Header>
+                <Offcanvas.Body>
+                    {homeButton}
+                    <br/>
+                    <br/>
+                    {profile}
+                </Offcanvas.Body>
+            </Navbar.Offcanvas>
+        </Container>
+
     return (
-        <Navbar style={styles["navbar"]}>
-            <Container style={styles["profile"]}>
-                <Button styles={{backgroundImage:"url('./images/logo.png')"}} onClick={(e) => {setSearchInput(null)}}> Home </Button>
-            </Container>
-            <Container style={styles["searchBar"]}>
-                <SearchBar setProjectsSearchInput={setSearchInput}/>
-            </Container>
-            <Container style={styles["profile"]}>
-                {profile}
-            </Container>
+        <Navbar bg="dark" collapseOnSelect expand="lg" fixed="top" style={styles["navbar"]}>
+            {navCollapsed ? collapsed : expanded}
             {form}
         </Navbar>
     );
@@ -56,8 +104,6 @@ function NavBar({isLoggedIn, email, setEmail, setIsLoggedIn, setSearchInput}) {
 const styles = {
     navbar: {
         "backgroundColor": "rgb(26,26,27)",
-        "height": "10%",
-        "position": "sticky",
         borderBottom: "5px solid rgb(87, 88, 89)",
         zIndex: 2
     },
@@ -66,15 +112,20 @@ const styles = {
         "justifyContent": "begin",
         "width": "5%",
     },
-    searchBar: {
+    searchBarExpanded: {
         "display": "flex",
         "alignItems": "center",
         "justifyContent": "center",
     },
+    searchBarCollapsed: {
+        "display": "flex",
+        "alignItems": "begin",
+        "justifyContent": "begin",
+        maxWidth: "75%"
+    },
     profile: {
         "display": "flex",
         "justifyContent": "end",
-        "width": "5%",
     }
 }
 

@@ -1,6 +1,7 @@
 import React, {useState, useRef} from "react";
 import {SearchFilterList, SearchFilterListMap} from "../constants/SearchFilterList";
 import {useDetectClickOutside} from "react-detect-click-outside";
+import {Button, Container, Form} from "react-bootstrap";
 
 const SearchBar = ({setProjectsSearchInput}) => {
     const [searchInput, setSearchInput] = useState("");
@@ -22,13 +23,13 @@ const SearchBar = ({setProjectsSearchInput}) => {
     const createFilterItem = (item, index, isEnd) => {
         // set  ref={filterItemsRef.current[index]} on span to filter
         return (
-        <div
+        <Container flud
             onClick={() => onSearchItemClick(item)}
             style={isEnd ? styles["dropdown-row-last"] : styles["dropdown-row"]}
             key={item}
         >
             <span tabIndex={0}  onKeyPress={(e) => handleSpanKeyEvent(e, item)} style={styles["filter-text"]}>{item}{SearchFilterListMap[item]}</span>
-        </div>
+        </Container>
         );
     }
 
@@ -138,21 +139,22 @@ const SearchBar = ({setProjectsSearchInput}) => {
     // };
 
     return (
-        <div ref={divRef} style={styles["search-container"]}>
-            <div style={styles["search-inner"]}>
-                <input ref={inputRef} style={styles["search-text"]} type="text" value={searchInput} onClick={initItems} onChange={handleSearchInputChange}/>
-                <button style={styles["search-button"]} tabIndex={-1} onClick={() => setProjectsSearchInput(searchInput)}> Search </button>
-            </div>
-            <div style={styles["dropdown"]} >
-                {filterResults}
-            </div>
-        </div>
+        <Container fluid ref={divRef} style={styles["search-container"]}>
+                <Form className={"d-flex"} onSubmit={() => setProjectsSearchInput(searchInput)}>
+                    <Form.Control className={"me-2"} type="text" placeholder="Search" value={searchInput} onChange={handleSearchInputChange} onClick={initItems}/>
+                    <Button variant={"outline-success"} type="submit" tabIndex={-1}> Search </Button>
+                </Form>
+            {filterResults && filterResults.length > 0 &&
+                <Container style={styles["dropdown"]}>
+                    {filterResults}
+                </Container>
+            }
+        </Container>
     );
 }
 
 const styles = {
     "search-container": {
-        "width": "100%",
         "display": "flex",
         "flexDirection": "column",
     },
@@ -180,17 +182,19 @@ const styles = {
         "margin": "2px 0",
         "borderBottom": "1px solid black",
         "zIndex": 999,
+        whiteSpace: 'pre-wrap',
+        overflowWrap: 'break-word'
     },
     "dropdown-row-last": {
         "cursor": "pointer",
         "textAlign": "start",
         "margin": "2px 0",
-        '&:focus': {
-            "backgroundColor": "red",
-        },
         "zIndex": 999,
+        whiteSpace: 'pre-wrap',
+        overflowWrap: 'break-word'
     },
     "filter-text": {
+        wordBreak: "break-all",
         '&:focus': {
             "backgroundColor": "red",
         },

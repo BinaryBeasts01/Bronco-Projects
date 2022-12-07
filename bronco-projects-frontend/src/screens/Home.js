@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import NavBar from "../components/NavBar";
 import Projects from "../components/Projects";
 import {useLocation} from "react-router-dom";
+import {Container, Row} from "react-bootstrap";
 
 const Home = () => {
     let location = useLocation();
@@ -22,10 +23,16 @@ const Home = () => {
 
     // if it is load user specific data, get profile pic for navbar, get user recommendations for projects
     return (
-        <div style={styles.home}>
-            <NavBar isLoggedIn={loggedIn} email={email} setEmail={setEmail} setSearchInput={setSearchInput} setIsLoggedIn={setIsLoggedIn} />
-            <Projects searchInput={searchInput} isLoggedIn={loggedIn} />
-        </div>
+        <Container fluid style={styles.home}>
+            <Row sm={12} md={12} lg={12} xxl={12} style={{height: "10%"}}>
+                <NavBar isLoggedIn={loggedIn} email={email} setEmail={setEmail} setSearchInput={setSearchInput}
+                        setIsLoggedIn={setIsLoggedIn}/>
+            </Row>
+
+            <Row sm={12} md={12} lg={12} xxl={12} style={{height: "90%"}}>
+                <Projects searchInput={searchInput} isLoggedIn={loggedIn}/>
+            </Row>
+        </Container>
     );
 }
 
@@ -33,9 +40,7 @@ const styles = {
     home: {
         "fontFamily": "sans-serif",
         "backgroundColor": "black",
-        "width": "100%",
-        "height": "100%",
-
+        height: "100%"
     },
 }
 

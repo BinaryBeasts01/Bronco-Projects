@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Card} from "react-bootstrap";
+import {Card, Col, Container, Row} from "react-bootstrap";
 import useInfiniteScroll from "react-easy-infinite-scroll-hook";
 import ProjectsService from "../services/ProjectsService";
 import {SearchFilterList} from "../constants/SearchFilterList";
@@ -119,6 +119,7 @@ const Projects = ({searchInput, isLoggedIn}) => {
     }
 
     let projectCards;
+    let projectsLen = projects["projects"].length
     projectCards = projects["projects"].map((proj, index) => {
         let color = projects["textColors"][index];
         let textColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
@@ -133,66 +134,49 @@ const Projects = ({searchInput, isLoggedIn}) => {
         let middot = `\u00B7`;
 
         return (
-            <div style={styles["project-card-parent"]}>
-                <div style={index !== 0 ? styles["project-card-padding"] : {}}></div>
-                <Card key={index} className={"project-card"} onClick={() => openProjectPage(proj["uuid"])}>
-                    <Card.Img style={{width: "100%", height: "100%", objectFit: "cover", filter: "blur(7px)"}} src={`data:image/${proj["extension"]};base64, ${proj["image"]}`} alt="Card image" />
+            <Row style={styles["project-card-parent"]}>
+                <Card key={index} style={{width: "100%", height: "100%"}} className={"project-card"} onClick={() => openProjectPage(proj["uuid"])}>
+                    <Card.Img style={{width: "100%", height: "100%", objectFit: "cover", filter: "blur(10px)"}} src={`data:image/${proj["extension"]};base64, ${proj["image"]}`} alt="Card image" />
                     <Card.ImgOverlay style={{opacity: 1}}>
-                        <Card.Title style={{color: textColor, fontSize: "120%"}}>{proj["name"]}</Card.Title>
-                        <Card.Subtitle style={{color: textColor, fontSize: "120%"}}>{`${proj["createdBy"]} ${middot} ${proj["department"]} ${middot} ${tags}`} </Card.Subtitle>
+                        <Card.Title style={{color: textColor, fontSize: "1em"}}>{proj["name"]}</Card.Title>
+                        <Card.Subtitle style={{color: textColor, fontSize: ".75em"}}>{`${proj["createdBy"]} ${middot} ${proj["department"]} ${middot} ${tags}`} </Card.Subtitle>
                         <br/>
-                        <Card.Text style={{color: textColor, fontSize: "120%", flex: 1,
-    whiteSpace: "nowrap",
-    overflow: "hidden",
-    textOverflow: "ellipsis"}}>
+                        <Card.Text className={"project-card-text"} style={{color: textColor, fontSize: "1em"}}>
                             {proj["description"]}
                         </Card.Text>
                     </Card.ImgOverlay>
                 </Card>
-            </div>
+            </Row>
         );
     });
 
     //const loader = <div className="loader">Loading ...</div>;
-
+    // react bootstrap 12 col per row
     return (
-        <div style={styles["projects-parent"]}>
-
-            <div style={styles["projects"]}>
-                <div ref={ref} style={{ width: "100%", height: "100%", overflowY: "scroll", display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center"}}>
-                    <div style={{width: "25%", height: "100%", display: "flex", flexDirection: "column"}}>
+        <Container fluid style={styles["projects-parent"]}>
+                <Row ref={ref} md={12} className="justify-content-md-center" style={{overflowY: "scroll", width: "100%", height: "100%"}}>
+                    <Col style={{height: "100%"}} md={4}>
                         {projectCards}
-                    </div>
-
-                    <div style={{width: "25%", height: "100%", display: "flex", flexDirection: "column", paddingLeft: "10%"}}>
-                        {isLoggedIn ? <Sidebar /> : null}
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
+                    </Col>
+                    <Col md={{ span: 2, offset: 1 }}>
+                        {isLoggedIn ? <Sidebar style={{height: "80%"}}/> : null}
+                    </Col>
+                </Row>
+        </Container>
     );
 }
 
 const styles = {
     "projects-parent": {
         "display": "flex",
-        "flexDirection": "row",
         "alignItems": "center",
         "justifyContent": "center",
-        "height": "90%",
-        "paddingTop": "50px",
+        height: "100%",
         position: "relative",
         zIndex: 1,
-    },
-    projects: {
-        "display": "flex",
-        "flexDirection": "row",
-        "width": "100%",
-        "height": "100%",
         "backgroundColor": "rgb(3,3,3)",
     },
+
     padding: {
         "display": "flex",
         "width": "40%",
@@ -200,12 +184,11 @@ const styles = {
         "height": "100%"
     },
     "project-card-parent": {
-        width: "100%",
-        height: "40%",
+        height: "50%",
+        paddingBottom: "10%"
     },
     "project-card-padding": {
-        display: "flex",
-        height: "10%",
+        height: "5%",
     },
 }
 export default Projects;

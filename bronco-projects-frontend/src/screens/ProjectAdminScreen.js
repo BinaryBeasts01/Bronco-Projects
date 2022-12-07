@@ -5,6 +5,8 @@ import {useNavigate, useLocation} from "react-router-dom";
 import NavBar from "../components/NavBar";
 import Project from "../components/Project";
 import ProjectAdmin from "../components/ProjectAdmin";
+import {Container, Row} from "react-bootstrap";
+import Projects from "../components/Projects";
 
 const ProjectAdminScreen = () => {
     let navigate = useNavigate();
@@ -24,10 +26,15 @@ const ProjectAdminScreen = () => {
     }, [searchInput]);
 
     return (
-        <div style={styles.home}>
-            <NavBar isLoggedIn={isLoggedIn} email={email} setEmail={setEmail} setIsLoggedIn={setIsLoggedIn} setSearchInput={setSearchInput}/>
-            <ProjectAdmin />
-        </div>
+        <Container fluid style={styles.home}>
+            <Row sm={12} md={12} lg={12} xxl={12} style={{height: "10%"}}>
+                <NavBar isLoggedIn={isLoggedIn} email={email} setEmail={setEmail} setIsLoggedIn={setIsLoggedIn} setSearchInput={setSearchInput}/>
+            </Row>
+
+            <Row sm={12} md={12} lg={12} xxl={12} style={{height: "90%"}}>
+                <ProjectAdmin />
+            </Row>
+        </Container>
     );
 }
 
