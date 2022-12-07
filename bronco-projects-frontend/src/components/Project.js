@@ -101,6 +101,10 @@ const styles = {
     },
     padding: {
         paddingBottom: "5%"
+    },
+    imageRow: {
+        height: "50%",
+        paddingBottom: "5%"
     }
 }
 
