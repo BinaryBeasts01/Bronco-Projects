@@ -38,7 +38,7 @@ const ProjectCreateForm = ({showProjectCreateModal, closeProjectCreateModal}) =>
                 <Form onSubmit={handleSubmitForm}>
                     <Form.Control type="text" placeholder="Enter Project Name" onChange={(e) => setName(e.target.value)}/>
                     <br/>
-                    <Form.Control type="text" placeholder="Enter Description" onChange={(e) => setDescription(e.target.value)}/>
+                    <Form.Control as="textarea" rows={4} placeholder="Enter Description" onChange={(e) => setDescription(e.target.value)}/>
                     <br/>
                     <Form.Label>Provide an Image</Form.Label>
                     <Form.Control type="file" onChange={(e) => setImage(e.target.files[0])}/>
