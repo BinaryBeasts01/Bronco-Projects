@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Button, Card, ListGroup, ListGroupItem} from "react-bootstrap";
+import {Button, ButtonToolbar, Card, ListGroup, ListGroupItem} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import ProjectCreateForm from "./ProjectCreateForm";
 import project from "./Project";
@@ -23,14 +23,10 @@ const ActionCenter = () => {
 
     return (
         <div>
-          <ListGroup horizontal={true} style={{paddingBottom: "10%"}}>
-              <ListGroupItem style={{backgroundColor: "rgb(3,3,3)"}}>
-                  <Button onClick={() => setShowProjectCreateForm(true)}>Create</Button>
-              </ListGroupItem>
-              <ListGroupItem style={{backgroundColor: "rgb(3,3,3)"}}>
-                  <Button onClick={() => setOpenCreatedProjects(true)}>My Projects</Button>
-              </ListGroupItem>
-          </ListGroup>
+          <ButtonToolbar style={{paddingBottom: "10%", backgroundColor: "rgb(3,3,3)"}}>
+                  <Button style={{justifyContent: "begin"}} onClick={() => setShowProjectCreateForm(true)}>Create</Button>
+                  <Button style={{justifyContent: "end"}} onClick={() => setOpenCreatedProjects(true)}>My Projects</Button>
+          </ButtonToolbar>
             {projectCreateForm}
         </div>
     );

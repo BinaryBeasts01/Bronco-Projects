@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {ButtonGroup, Card, DropdownButton} from "react-bootstrap";
+import {ButtonGroup, Card, Col, Container, DropdownButton, Row} from "react-bootstrap";
 import ProjectsService from "../services/ProjectsService";
 import SubscribeStudentsModal from "./SubscribeStudentsModal";
 import "../css/ProjectCard.css";
@@ -112,15 +112,14 @@ const ProjectAdmin = () => {
         else bgColor = 'red'
 
         return (
-            <div style={styles["project-card-parent"]}>
-                <div style={index !== 0 ? styles["project-card-padding"] : {}}></div>
-                <Card key={index} className={"project-card"} style={{backgroundColor: bgColor}}>
+            <Row style={styles["project-card-parent"]}>
+                <Card key={index} style={{width: "100%", height: "100%"}} className={"project-card"} style={{backgroundColor: bgColor}}>
                     <Card.Header className="d-flex justify-content-between">
-                        <Text style={{fontSize: "120%"}}> {proj["name"]} </Text>
+                        <Text style={{fontSize: "1em"}}> {proj["name"]} </Text>
                         {retrieveDropdownForState(index, proj)}
                     </Card.Header>
                 </Card>
-            </div>
+            </Row>
         );
     });
 
@@ -139,36 +138,35 @@ const ProjectAdmin = () => {
 
 
     let subscribeStudentsModal = showSubscribeStudentsModal ? <SubscribeStudentsModal shouldShowModal={showSubscribeStudentsModal} closeModal={closeSubscribeModal}
-                                                         index={selectedIndex} project={selectedProject} subscribeStudentsFunc={subscribeStudents} closeModal={closeNotificationModal}/> : null;
+                                                         index={selectedIndex} project={selectedProject} subscribeStudentsFunc={subscribeStudents} closeModal={closeSubscribeModal}/> : null;
 
     let notificationModal = showSendNotificationModal ? <SendNotificationModal project={selectedProject} showSendNotificationModal={showSendNotificationModal} closeModal={closeNotificationModal}/> : null;
 
     //const loader = <div className="loader">Loading ...</div>;
 
     return (
-        <div style={styles["projects-parent"]}>
-            <div style={styles["projects"]}>
-                <div style={{ width: "100%", height: "100%", overflowY: "scroll", display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center"}}>
-                    <div style={{width: "25%", height: "100%", display: "flex", flexDirection: "column"}}>
+        <Container fluid style={styles["projects-parent"]}>
+            <Row md={12} className="justify-content-md-center" style={{overflowY: "scroll", width: "100%", height: "100%"}}>
+                    <Col md={7} style={{height: "100%"}}>
                         {createdProjectCards}
-                    </div>
-                </div>
+                    </Col>
+                </Row>
 
-            </div>
             {subscribeStudentsModal}
             {notificationModal}
-        </div>
+        </Container>
     );
 }
 
 const styles = {
     "projects-parent": {
         "display": "flex",
-        "flexDirection": "row",
         "alignItems": "center",
         "justifyContent": "center",
-        "height": "90%",
-        "paddingTop": "50px"
+        height: "100%",
+        position: "relative",
+        zIndex: 1,
+        "backgroundColor": "rgb(3,3,3)",
     },
     projects: {
         "display": "flex",
@@ -184,8 +182,8 @@ const styles = {
         "height": "100%"
     },
     "project-card-parent": {
-        width: "100%",
         height: "10%",
+        paddingBottom: "10%"
     },
     "project-card-padding": {
         height: "10%",

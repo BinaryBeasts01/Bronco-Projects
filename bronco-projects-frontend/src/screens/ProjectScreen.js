@@ -2,6 +2,8 @@ import React, {useEffect, useState} from "react";
 import NavBar from "../components/NavBar";
 import Project from "../components/Project";
 import {useNavigate, useParams} from "react-router-dom";
+import {Container, Row} from "react-bootstrap";
+import ProjectAdmin from "../components/ProjectAdmin";
 
 const ProjectScreen = () => {
     const [email, setEmail] = useState(null)
@@ -21,10 +23,15 @@ const ProjectScreen = () => {
     }, [searchInput]);
 
     return (
-        <div style={styles.home}>
-            <NavBar isLoggedIn={isLoggedIn} email={email} setEmail={setEmail} setIsLoggedIn={setIsLoggedIn} setSearchInput={setSearchInput}/>
-            <Project projectID={id} isLoggedIn={isLoggedIn}/>
-        </div>
+        <Container fluid style={styles.home}>
+            <Row sm={12} md={12} lg={12} xxl={12} style={{height: "10%"}}>
+                <NavBar isLoggedIn={isLoggedIn} email={email} setEmail={setEmail} setIsLoggedIn={setIsLoggedIn} setSearchInput={setSearchInput}/>
+            </Row>
+
+            <Row sm={12} md={12} lg={12} xxl={12} style={{height: "90%"}}>
+                <Project projectID={id} isLoggedIn={isLoggedIn}/>
+            </Row>
+        </Container>
     );
 }
 
