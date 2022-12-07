@@ -155,7 +155,7 @@ const Projects = ({searchInput, isLoggedIn}) => {
     return (
         <Container fluid style={styles["projects-parent"]}>
                 <Row ref={ref} md={12} className="justify-content-md-center" style={{overflowY: "scroll", width: "100%", height: "100%"}}>
-                    <Col style={{height: "100%"}} md={isLoggedin ? 4 : 7}>
+                    <Col style={{height: "100%"}} md={isLoggedIn ? 4 : 7}>
                         {projectCards}
                     </Col>
                     {isLoggedIn &&
