@@ -47,8 +47,8 @@ function Project({projectID, isLoggedIn}) {
                         <Col md={7} style={{height: "100%", justifyContent: "center", alignItems: "center"}}>
                             <Text style={{...styles["text"], ...styles["overflow"]}}>{description}</Text>
                         </Col>
-                        <Col md={{span: 4, offset: 1}} style={{height: "100%"}}>
-                            <Row style={styles["padding"]}>
+                        <Col md={{span: 4, offset: 1}} style={{height: "100%", ...styles["overflow"]}}>
+                            <Row style={styles["imageRow"]}>
                                 <img style={{width: "100%", height: "100%", objectFit: "cover"}} src={image} alt="Image"/>
                             </Row>
                             <Row style={styles["padding"]}>
