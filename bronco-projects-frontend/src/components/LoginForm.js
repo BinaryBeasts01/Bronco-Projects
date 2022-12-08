@@ -57,7 +57,7 @@ const LoginForm = ({shouldShowLoginForm, closeLoginForm, showSignUpVerificationF
                 </Form>
 
             </Modal.Body>
-            <Modal.Footer>
+            <Modal.Footer style={{justifyContent: "center", alignItems: "center"}}>
                 <h6>
                     Don't have an account? <span style={{color:'blue',cursor:'pointer'}} onClick={showSignUpVerificationForm}> Create one! </span>
                 </h6>

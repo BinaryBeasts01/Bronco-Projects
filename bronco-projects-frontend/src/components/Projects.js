@@ -127,7 +127,7 @@ const Projects = ({searchInput, isLoggedIn}) => {
         let sliceMax = proj["tags"].length < 3 ? proj["tags"].length : 3;
         let tags = "";
         proj["tags"].slice(0, sliceMax).forEach((value, index) => {
-            if(index < sliceMax - 1) tags += `${value},`;
+            if(index < sliceMax - 1) tags += `${value}, `;
             else tags += value;
     });
 
