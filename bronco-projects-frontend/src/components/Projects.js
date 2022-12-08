@@ -53,7 +53,10 @@ const Projects = ({searchInput, isLoggedIn}) => {
         let data = createSearchInputData();
         console.log(data)
         let page;
-        if (!data) page = await ProjectsService.getProjectsPage(pageNum);
+        if (!data) {
+            console.log("NO SEARCH DATA");
+            page = await ProjectsService.getProjectsPage(pageNum);
+        }
         else page = await ProjectsService.getSearchProjects(data, pageNum);
 
         return page;

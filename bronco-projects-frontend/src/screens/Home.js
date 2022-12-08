@@ -10,13 +10,14 @@ const Home = () => {
     const [email, setEmail] = useState(null)
     const [loggedIn, setIsLoggedIn] = useState(false);
 
-    const [searchInput, setSearchInput] = useState(null);
+    const [searchInput, setSearchInput] = useState(location.state && "searchInput" in location.state ? location.state.searchInput : null);
 
     useEffect(() => {
         if(location.state && "searchInput" in location.state) {
+            console.log("INSIDE HOME FOR SEARCH")
             let value = location.state.searchInput;
             setSearchInput(value);
-            window.history.replaceState({}, document.title)
+            window.history.replaceState(null, document.title)
         } // this useEffect is only called once at the beginning equivalent to componentDidMount
     }, []);
 
