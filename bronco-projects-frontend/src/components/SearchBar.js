@@ -146,7 +146,7 @@ const SearchBar = ({setProjectsSearchInput}) => {
     return (
         <Container fluid ref={divRef} style={styles["search-container"]}>
                 <Form className={"d-flex"} onSubmit={submitSearch}>
-                    <Form.Control className={"me-2"} type="text" placeholder="Type Your Search Here" value={searchInput} onChange={handleSearchInputChange} onClick={initItems}/>
+                    <Form.Control ref={inputRef} className={"me-2"} type="text" placeholder="Type Your Search Here" value={searchInput} onChange={handleSearchInputChange} onClick={initItems}/>
                     <Button variant={"outline-success"} type="submit" tabIndex={-1}> Search </Button>
                 </Form>
             {filterResults && filterResults.length > 0 &&
