@@ -42,13 +42,13 @@ function Project({projectID, isLoggedIn}) {
                 <Card.Header className="d-flex justify-content-between">
                     <Text style={styles["title"]}> {name} </Text>
                 </Card.Header>
-                <Card.Body>
+                <Card.Body style={styles["overflow"]}>
                     <Row md={12} style={{width: "100%", height: "100%"}}>
                         <Col md={7} style={{height: "100%", justifyContent: "center", alignItems: "center"}}>
-                            <Text style={{...styles["text"], ...styles["overflow"]}}>{description}</Text>
+                            <Text style={{...styles["text"]}}>{description}</Text>
                         </Col>
                         <Col md={{span: 4, offset: 1}} style={{height: "100%"}}>
-                            <Row style={styles["padding"]}>
+                            <Row style={styles["imageRow"]}>
                                 <img style={{width: "100%", height: "100%", objectFit: "cover"}} src={image} alt="Image"/>
                             </Row>
                             <Row style={styles["padding"]}>
@@ -100,6 +100,10 @@ const styles = {
         overflowY: "scroll"
     },
     padding: {
+        paddingBottom: "5%"
+    },
+    imageRow: {
+        height: "50%",
         paddingBottom: "5%"
     }
 }

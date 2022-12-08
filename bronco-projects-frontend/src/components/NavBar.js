@@ -59,7 +59,7 @@ function NavBar({isLoggedIn, email, setEmail, setIsLoggedIn, setSearchInput}) {
         </Container>
 
     let profileNav =
-        <Nav className="justify-content-emd flex-grow-1 pe-3">
+        <Nav className="justify-content-end flex-grow-1 pe-3">
             <Nav.Item> {profile} </Nav.Item>
         </Nav>
 

@@ -24,8 +24,8 @@ const ActionCenter = () => {
     return (
         <div>
           <ButtonToolbar style={{paddingBottom: "10%", backgroundColor: "rgb(3,3,3)"}}>
-                  <Button style={{justifyContent: "begin"}} onClick={() => setShowProjectCreateForm(true)}>Create</Button>
-                  <Button style={{justifyContent: "end"}} onClick={() => setOpenCreatedProjects(true)}>My Projects</Button>
+                  <Button className="justify-content-begin flex-grow-1 pe-3" onClick={() => setShowProjectCreateForm(true)}>Create</Button>
+                  <Button className="justify-content-begin flex-grow-1 pe-3" onClick={() => setOpenCreatedProjects(true)}>My Projects</Button>
           </ButtonToolbar>
             {projectCreateForm}
         </div>
