@@ -3,6 +3,7 @@ package com.binarybeasts.broncoprojectsbackend.controllers;
 import com.binarybeasts.broncoprojectsbackend.dtos.ProjectCreateDTO;
 import com.binarybeasts.broncoprojectsbackend.dtos.ProjectFilterDTO;
 import com.binarybeasts.broncoprojectsbackend.dtos.ProjectPageReturnDTO;
+import com.binarybeasts.broncoprojectsbackend.dtos.ProjectReturnDTO;
 import com.binarybeasts.broncoprojectsbackend.entities.Project;
 import com.binarybeasts.broncoprojectsbackend.entities.User;
 import com.binarybeasts.broncoprojectsbackend.repositories.NotificationRepository;
@@ -25,6 +26,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.*;
 
 @RestController
@@ -51,6 +53,7 @@ public class ProjectController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); // for whatever reason, if user is not logged in there are an "anonymousUser".
         ProjectPageReturnDTO returnDTO = new ProjectPageReturnDTO();
         Page<Project> page;
+        List<ProjectReturnDTO> projects = new ArrayList<>();
 
         if(authentication instanceof AnonymousAuthenticationToken) {
             page = projectRepository.findAll(pageable);
@@ -60,8 +63,13 @@ public class ProjectController {
             page = projectRepository.findByDepartment(user.getDepartment(), pageable);
         }
 
+        //convert projects to dtos with date reformatted
+        for(Project p : page.getContent()) {
+            projects.add(new ProjectReturnDTO(p));
+        }
+
         //return projects and page counts
-        returnDTO.setProjects(page.getContent());
+        returnDTO.setProjects(projects);
         returnDTO.setTotalPages(page.getTotalPages());
         returnDTO.setCurrentPage(page.getNumber());
         returnDTO.setTotalElements(page.getTotalElements());
@@ -69,11 +77,11 @@ public class ProjectController {
     }
 
     @PostMapping("/id")
-    public ResponseEntity<?> getProjectById(@RequestBody ObjectNode json) {
+    public ResponseEntity<?> getProjectById(@RequestBody ObjectNode json) throws ParseException {
         Optional<Project> project = projectRepository.findById(json.get("id").asText());
 
         //return project if it exists
-        return project.isPresent() ? ResponseEntity.ok().body(project)
+        return project.isPresent() ? ResponseEntity.ok().body(new ProjectReturnDTO(project.get()))
                                    : ResponseEntity.badRequest().body("Project with id \"" + json.get("id").asText() + "\" doesn't exist");
     }
 
@@ -103,8 +111,15 @@ public class ProjectController {
         List<Project> projects = mongoTemplate.find(query, Project.class);
         Page<Project> page = PageableExecutionUtils.getPage(projects, pageable, () -> mongoTemplate.count(Query.of(query).limit(-1).skip(-1), Project.class));
 
+        List<ProjectReturnDTO> projectDTOs = new ArrayList<>();
+
+        //convert projects to dtos with date reformatted
+        for(Project p : projects) {
+            projectDTOs.add(new ProjectReturnDTO(p));
+        }
+
         //return filtered projects and page counts
-        returnDTO.setProjects(page.getContent());
+        returnDTO.setProjects(projectDTOs);
         returnDTO.setTotalPages(page.getTotalPages());
         returnDTO.setCurrentPage(page.getNumber());
         returnDTO.setTotalElements(page.getTotalElements());
