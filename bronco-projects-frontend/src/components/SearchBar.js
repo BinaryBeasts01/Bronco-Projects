@@ -138,9 +138,14 @@ const SearchBar = ({setProjectsSearchInput}) => {
     //     filterItemsRef.current[currentFilterIndex].current.focus();
     // };
 
+    const submitSearch = (e) => { // TODO: remove form and make it a simple input and button again like before. Can't press Enter to submit
+        e.preventDefault();
+        setProjectsSearchInput(searchInput);
+    }
+
     return (
         <Container fluid ref={divRef} style={styles["search-container"]}>
-                <Form className={"d-flex"} onSubmit={() => setProjectsSearchInput(searchInput)}>
+                <Form className={"d-flex"} onSubmit={submitSearch}>
                     <Form.Control className={"me-2"} type="text" placeholder="Type Your Search Here" value={searchInput} onChange={handleSearchInputChange} onClick={initItems}/>
                     <Button variant={"outline-success"} type="submit" tabIndex={-1}> Search </Button>
                 </Form>
